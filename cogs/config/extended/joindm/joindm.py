@@ -74,7 +74,6 @@ class JoinDM(MixinMeta, metaclass=CompositeMetaClass):
     def __init__(self, bot):
         self.bot = bot
         self.name = "Join DM"
-        self.queue_processor_task = self.bot.loop.create_task(self.process_dm_queue())
 
     def cog_unload(self):
         """Cleanup when cog is unloaded"""

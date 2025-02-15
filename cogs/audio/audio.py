@@ -36,7 +36,6 @@ from main import Evict
 from core.client import Context as DefaultContext
 from tools.formatter import duration, plural, shorten
 from managers.paginator import Paginator
-from processors.audio import process_track_data, process_playlist_data
 
 import wavelink
 

@@ -1,5 +1,3 @@
-import discord
-
 from contextlib import suppress
 from datetime import timedelta
 from io import BytesIO
@@ -35,12 +33,11 @@ from discord.ext.commands import Cog, Greedy, group, has_permissions
 from discord.utils import format_dt, utcnow
 
 from tools import CompositeMetaClass, MixinMeta
-from core.client.context import Context
 from tools.formatter import human_join, plural, shorten
+from core.client.context import Context
 from managers.paginator import Paginator
 
 from .enums import LogType
-from processors.logging import process_bulk_messages, process_message_attachments, process_audit_log_data, process_audit_log_changes, process_account_age
 
 log = getLogger("evict/logging")
 
@@ -351,51 +348,24 @@ class Logging(MixinMeta, metaclass=CompositeMetaClass):
                     silent=True,
                 )
 
-    @Cog.listener()
+    @Cog.listener("on_member_join")
     async def log_member_join(self, member: Member) -> None:
-        """Log when a member joins."""
-        
+        """
+        Log when a member joins.
+        """
+
         embed = Embed(
             title="Member Joined",
             description=(
-                f"{member.mention} {member} (`{member.id}`)\n"
-                f"**Created**: {format_dt(member.created_at, 'R')}"
+                "**⚠ Account is less than 1 day old!**\n"
+                if member.created_at > utcnow() - timedelta(days=1)
+                else ""
             ),
-            color=Colour.green(),
         )
-        embed.set_thumbnail(url=member.display_avatar)
-
-        is_new = await self.bot.loop.run_in_executor(
-            None,
-            self.bot.process_pool.apply,
-            process_account_age,
-            (member.created_at, utcnow())
+        embed.add_field(
+            name="**Creation**",
+            value=f"{format_dt(member.created_at, 'F')} ({format_dt(member.created_at, 'R')})",
         )
-        
-        if is_new:
-            embed.description += f"\n⚠️ **New Account** (Created {format_dt(member.created_at)})"
-
-        invites = await member.guild.invites()
-        invite_uses = {i.code: i.uses for i in invites}
-        
-        cached_uses = self.invite_uses.get(member.guild.id, {})
-        self.invite_uses[member.guild.id] = invite_uses
-        
-        used_invite = None
-        for code, uses in invite_uses.items():
-            if code in cached_uses and uses > cached_uses[code]:
-                used_invite = next((i for i in invites if i.code == code), None)
-                break
-
-        if used_invite:
-            embed.add_field(
-                name="**Invite Info**",
-                value=(
-                    f"**Code**: {used_invite.code}\n"
-                    f"**Inviter**: {used_invite.inviter} (`{used_invite.inviter.id}`)\n"
-                    f"**Uses**: {used_invite.uses}"
-                ),
-            )
 
         await self.log(
             member.guild,
@@ -540,23 +510,6 @@ class Logging(MixinMeta, metaclass=CompositeMetaClass):
         ):
             return
 
-        message_data = [
-            {
-                'created_at': message.created_at.strftime('%d/%m/%Y - %H:%M'),
-                'author': str(message.author),
-                'author_id': message.author.id,
-                'content': message.system_content
-            }
-            for message in messages
-        ]
-
-        content = await self.bot.loop.run_in_executor(
-            None,
-            self.bot.process_pool.apply,
-            process_bulk_messages,
-            (message_data,)
-        )
-
         members = list({message.author for message in messages})
         embed = Embed(
             title="Messages Deleted",
@@ -578,7 +531,20 @@ class Logging(MixinMeta, metaclass=CompositeMetaClass):
             LogType.MESSAGE,
             embed,
             from_channel=messages[0].channel,
-            files=[File(BytesIO(content), filename=f"messages{utcnow().timestamp()}.txt")],
+            files=[
+                File(
+                    BytesIO(
+                        "\n".join(
+                            [
+                                f"[{message.created_at:%d/%m/%Y - %H:%M}] {message.author} ({message.author.id}): {message.system_content}"
+                                for message in messages
+                                if message.system_content
+                            ]
+                        ).encode()
+                    ),
+                    filename=f"messages{utcnow().timestamp()}.txt",
+                )
+            ],
         )
 
     @Cog.listener("on_message_delete")
@@ -601,12 +567,10 @@ class Logging(MixinMeta, metaclass=CompositeMetaClass):
         ):
             return
 
-        files = []
         embed = Embed(
             title="Message Deleted",
             description=f"Message from {message.author.mention} deleted in {message.channel.mention}",
         )
-        
         if message.system_content:
             embed.add_field(
                 name="**Message Content**",
@@ -626,23 +590,13 @@ class Logging(MixinMeta, metaclass=CompositeMetaClass):
                 inline=False,
             )
 
-            for attachment in message.attachments:
-                try:
-                    files.append(
-                        await attachment.to_file(
-                            description=f"Attachment removed from {message.author}'s message",
-                            spoiler=attachment.is_spoiler(),
-                        )
-                    )
-                except discord.HTTPException:
-                    log.warning(f"Attachment {attachment.url} not found, skipping.")
-
         elif message.stickers:
             embed.set_image(url=message.stickers[0].url)
 
         for _embed in message.embeds:
             if _embed.image:
                 embed.set_image(url=_embed.image.url)
+
                 break
 
         await self.log(
@@ -650,7 +604,13 @@ class Logging(MixinMeta, metaclass=CompositeMetaClass):
             LogType.MESSAGE,
             embed,
             from_channel=message.channel,
-            files=files,
+            files=[
+                await attachment.to_file(
+                    description=f"Attachment removed from {message.author}'s message",
+                    spoiler=attachment.is_spoiler(),
+                )
+                for attachment in message.attachments
+            ],
             user=message.author,
         )
 
@@ -722,6 +682,7 @@ class Logging(MixinMeta, metaclass=CompositeMetaClass):
             for _embed in before.embeds:
                 if _embed.image:
                     embed.set_image(url=_embed.image.url)
+
                     break
 
         await self.log(
@@ -783,35 +744,11 @@ class Logging(MixinMeta, metaclass=CompositeMetaClass):
 
     @Cog.listener("on_audit_log_entry_role_update")
     async def log_role_updated(self, entry: AuditLogEntry) -> None:
-        """Log when a role is updated."""
-        
-        if not isinstance(entry.target, Role):
-            return
-        
-        before_data = {}
-        after_data = {}
-        
-        if hasattr(entry.before, "name"):
-            before_data["name"] = entry.before.name
-        if hasattr(entry.after, "name"):
-            after_data["name"] = entry.after.name
-        
-        if hasattr(entry.before, "color"):
-            before_data["color"] = entry.before.color
-        if hasattr(entry.after, "color"):
-            after_data["color"] = entry.after.color
-        
-        if hasattr(entry.before, "permissions"):
-            before_data["permissions"] = entry.before.permissions
-        if hasattr(entry.after, "permissions"):
-            after_data["permissions"] = entry.after.permissions
-        
-        changes = await self.bot.loop.run_in_executor(
-            None,
-            self.bot.process_pool.apply,
-            process_audit_log_changes,
-            (before_data, after_data, list(set(before_data.keys()) & set(after_data.keys())))
-        )
+        """
+        Log when a role is updated.
+        """
+
+        entry.target = cast(Role, entry.target)
 
         embed = Embed(
             title="Role Updated",
@@ -828,30 +765,48 @@ class Logging(MixinMeta, metaclass=CompositeMetaClass):
         )
         embed.set_thumbnail(url=entry.target.display_icon)
 
-        for change in changes:
-            if change['field'] == 'permissions':
-                before_perms = Permissions(int(change['before']))
-                after_perms = Permissions(int(change['after']))
-                
-                changed_perms = []
-                for perm, value in after_perms:
-                    if value != getattr(before_perms, perm):
-                        changed_perms.append(
-                            f"`{'✅' if value else '❌'}` **{perm.replace('_', ' ').title()}**"
-                        )
-                
-                if changed_perms:
-                    embed.add_field(
-                        name="**Permissions Modified**",
-                        value="\n".join(changed_perms),
-                        inline=False
-                    )
-            else:
-                embed.add_field(
-                    name=f"**{change['field'].title()}**", 
-                    value=f"**{change['before']}** -> **{change['after']}**",
-                    inline=False
-                )
+        if (
+            hasattr(entry.before, "name")
+            and hasattr(entry.after, "name")
+            and entry.before.name != entry.after.name
+        ):
+            embed.add_field(
+                name="**Name**",
+                value=f"**{entry.before.name}** -> **{entry.after.name}**",
+                inline=False,
+            )
+
+        if (
+            hasattr(entry.before, "color")
+            and hasattr(entry.after, "color")
+            and entry.before.color != entry.after.color
+        ):
+            embed.add_field(
+                name="**Color**",
+                value=f"`{entry.before.color}` -> `{entry.after.color}`",
+                inline=False,
+            )
+
+        if (
+            hasattr(entry.before, "permissions")
+            and hasattr(entry.after, "permissions")
+            and entry.before.permissions != entry.after.permissions
+        ):
+            before_perms = cast(Permissions, entry.before.permissions)
+            after_perms = cast(Permissions, entry.after.permissions)
+
+            embed.add_field(
+                name="**Permissions Modified**",
+                value="\n".join(
+                    [
+                        f"`{'✅' if status else '❌'}`"
+                        f" **{permission.replace('_', ' ').title()}**"
+                        for permission, status in after_perms
+                        if status != getattr(before_perms, permission)
+                    ]
+                ),
+                inline=False,
+            )
 
         if not embed.fields:
             return

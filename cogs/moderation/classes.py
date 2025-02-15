@@ -1,31 +1,39 @@
-from main import Evict
-from typing import Union
-from core.client.context import Context
-from discord.ext import commands
-from discord import Member, User, Embed
-
 import datetime
 import discord
 import config
 import humanize
-from datetime import timedelta
+
+from main import Evict
+from core.client.context import Context
 from tools.conversion.embed1 import EmbedScript
-from processors.moderation import process_mod_action, process_dm_script
+
+from typing import Union
+from datetime import timedelta
+
+from discord import (
+    Member, 
+    User, 
+    Embed,
+    Interaction
+)
+from discord.ui import Button, ButtonStyle, View
+from discord.ext import commands
 
 class Mod:
     def is_mod_configured():
         async def predicate(ctx: Context):
-
             check = await ctx.bot.db.fetchrow(
-                "SELECT * FROM mod WHERE guild_id = $1", ctx.guild.id
+                """
+                SELECT * FROM mod 
+                WHERE guild_id = $1
+                """, 
+                ctx.guild.id
             )
 
             if not check:
-
                 await ctx.warn(
                     f"Moderation isn't **enabled** in this server. Enable it using `{ctx.clean_prefix}setme` command"
                 )
-
                 return False
             return True
 
@@ -45,29 +53,43 @@ class ModConfig:
             'action': action,
             'duration': duration
         }
-        
-        processed_action = await bot.loop.run_in_executor(
-            None,
-            bot.process_pool.apply,
-            process_mod_action,
-            (action_data,)
-        )
+
+        processed_action = {
+            'should_dm': True,
+            'title': action,
+            'is_unaction': False,
+            'is_antinuke': False,
+            'is_antiraid': False
+        }
 
         settings = await bot.db.fetchrow(
-            "SELECT * FROM mod WHERE guild_id = $1",
+            """
+            SELECT * FROM mod 
+            WHERE guild_id = $1
+            """,
             author.guild.id
         )
-        
+
         if not settings:
             return
 
         res = await bot.db.fetchrow(
-            "SELECT count FROM cases WHERE guild_id = $1", author.guild.id
+            """
+            SELECT count 
+            FROM cases 
+            WHERE guild_id = $1
+            """, 
+            author.guild.id
         )
         case = int(res["count"]) + 1
 
         await bot.db.execute(
-            "UPDATE cases SET count = $1 WHERE guild_id = $2", case, author.guild.id
+            """
+            UPDATE cases SET count = $1 
+            WHERE guild_id = $2
+            """, 
+            case, 
+            author.guild.id
         )
 
         duration_value = (
@@ -91,7 +113,6 @@ class ModConfig:
             duration_value,
         )
 
-
         if settings.get("channel_id"):
             embed = Embed(timestamp=datetime.datetime.now())
             embed.set_author(name="Modlog Entry", icon_url=author.display_avatar)
@@ -100,7 +121,7 @@ class ModConfig:
             )
             embed.add_field(
                 name="Information",
-                value=f"**Case #{case}** | {action}\n**User**: {victim} (`{victim.id}`)\n**Moderator**: {author} (`{author.id}`)\n**Reason**: {reason}{duration_text}",
+                value=f"**Case #{case}** | {action}\n**User **: {victim} (`{victim.id}`)\n**Moderator**: {author} (`{author.id}`)\n**Reason**: {reason}{duration_text}",
             )
 
             try:
@@ -148,7 +169,7 @@ class ModConfig:
                     if action == "unban":
                         try:
                             channels = [channel for channel in author.guild.text_channels 
-                                      if channel.permissions_for(author.guild.me).create_instant_invite]
+                                        if channel.permissions_for(author.guild.me).create_instant_invite]
                             
                             if channels:
                                 try:
@@ -183,7 +204,7 @@ class ModConfig:
                                     timestamp=datetime.datetime.now()
                                 )
                                 owner_embed.add_field(
-                                    name="User",
+                                    name="User ",
                                     value=f"{victim} (`{victim.id}`)",
                                     inline=True
                                 )
@@ -210,20 +231,23 @@ class ModConfig:
             except (discord.Forbidden, discord.HTTPException):
                 pass
 
-class ClearMod(discord.ui.View):
+class ClearMod(View):
     def __init__(self, ctx: Context):
         super().__init__()
         self.ctx = ctx
         self.status = False
 
     @discord.ui.button(emoji=config.EMOJIS.CONTEXT.APPROVE)
-    async def yes(self, interaction: discord.Interaction, button: discord.ui.Button):
-
+    async def yes(self, interaction: Interaction, button: Button):
         if interaction.user.id != self.ctx.author.id:
             return await interaction.warn("You are not the author of this embed")
 
         check = await interaction.client.db.fetchrow(
-            "SELECT * FROM mod WHERE guild_id = $1", interaction.guild.id
+            """
+            SELECT * FROM mod 
+            WHERE guild_id = $1
+            """, 
+            interaction.guild.id
         )
 
         channelid = check["channel_id"]
@@ -236,40 +260,34 @@ class ClearMod(discord.ui.View):
 
         try:
             await channel.delete()
-
         except:
             pass
 
         try:
             await role.delete()
-
         except:
             pass
 
         try:
             await logs.delete()
-
         except:
             pass
 
         await interaction.client.db.execute(
-            "DELETE FROM mod WHERE guild_id = $1", interaction.guild.id
+            """
+            DELETE FROM mod 
+            WHERE guild_id = $1
+            """, 
+            interaction.guild.id
         )
 
         self.status = True
 
-        return await interaction.response.edit_message(
-            view=None,
-            embed=Embed(
-                description=f"I have **disabled** the jail system.",
-            ),
-        )
+        return await interaction.approve("Disabled the jail system!")
 
     @discord.ui.button(emoji=config.EMOJIS.CONTEXT.DENY)
-    async def no(self, interaction: discord.Interaction, button: discord.ui.Button):
-
+    async def no(self, interaction: Interaction, button: Button):
         if interaction.user.id != self.ctx.author.id:
-
             return await interaction.warn("You are not the author of this embed")
 
         await interaction.response.edit_message(
@@ -284,11 +302,12 @@ class ClearMod(discord.ui.View):
 
             await self.message.edit(view=self)
 
-class InviteButton(discord.ui.View):
+
+class InviteButton(View):
     def __init__(self, url: str):
         super().__init__()
-        self.add_item(discord.ui.Button(
+        self.add_item(Button(
             emoji=config.EMOJIS.SOCIAL.WEBSITE,
             url=url,
-            style=discord.ButtonStyle.link
+            style=ButtonStyle.link
         ))
