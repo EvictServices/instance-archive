@@ -61,20 +61,6 @@ class LAVALINK:
     PORT: int = 2333
     PASSWORD: str = "youshallnotpass"
 
-class POSTHOG:
-    """
-    PostHog analytics class.
-    """
-    API_KEY: str = "phc_9CO68Be49weXo25XXmg0CY7wwFLl2HMzW5qoXWdH1J8"
-    HOST: str = "https://us.i.posthog.com"
-
-class STATUS:
-    """
-    Main IPC authentication class.
-    """
-    HOST: str = "0.0.0.0"
-    PORT: int = 6000
-
 class DATABASE:
     """
     Postgres authentication class.
