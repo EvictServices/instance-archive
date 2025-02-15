@@ -63,3 +63,4 @@ scipy
 plotly
 python-dotenv
 stripe
+unidecode

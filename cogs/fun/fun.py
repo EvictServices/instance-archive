@@ -55,8 +55,6 @@ from tools.formatter import plural
 from tools.conversion import TouchableMember
 from tools.handlers.vape import valid_flavors
 
-from processors.image_generation import process_image_effect
-
 from .jeyy import JeyyAPI
 from .jeyy import CommandOnCooldown
 

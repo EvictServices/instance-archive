@@ -75,16 +75,10 @@ class JoinDM(MixinMeta, metaclass=CompositeMetaClass):
         self.bot = bot
         self.name = "Join DM"
 
-    def cog_unload(self):
-        """Cleanup when cog is unloaded"""
-        if self.queue_processor_task:
-            self.queue_processor_task.cancel()
-
     async def process_dm_queue(self):
         """Process the DM queue with rate limiting"""
         while True:
             try:
-                self.processing = True
                 current_time = time.time()
 
                 for guild_id in list(self.dm_queue.keys()):

@@ -29,6 +29,7 @@ from cashews import cache
 from core.client.browser import BrowserHandler
 from core.client.context import Context, Redis
 from core.client import logging
+from core.client.generation import process_image_effect
 from core.client.database import Database, Settings
 from core.client.help import EvictHelp
 
@@ -807,6 +808,22 @@ class Evict(commands.AutoShardedBot):
 
         elif before.premium_since and not after.premium_since:
             self.dispatch("member_unboost", before)
+
+    async def process_image(self, buffer, effect_type, **kwargs):
+        """
+        Wrapper for process pool execution.
+        """
+        try:
+            return await self.loop.run_in_executor(
+                None,
+                self.process_pool.apply,
+                process_image_effect,
+                (buffer, effect_type),
+                kwargs
+            )
+        except Exception as e:
+            log.error(f"Image processing error: {e}")
+            raise
 
     async def on_member_remove(self, member: Member) -> None:
         if member == self.user:
