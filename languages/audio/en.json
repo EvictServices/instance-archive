@@ -1,0 +1,73 @@
+{
+    "audio": {
+        "error": {
+            "not_in_voice": "You're not in a voice channel!",
+            "different_voice": "You're not in my voice channel!",
+            "not_connected": "I'm not in a voice channel!",
+            "no_permission": "I don't have permission to connect to your voice channel!",
+            "not_playing": "I'm not playing anything!",
+            "not_paused": "The track is not paused!",
+            "queue_empty": "The queue is empty!",
+            "invalid_position": "Invalid position - must be between `1` and `{length}`!"
+        },
+        "queue": {
+            "help": {
+                "base": "View and manage the queue",
+                "clear": "Remove all tracks from the queue",
+                "shuffle": "Shuffle the queue",
+                "remove": "Remove a track from the queue",
+                "move": "Move a track in the queue"
+            },
+            "remove": {
+                "success": "Removed [**{title}**]({url}) from the queue"
+            },
+            "move": {
+                "success": "Moved [**{title}**]({url}) to `{position}` in the queue"
+            }
+        },
+        "play": {
+            "help": {
+                "base": "Play audio in voice channels",
+                "bump": "Add a track to the front of the queue",
+                "panel": "Toggle the now playing button panel",
+                "deletion": "Toggle added to queue message deletion"
+            },
+            "added_playlist": "Added {count} tracks from [{name}]({url}) to the queue",
+            "added_track": "Added [**{title}**]({url}) to the queue",
+            "panel": {
+                "enabled": "Now displaying the button panel",
+                "disabled": "No longer displaying the button panel"
+            },
+            "deletion": {
+                "enabled": "Now deleting added to queue messages",
+                "disabled": "No longer deleting added to queue messages"
+            }
+        },
+        "seek": {
+            "help": "Seek to a specific position",
+            "success": "Seeked to `{position}` in [{title}]({url})"
+        },
+        "volume": {
+            "help": "Change the volume",
+            "success": "Set the volume to `{volume}%`"
+        },
+        "pause": {
+            "help": "Pause the current track"
+        },
+        "resume": {
+            "help": "Resume the current track"
+        },
+        "skip": {
+            "help": "Skip the current track"
+        },
+        "shuffle": {
+            "help": "Shuffle the queue"
+        },
+        "repeat": {
+            "help": "Set the repeat mode"
+        },
+        "disconnect": {
+            "help": "Disconnect from the voice channel"
+        }
+    }
+}

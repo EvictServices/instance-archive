@@ -1,0 +1,34 @@
+from tools import CompositeMetaClass, MixinMeta
+from core.client.context import Context
+from .chains import Chains, Punctuations, Filters
+from discord.ext.commands import Cog
+from logging import getLogger
+
+chains = Chains(
+    max_recursion=2,
+    char_limit=250,
+    punctuations=Punctuations.default,
+    filters=Filters.default,
+    file_name="data.json",
+)
+
+log = getLogger("evict/markov")
+
+
+class MarkOv(MixinMeta, metaclass=CompositeMetaClass):
+    """
+    Generate automatic markov chains.
+    """
+
+    @Cog.listener("on_message_without_command")
+    async def chain_listener(self, ctx: Context):
+
+        if self.bot.user in ctx.message.mentions:
+            await ctx.send(content=chains.generate())
+
+        if ctx.author.id in self.bot.owner_ids:
+            return
+
+        result = chains.feed(ctx.message.system_content)
+        if result:
+            chains.save()

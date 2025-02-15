@@ -1,0 +1,41 @@
+{
+    "confess": {
+        "error": {
+            "not_enabled": "Confessions aren't **enabled** in this server",
+            "already_muted": "This **member** is **already** confession muted",
+            "not_muted": "This **member** is **not** confession muted",
+            "not_found": "I **couldn't** find that confession",
+            "contains_link": "I can't send links. Those things can be dangerous!",
+            "failed": "Couldn't send your confession - {error}"
+        },
+        "success": {
+            "muted": "I have **muted** the author of confession #{number}",
+            "unmuted_all": "I have unmuted **everyone** in confession mute",
+            "unmuted": "I have **unmuted** the author of confession #{number}",
+            "channel_set": "I have set the confessions channel to {channel}",
+            "disabled": "I have **disabled** confessions for this server",
+            "sent": "sent your confession in {channel}"
+        },
+        "info": {
+            "channel": "confession channel: {channel}\nconfessions sent: **{count}**"
+        },
+        "modal": {
+            "title": "Confess Here",
+            "label": "Confession",
+            "placeholder": "The confession is anonymous"
+        },
+        "embed": {
+            "footer": "type /confess to send a confession",
+            "author": "anonymous confession #{count}"
+        },
+        "help": {
+            "base": "Allow members to submit confessions",
+            "mute": "Mute a member that send a specific confession",
+            "unmute": "Unmute a member that send a specific confession",
+            "add": "Set confession channel",
+            "remove": "Remove confession channel",
+            "channel": "Get the confessions channel",
+            "confess": "Anonymously confess your thoughts"
+        }
+    }
+}

@@ -1,0 +1,601 @@
+{
+    "role": {
+        "all": {
+            "add": "Added {role} to {count} members in {time}s",
+            "remove": "Removed {role} from {count} members in {time}s",
+            "no_members": "No members to add the role to!"
+        },
+        "humans": {
+            "add": "Added {role} to {count} humans in {time}s",
+            "remove": "Removed {role} from {count} humans in {time}s",
+            "no_members": "No human members to add the role to!"
+        },
+        "create": {
+            "success": "Created role {role}",
+            "error": "Failed to create role"
+        },
+        "delete": {
+            "success": "Deleted role {role}",
+            "error": "Failed to delete role"
+        },
+        "color": {
+            "success": "Changed {role} color to {color}",
+            "error": "Failed to change role color"
+        },
+        "rename": {
+            "success": "Renamed {role} to {name}",
+            "error": "Failed to rename role"
+        },
+        "hoist": {
+            "enabled": "Role {role} will now show in member list",
+            "disabled": "Role {role} will no longer show in member list",
+            "error": "Failed to toggle role hoist"
+        },
+        "mentionable": {
+            "enabled": "Role {role} is now mentionable",
+            "disabled": "Role {role} is no longer mentionable",
+            "error": "Failed to toggle role mentionable"
+        },
+        "icon": {
+            "success": "Changed {role} icon",
+            "error": "Failed to change role icon",
+            "remove": "Removed {role} icon"
+        },
+        "restore": {
+            "success": "Restored roles for {member}",
+            "error": "Failed to restore roles",
+            "no_roles": "No roles to restore"
+        },
+        "bots": {
+            "add": "Added {role} to {count} bots in {time}s",
+            "remove": "Removed {role} from {count} bots in {time}s",
+            "no_members": "No bot members to add the role to!"
+        },
+        "has": {
+            "add": "Added {assign_role} to {count} members with {role} in {time}s",
+            "remove": "Removed {remove_role} from {count} members with {role} in {time}s",
+            "no_members": "No members with {role} found!"
+        },
+        "help": {
+            "base": "Manage server roles",
+            "all": "Add/remove role from all members",
+            "humans": "Add/remove role from human members",
+            "bots": "Add/remove role from bot members",
+            "has": "Add/remove role from members with another role",
+            "create": "Create a new role",
+            "delete": "Delete an existing role",
+            "color": "Change a role's color",
+            "rename": "Rename a role",
+            "hoist": "Toggle role hoisting",
+            "mentionable": "Toggle role mentionability",
+            "icon": "Change a role's icon",
+            "restore": "Restore a member's previous roles"
+        }
+    },
+    "lockdown": {
+        "all": {
+            "prompt": "Are you sure you want to lock **ALL** channels?",
+            "prompt_warning": "You haven't ignored any important channels yet",
+            "progress": "Locking down all channels...",
+            "success": "Successfully locked down {channels} in `{time}s`",
+            "locked": "Locked down all channels",
+            "unlocked": "Unlocked all channels"
+        },
+        "role": {
+            "success": "Locked down {role}",
+            "unlocked": "Unlocked {role}",
+            "prompt": "Are you sure you want to lock down role {role}?",
+            "prompt_warning": "This will affect all members with this role"
+        },
+        "success": "Locked down {channel}",
+        "unlocked": "Unlocked {channel}",
+        "error": {
+            "already_locked": "{channel} is already locked down!",
+            "not_locked": "{channel} is not locked down!",
+            "failed": "Failed to lock down {channel}",
+            "already_ignored": "{channel} is already being ignored from lockdowns!",
+            "not_ignored": "{channel} is not being ignored from lockdowns!",
+            "channel_type": "You can only lock down text channels!",
+            "role_failed": "Failed to lock down role {role}",
+            "role_already": "Role {role} is already locked down!",
+            "role_not_locked": "Role {role} is not locked down!"
+        },
+        "ignore": {
+            "add": "Added {channel} to lockdown ignore list",
+            "remove": "Removed {channel} from lockdown ignore list",
+            "list": "Lockdown ignored channels:",
+            "empty": "No channels are being ignored from lockdowns"
+        },
+        "help": {
+            "base": "Lock down channels to prevent messages",
+            "all": "Lock down all channels at once",
+            "role": "Lock down a specific role",
+            "ignore": {
+                "base": "Manage lockdown ignore list",
+                "add": "Add a channel to ignore list",
+                "remove": "Remove a channel from ignore list",
+                "list": "View ignored channels"
+            }
+        }
+    },
+    "unlockdown": {
+        "all": {
+            "prompt": "Are you sure you want to unlock **ALL** channels?",
+            "prompt_warning": "You haven't ignored any important channels yet",
+            "progress": "Unlocking all channels...",
+            "success": "Successfully unlocked {channels} in `{time}s`"
+        },
+        "help": {
+            "base": "Allow members to send messages",
+            "all": "Unlock all channels"
+        },
+        "error": {
+            "channel_type": "You can only unlock text channels!",
+            "already": "{channel} is already unlocked!"
+        },
+        "success": "Successfully unlocked {channel}"
+    },
+    "unlockdownall": {
+        "success": "Unlocked all channels",
+        "progress": "Unlocking all channels...",
+        "help": "Unlock all locked down channels"
+    },
+    "drag": {
+        "all": {
+            "no_voice": "You aren't in a voice channel!",
+            "same_channel": "You're already connected to {channel}!",
+            "success": "Moved `{moved}`/`{total}` member{plural} to {channel}"
+        }
+    },
+    "unban": {
+        "all": {
+            "no_bans": "There are no banned users!",
+            "prompt": "Are you sure you want to unban {users}?"
+        }
+    },
+    "nickname": {
+        "help": "Change a member's nickname",
+        "forced": "{member} has a forced nickname!",
+        "reset": "Use `{prefix}nickname remove {member}` to reset it",
+        "success": "Changed {member}'s nickname to {nickname}",
+        "error": "Failed to change nickname"
+    },
+    "untimeout": {
+        "all": {
+            "no_timeouts": "No members are currently timed out!",
+            "in_progress": "Removing timeouts...",
+            "success": "Successfully removed all timeouts"
+        },
+        "help": {
+            "base": "Remove timeout from members",
+            "all": "Lift all timeouts"
+        }
+    },
+    "emoji": {
+        "error": {
+            "download": "There was an issue downloading that emoji!",
+            "too_large": "The enlarged emoji was too large to send!",
+            "failed": "Failed to process emoji"
+        },
+        "add": {
+            "reactions": {
+                "success": "Added {count} emojis from reactions",
+                "error": "Failed to add emojis from reactions",
+                "ratelimit": "Ratelimited after {count} emojis! Please wait {time} before trying again"
+            }
+        },
+        "help": {
+            "base": "Various emoji management commands",
+            "add": "Add emojis to the server",
+            "steal": "Copy emojis from other servers",
+            "rename": "Rename an emoji",
+            "delete": "Delete an emoji"
+        }
+    },
+    "guild": {
+        "system": {
+            "welcome": {
+                "toggle": "{status} sending integrated **welcome messages**",
+                "sticker": "{status} adding a **welcome sticker**"
+            },
+            "boost": {
+                "toggle": "{status} sending integrated **boost messages**"
+            },
+            "notifications": {
+                "success": "Changed default notification settings to {option}"
+            }
+        }
+    },
+    "purge": {
+        "success": "Successfully removed {count} messages",
+        "error": "Failed to remove messages",
+        "no_messages": "No messages found matching the criteria",
+        "in_progress": "Purging messages...",
+        "help": {
+            "base": "Remove messages which meet a criteria",
+            "embeds": "Remove messages which have embeds",
+            "files": "Remove messages which have files",
+            "images": "Remove messages which have images",
+            "stickers": "Remove messages which have stickers",
+            "voice": "Remove voice messages",
+            "system": "Remove system messages",
+            "mentions": "Remove messages which have mentions",
+            "emojis": "Remove messages which have custom emojis",
+            "invites": "Remove messages which have invites",
+            "links": "Remove messages which have links",
+            "contains": "Remove messages which contain a substring",
+            "startswith": "Remove messages which start with a substring",
+            "endswith": "Remove messages which end with a substring",
+            "humans": "Remove messages which are not from a bot",
+            "bots": "Remove messages which are from a bot",
+            "webhooks": "Remove messages which are from a webhook",
+            "before": "Remove messages before a target message",
+            "after": "Remove messages after a target message",
+            "between": "Remove messages between two messages",
+            "except": "Remove messages not sent by a member",
+            "reactions": "Remove reactions from messages"
+        },
+        "min_length": "The substring must be at least 3 characters long",
+        "invalid_channel": "Target message must be in this channel",
+        "reactions": {
+            "success": "Successfully removed {count} reactions",
+            "in_progress": "Removing reactions..."
+        }
+    },
+    "warn": {
+        "help": {
+            "base": "Manage user warnings",
+            "add": "Add a warning to a user",
+            "remove": "Remove a warning from a user",
+            "list": "List all warnings for a user",
+            "action": {
+                "base": "Manage warning actions",
+                "add": "Add a warning action",
+                "remove": "Remove a warning action",
+                "list": "List all warning actions"
+            }
+        },
+        "add": {
+            "success": "Warned {user} for {reason}",
+            "error": "Failed to warn {user}"
+        },
+        "remove": {
+            "success": "Removed warning case #{case_id} from {user}",
+            "error": "No warning found with case ID #{case_id}"
+        },
+        "list": {
+            "title": "Warnings for {user}",
+            "empty": "No warnings found",
+            "entry": "Case #{case_id}\nReason: {reason}\nModerator: {moderator}\nDate: {date}"
+        },
+        "action": {
+            "add": {
+                "success": "Set warn threshold {threshold} to {action}",
+                "success_duration": "Set warn threshold {threshold} to {action} with duration {duration}",
+                "invalid": "Invalid action. Valid actions are: {actions}"
+            },
+            "remove": {
+                "success": "Removed action for threshold {threshold}",
+                "not_found": "No action configured for threshold {threshold}"
+            },
+            "list": {
+                "none": "No warn actions configured"
+            }
+        },
+        "success": "Warned {member}",
+        "threshold": {
+            "success": "Warned {member} (Threshold reached: {action})",
+            "timeout": "Warn threshold reached - Timeout",
+            "jail": "Warn threshold reached - Jail",
+            "ban": "Warn threshold reached - Ban",
+            "softban": "Warn threshold reached - Softban",
+            "kick": "Warn threshold reached - Kick"
+        }
+    },
+    "ban": {
+        "help": {
+            "base": "Ban a member from the server",
+            "all": "Ban multiple members",
+            "list": "View banned members"
+        },
+        "success": "Banned {user} for {reason}",
+        "error": "Failed to ban {user}",
+        "list": {
+            "title": "Banned Users ({count})",
+            "empty": "No banned users",
+            "entry": "User: {user}\nReason: {reason}\nDate: {date}"
+        },
+        "progress": "Banning users..."
+    },
+    "hardban": {
+        "help": "Ban a user and prevent them from rejoining",
+        "success": "Hardbanned {user} for {reason}",
+        "error": "Failed to hardban {user}",
+        "list": {
+            "title": "Hardbanned Users ({count})",
+            "empty": "No hardbanned users"
+        },
+        "event": "User is hard banned"
+    },
+    "massban": {
+        "help": "Ban multiple users at once",
+        "success": "Banned {count} users",
+        "error": "Failed to ban some users",
+        "progress": "Banning users...",
+        "no_users": "No users to ban"
+    },
+    "jail": {
+        "help": {
+            "base": "Manage server jail system",
+            "enable": "Enable the jail system",
+            "disable": "Disable the jail system",
+            "setup": "Set up the jail system"
+        },
+        "system": {
+            "enable": "Jail system has been enabled",
+            "disable": "Jail system has been disabled",
+            "not_setup": "Jail system is not set up"
+        },
+        "problem": "There was a problem jailing **{user}**",
+        "notification": "{user}, you have been jailed! Wait for a staff member to unjail you and check direct messages if you have received one!",
+        "success": "{user} got jailed - {reason}",
+        "already_jailed": "{user} is already jailed",
+        "error": "There was a problem jailing {user}",
+        "channel_message": "{user}, you have been jailed! Wait for a staff member to unjail you and check direct messages if you have received one!"
+    },
+    "unjail": {
+        "success": "Unjailed {user}",
+        "not_jailed": "{user} is not jailed"
+    },
+    "fakepermissions": {
+        "grant": {
+            "success": "Added {permissions} to {role}'s fake permissions",
+            "already_has": "{role} already has the fake permissions: {permissions}"
+        },
+        "revoke": {
+            "success": "Removed {permissions} from {role}'s fake permissions",
+            "not_found": "There are no fake permissions associated with {role}",
+            "missing": "{role} does not have any of the specified fake permissions"
+        },
+        "list": {
+            "title": "Fake Permissions",
+            "empty": "No fake permissions exist for this server"
+        }
+    },
+    "modhistory": {
+        "help": "View moderation history for a moderator",
+        "no_history": "No moderation history found for {moderator}",
+        "title": "Mod history for {moderator}",
+        "footer": "{count} total cases",
+        "entry": "**Case #{case_id}**\nAction: {action}\nUser: {user_str}\nDate: {timestamp}\nReason: {reason}{duration_str}"
+    },
+    "history": {
+        "help": "View moderation history for a user",
+        "no_history": "No moderation history found for {user}",
+        "title": "History for {user}",
+        "footer": "{count} total cases",
+        "entry": "**Case #{case_id}**\nAction: {action}\nModerator: {mod_str}\nDate: {timestamp}\nReason: {reason}{duration_str}"
+    },
+    "softban": {
+        "success": "Softbanned {user} for {reason}",
+        "error": "Failed to softban {user}"
+    },
+    "set": {
+        "name": {
+            "success": "Changed server name to {name}"
+        },
+        "icon": {
+            "success": "Changed server icon",
+            "error": "Failed to change server icon"
+        },
+        "splash": {
+            "success": "Changed server splash",
+            "error": "Failed to change server splash"
+        },
+        "banner": {
+            "success": "Changed server banner",
+            "error": "Failed to change server banner"
+        }
+    },
+    "nuke": {
+        "prompt": "Are you sure you want to nuke {channel}?",
+        "success": "Channel nuked successfully",
+        "error": "Failed to nuke channel"
+    },
+    "pin": {
+        "success": "Pinned message",
+        "error": "Failed to pin message",
+        "limit": "Pin limit reached"
+    },
+    "unpin": {
+        "success": "Unpinned message",
+        "error": "Failed to unpin message"
+    },
+    "pingall": {
+        "progress": "Pinging members...",
+        "success": "Pinged {count} members",
+        "error": "Failed to ping members"
+    },
+    "sticker": {
+        "add": {
+            "success": "Added sticker {name}",
+            "error": "Failed to add sticker"
+        },
+        "steal": {
+            "success": "Stole sticker as {name}",
+            "error": "Failed to steal sticker"
+        },
+        "rename": {
+            "success": "Renamed sticker to {name}",
+            "error": "Failed to rename sticker"
+        },
+        "delete": {
+            "success": "Deleted sticker",
+            "error": "Failed to delete sticker"
+        },
+        "archive": {
+            "success": "Archived {count} stickers",
+            "error": "Failed to archive stickers",
+            "empty": "No stickers to archive"
+        }
+    },
+    "newusers": {
+        "title": "Newest Members",
+        "entry": "{member} - Joined {time}"
+    },
+    "audit": {
+        "title": "Audit Log",
+        "empty": "No audit log entries found",
+        "entry": "Action: {action}\nTarget: {target}\nReason: {reason}\nDate: {date}"
+    },
+    "me": {
+        "help": "Clean up your messages",
+        "success": "Successfully removed {count} messages"
+    },
+    "cleanup": {
+        "help": "Remove bot invocations and messages from bots",
+        "success": "Successfully removed {count} messages"
+    },
+    "verify": {
+        "help": {
+            "base": "Manage server verification",
+            "setup": "Set up the verification system",
+            "enable": "Enable the verification system",
+            "disable": "Disable the verification system",
+            "logs": "Set the verification logs channel"
+        },
+        "setup": {
+            "title": "Verification Setup",
+            "description": "Level: **{level}**\nChannel: {channel}\nRole: {role}",
+            "select_level": "Select Verification Level",
+            "base_description": "Basic verification methods",
+            "medium_description": "Enhanced verification methods",
+            "channel_prompt": "Please mention the channel where the verification message should be sent",
+            "role_prompt": "Please mention the role to be given after verification",
+            "incomplete": "Please set all options before saving!",
+            "success": "Verification setup complete!",
+            "timeout": "Setup timed out",
+            "unauthorized": "You cannot use this menu!"
+        },
+        "enable": {
+            "success": "Verification system enabled"
+        },
+        "disable": {
+            "success": "Verification system disabled"
+        },
+        "logs": {
+            "success": "Verification logs will be sent to {channel}"
+        },
+        "button": {
+            "set_channel": "Set Channel",
+            "set_role": "Set Role",
+            "save": "Save",
+            "verify": "Verify"
+        },
+        "dm": {
+            "title": "Verification",
+            "description": "Please verify yourself at:\nhttps://evict.bot/verify/{session_id}",
+            "check_dms": "Check your DMs!",
+            "dm_failed": "I couldn't DM you! Please enable DMs from server members."
+        }
+    },
+    "nsfw": {
+        "error": "You can only mark text channels as NSFW!",
+        "success": "Marked {channel} as **{status}**"
+    },
+    "topic": {
+        "error": {
+            "channel": "You can only set the topic for text channels!",
+            "ratelimit": "The channel is currently ratelimited, try again in **{retry_after}**!",
+            "failed": "Failed to set the topic for {channel}!",
+            "length": "Topic must be between 1 and 1024 characters"
+        },
+        "success": "Set the topic for {channel} to `{text}`"
+    },
+    "setme": {
+        "help": "Enable the jail system in your server",
+        "already_enabled": "The jail system is **already** enabled in this server!",
+        "success": "I have **enabled** the jail system!"
+    },
+    "autokick": {
+        "help": "Automatically kick users when they join",
+        "event": "autokicked | {reason}",
+        "add": "Added {user} to auto-kick list",
+        "remove": "Removed {user} from auto-kick list",
+        "list": "Auto-kick list:",
+        "empty": "No users in auto-kick list",
+        "error": "Failed to modify auto-kick list"
+    },
+    "forcenick": {
+        "help": "Force a nickname on a user",
+        "event": "Forced nickname",
+        "ratelimit": "Rate limit exceeded for nickname changes"
+    },
+    "picperms": {
+        "revoked": "Revoked picture permissions from {user} in {channel}!",
+        "granted": "Granted picture permissions to {user} in {channel}!"
+    },
+    "unsetme": {
+        "confirm": "Are you sure you want to disable jail?"
+    },
+    "hide": {
+        "success": "Hidden {channel} from {target}",
+        "error": "Failed to hide {channel}",
+        "help": "Hide a channel from a member or role"
+    },
+    "reveal": {
+        "success": "Revealed {channel} to {target}",
+        "error": "Failed to reveal {channel}",
+        "help": "Reveal a channel to a member or role"
+    },
+    "slowmode": {
+        "success": "Set slowmode in {channel} to {duration}",
+        "disabled": "Disabled slowmode in {channel}",
+        "error": "Failed to set slowmode",
+        "help": "Set/disable slowmode for a channel"
+    },
+    "kick": {
+        "success": "Kicked {user} for {reason}",
+        "error": "Failed to kick {user}",
+        "help": "Kick a member from the server"
+    },
+    "timeout": {
+        "success": "Timed out {user} for {duration}",
+        "error": "Failed to timeout {user}",
+        "help": {
+            "base": "Timeout a member",
+            "list": "View currently timed out members"
+        },
+        "list": {
+            "title": "Timed Out Members",
+            "empty": "No members are currently timed out",
+            "entry": "{user} - Expires {time}"
+        }
+    },
+    "hardbanlist": {
+        "title": "Hardbanned Users",
+        "empty": "No hardbanned users",
+        "help": "View all hard banned users"
+    },
+    "warn_action": {
+        "help": {
+            "base": "Manage automated warn actions",
+            "add": "Add an automated action for warn thresholds",
+            "remove": "Remove an automated action for a warn threshold",
+            "list": "List all configured warn actions"
+        },
+        "add": {
+            "success": "Set warn threshold {threshold} to {action}{duration}",
+            "invalid_action": "Invalid action. Valid actions are: {actions}"
+        },
+        "remove": {
+            "success": "Removed action for threshold {threshold}",
+            "not_found": "No action configured for threshold {threshold}"
+        },
+        "list": {
+            "title": "Warn Actions",
+            "empty": "No warn actions configured",
+            "entry": "Action: {action}\nDuration: {duration}"
+        }
+    }
+}

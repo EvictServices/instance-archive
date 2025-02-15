@@ -1,0 +1,41 @@
+{
+    "fun": {
+        "error": {
+            "no_game": "There is no **game** in progress",
+            "already_game": "There is already a game in progress",
+            "not_enough": "Not enough players to start the game!",
+            "winner_left": "The winner left the server!",
+            "no_self": "You can't play against **yourself**",
+            "no_bots": "You can't play against **bots**",
+            "no_vape": "You don't have a **vape**. Use `{prefix}vape flavor <flavor>` to get a vape",
+            "invalid_flavor": "Invalid flavor. Valid flavors are: {flavors}",
+            "no_blunt": "There is no **blunt** to {action}\n> Use `{prefix}blunt light` to roll one up",
+            "not_holder": "You don't have the **blunt**!\n> Steal it from **{member}** first",
+            "hogging": "**{member}** is hogging the **blunt**!",
+            "failed_download": "Failed to download the {media_type}",
+            "failed_generate": "Failed to generate the image",
+            "process_error": "Could not process this media type",
+            "speed_range": "Speed must be between 0.1 and 5.0",
+            "file_large": "File too large (max 10MB)",
+            "no_image": "No image found in the referenced message",
+            "provide_image": "Please provide an image URL, attachment, or reply to a message with an image",
+            "invalid_side": "Side must be either `attorney` or `prosecutor`"
+        },
+        "success": {
+            "vape_set": "Your vape flavor has been set to **{flavor}**",
+            "blunt_lit": "🚬 Lit up a **blunt**\n> Use `{prefix}blunt hit` to smoke it",
+            "blunt_passed": "🚬 The **blunt** has been passed to **{member}**!\n> It has been passed around **{count}**",
+            "blunt_stolen": "You just stole the **blunt** from **{member}**!",
+            "blunt_hit": "You just hit the **blunt**! 🚬 \n> It has been hit **{hits}** by **{members}**",
+            "blunt_burnout": "The **blunt** burned out after {hits} by **{members}**"
+        },
+        "loading": {
+            "rolling": "🚬 Rolling the **blunt**..",
+            "hitting": "Hitting the **blunt**.. 🚬"
+        },
+        "info": {
+            "vape_status": "> {emoji} {member}: You have a **{flavor}** vape.",
+            "blacktea_join": "React with `✅` to join the game. The game will start in **30 seconds**\n> You'll have **10 seconds** type a word containing the given letters\n> The word must be at least **3 letters long** and **not used before**"
+        }
+    }
+}
