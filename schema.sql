@@ -2,12 +2,14 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
--- Dumped by pg_dump version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
+-- Dumped from database version 17.2 (Debian 17.2-1.pgdg120+1)
+-- Dumped by pg_dump version 17.2 (Debian 17.2-1.pgdg120+1)
+-- Date: 02/15/2025
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -17,265 +19,274 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: alerts; Type: SCHEMA; Schema: -; Owner: root
+-- Name: alerts; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA alerts;
 
 
-ALTER SCHEMA alerts OWNER TO root;
+ALTER SCHEMA alerts OWNER TO admin;
 
 --
--- Name: audio; Type: SCHEMA; Schema: -; Owner: root
+-- Name: audio; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA audio;
 
 
-ALTER SCHEMA audio OWNER TO root;
+ALTER SCHEMA audio OWNER TO admin;
 
 --
--- Name: auto; Type: SCHEMA; Schema: -; Owner: root
+-- Name: auto; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA auto;
 
 
-ALTER SCHEMA auto OWNER TO root;
+ALTER SCHEMA auto OWNER TO admin;
 
 --
--- Name: commands; Type: SCHEMA; Schema: -; Owner: root
+-- Name: commands; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA commands;
 
 
-ALTER SCHEMA commands OWNER TO root;
+ALTER SCHEMA commands OWNER TO admin;
 
 --
--- Name: counting; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: counting; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA counting;
 
 
-ALTER SCHEMA counting OWNER TO postgres;
+ALTER SCHEMA counting OWNER TO admin;
 
 --
--- Name: disboard; Type: SCHEMA; Schema: -; Owner: root
+-- Name: disboard; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA disboard;
 
 
-ALTER SCHEMA disboard OWNER TO root;
+ALTER SCHEMA disboard OWNER TO admin;
 
 --
--- Name: family; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: family; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA family;
 
 
-ALTER SCHEMA family OWNER TO postgres;
+ALTER SCHEMA family OWNER TO admin;
 
 --
--- Name: feeds; Type: SCHEMA; Schema: -; Owner: root
+-- Name: feeds; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA feeds;
 
 
-ALTER SCHEMA feeds OWNER TO root;
+ALTER SCHEMA feeds OWNER TO admin;
 
 --
--- Name: fortnite; Type: SCHEMA; Schema: -; Owner: root
+-- Name: fortnite; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA fortnite;
 
 
-ALTER SCHEMA fortnite OWNER TO root;
+ALTER SCHEMA fortnite OWNER TO admin;
 
 --
--- Name: fun; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: fun; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA fun;
 
 
-ALTER SCHEMA fun OWNER TO postgres;
+ALTER SCHEMA fun OWNER TO admin;
 
 --
--- Name: history; Type: SCHEMA; Schema: -; Owner: root
+-- Name: history; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA history;
 
 
-ALTER SCHEMA history OWNER TO root;
+ALTER SCHEMA history OWNER TO admin;
 
 --
--- Name: invoke_history; Type: SCHEMA; Schema: -; Owner: root
+-- Name: invoke_history; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA invoke_history;
 
 
-ALTER SCHEMA invoke_history OWNER TO root;
+ALTER SCHEMA invoke_history OWNER TO admin;
 
 --
--- Name: lastfm; Type: SCHEMA; Schema: -; Owner: root
+-- Name: joindm; Type: SCHEMA; Schema: -; Owner: admin
+--
+
+CREATE SCHEMA joindm;
+
+
+ALTER SCHEMA joindm OWNER TO admin;
+
+--
+-- Name: lastfm; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA lastfm;
 
 
-ALTER SCHEMA lastfm OWNER TO root;
+ALTER SCHEMA lastfm OWNER TO admin;
 
 --
--- Name: level; Type: SCHEMA; Schema: -; Owner: root
+-- Name: level; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA level;
 
 
-ALTER SCHEMA level OWNER TO root;
+ALTER SCHEMA level OWNER TO admin;
 
 --
--- Name: music; Type: SCHEMA; Schema: -; Owner: root
+-- Name: music; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA music;
 
 
-ALTER SCHEMA music OWNER TO root;
+ALTER SCHEMA music OWNER TO admin;
 
 --
--- Name: reposters; Type: SCHEMA; Schema: -; Owner: root
+-- Name: reposters; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA reposters;
 
 
-ALTER SCHEMA reposters OWNER TO root;
+ALTER SCHEMA reposters OWNER TO admin;
 
 --
--- Name: reskin; Type: SCHEMA; Schema: -; Owner: root
+-- Name: reskin; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA reskin;
 
 
-ALTER SCHEMA reskin OWNER TO root;
+ALTER SCHEMA reskin OWNER TO admin;
 
 --
--- Name: snipe; Type: SCHEMA; Schema: -; Owner: root
+-- Name: snipe; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA snipe;
 
 
-ALTER SCHEMA snipe OWNER TO root;
+ALTER SCHEMA snipe OWNER TO admin;
 
 --
--- Name: spam; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: spam; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA spam;
 
 
-ALTER SCHEMA spam OWNER TO postgres;
+ALTER SCHEMA spam OWNER TO admin;
 
 --
--- Name: statistics; Type: SCHEMA; Schema: -; Owner: root
+-- Name: statistics; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA statistics;
 
 
-ALTER SCHEMA statistics OWNER TO root;
+ALTER SCHEMA statistics OWNER TO admin;
 
 --
--- Name: stats; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: stats; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA stats;
 
 
-ALTER SCHEMA stats OWNER TO postgres;
+ALTER SCHEMA stats OWNER TO admin;
 
 --
--- Name: streaks; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: streaks; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA streaks;
 
 
-ALTER SCHEMA streaks OWNER TO postgres;
+ALTER SCHEMA streaks OWNER TO admin;
 
 --
--- Name: ticket; Type: SCHEMA; Schema: -; Owner: root
+-- Name: ticket; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA ticket;
 
 
-ALTER SCHEMA ticket OWNER TO root;
+ALTER SCHEMA ticket OWNER TO admin;
 
 --
--- Name: timer; Type: SCHEMA; Schema: -; Owner: root
+-- Name: timer; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA timer;
 
 
-ALTER SCHEMA timer OWNER TO root;
+ALTER SCHEMA timer OWNER TO admin;
 
 --
--- Name: track; Type: SCHEMA; Schema: -; Owner: root
+-- Name: track; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA track;
 
 
-ALTER SCHEMA track OWNER TO root;
+ALTER SCHEMA track OWNER TO admin;
 
 --
--- Name: transcribe; Type: SCHEMA; Schema: -; Owner: root
+-- Name: transcribe; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA transcribe;
 
 
-ALTER SCHEMA transcribe OWNER TO root;
+ALTER SCHEMA transcribe OWNER TO admin;
 
 --
--- Name: verification; Type: SCHEMA; Schema: -; Owner: root
+-- Name: verification; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA verification;
 
 
-ALTER SCHEMA verification OWNER TO root;
+ALTER SCHEMA verification OWNER TO admin;
 
 --
--- Name: voice; Type: SCHEMA; Schema: -; Owner: root
+-- Name: voice; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA voice;
 
 
-ALTER SCHEMA voice OWNER TO root;
+ALTER SCHEMA voice OWNER TO admin;
 
 --
--- Name: voicemaster; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: voicemaster; Type: SCHEMA; Schema: -; Owner: admin
 --
 
 CREATE SCHEMA voicemaster;
 
 
-ALTER SCHEMA voicemaster OWNER TO postgres;
+ALTER SCHEMA voicemaster OWNER TO admin;
 
 --
 -- Name: citext; Type: EXTENSION; Schema: -; Owner: -
@@ -291,12 +302,28 @@ CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
 COMMENT ON EXTENSION citext IS 'data type for case-insensitive character strings';
 
 
+--
+-- Name: update_updated_at_column(); Type: FUNCTION; Schema: public; Owner: admin
+--
+
+CREATE FUNCTION public.update_updated_at_column() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.update_updated_at_column() OWNER TO admin;
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: twitch; Type: TABLE; Schema: alerts; Owner: root
+-- Name: twitch; Type: TABLE; Schema: alerts; Owner: admin
 --
 
 CREATE TABLE alerts.twitch (
@@ -310,10 +337,10 @@ CREATE TABLE alerts.twitch (
 );
 
 
-ALTER TABLE alerts.twitch OWNER TO root;
+ALTER TABLE alerts.twitch OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: audio; Owner: root
+-- Name: config; Type: TABLE; Schema: audio; Owner: admin
 --
 
 CREATE TABLE audio.config (
@@ -322,10 +349,10 @@ CREATE TABLE audio.config (
 );
 
 
-ALTER TABLE audio.config OWNER TO root;
+ALTER TABLE audio.config OWNER TO admin;
 
 --
--- Name: statistics; Type: TABLE; Schema: audio; Owner: root
+-- Name: statistics; Type: TABLE; Schema: audio; Owner: admin
 --
 
 CREATE TABLE audio.statistics (
@@ -335,10 +362,10 @@ CREATE TABLE audio.statistics (
 );
 
 
-ALTER TABLE audio.statistics OWNER TO root;
+ALTER TABLE audio.statistics OWNER TO admin;
 
 --
--- Name: media; Type: TABLE; Schema: auto; Owner: root
+-- Name: media; Type: TABLE; Schema: auto; Owner: admin
 --
 
 CREATE TABLE auto.media (
@@ -351,10 +378,10 @@ CREATE TABLE auto.media (
 );
 
 
-ALTER TABLE auto.media OWNER TO root;
+ALTER TABLE auto.media OWNER TO admin;
 
 --
--- Name: media_id_seq; Type: SEQUENCE; Schema: auto; Owner: root
+-- Name: media_id_seq; Type: SEQUENCE; Schema: auto; Owner: admin
 --
 
 CREATE SEQUENCE auto.media_id_seq
@@ -366,17 +393,17 @@ CREATE SEQUENCE auto.media_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE auto.media_id_seq OWNER TO root;
+ALTER SEQUENCE auto.media_id_seq OWNER TO admin;
 
 --
--- Name: media_id_seq; Type: SEQUENCE OWNED BY; Schema: auto; Owner: root
+-- Name: media_id_seq; Type: SEQUENCE OWNED BY; Schema: auto; Owner: admin
 --
 
 ALTER SEQUENCE auto.media_id_seq OWNED BY auto.media.id;
 
 
 --
--- Name: disabled; Type: TABLE; Schema: commands; Owner: root
+-- Name: disabled; Type: TABLE; Schema: commands; Owner: admin
 --
 
 CREATE TABLE commands.disabled (
@@ -386,10 +413,10 @@ CREATE TABLE commands.disabled (
 );
 
 
-ALTER TABLE commands.disabled OWNER TO root;
+ALTER TABLE commands.disabled OWNER TO admin;
 
 --
--- Name: ignore; Type: TABLE; Schema: commands; Owner: root
+-- Name: ignore; Type: TABLE; Schema: commands; Owner: admin
 --
 
 CREATE TABLE commands.ignore (
@@ -398,10 +425,10 @@ CREATE TABLE commands.ignore (
 );
 
 
-ALTER TABLE commands.ignore OWNER TO root;
+ALTER TABLE commands.ignore OWNER TO admin;
 
 --
--- Name: restricted; Type: TABLE; Schema: commands; Owner: root
+-- Name: restricted; Type: TABLE; Schema: commands; Owner: admin
 --
 
 CREATE TABLE commands.restricted (
@@ -411,10 +438,10 @@ CREATE TABLE commands.restricted (
 );
 
 
-ALTER TABLE commands.restricted OWNER TO root;
+ALTER TABLE commands.restricted OWNER TO admin;
 
 --
--- Name: usage; Type: TABLE; Schema: commands; Owner: root
+-- Name: usage; Type: TABLE; Schema: commands; Owner: admin
 --
 
 CREATE TABLE commands.usage (
@@ -426,10 +453,10 @@ CREATE TABLE commands.usage (
 );
 
 
-ALTER TABLE commands.usage OWNER TO root;
+ALTER TABLE commands.usage OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: counting; Owner: postgres
+-- Name: config; Type: TABLE; Schema: counting; Owner: admin
 --
 
 CREATE TABLE counting.config (
@@ -445,10 +472,10 @@ CREATE TABLE counting.config (
 );
 
 
-ALTER TABLE counting.config OWNER TO postgres;
+ALTER TABLE counting.config OWNER TO admin;
 
 --
--- Name: bump; Type: TABLE; Schema: disboard; Owner: root
+-- Name: bump; Type: TABLE; Schema: disboard; Owner: admin
 --
 
 CREATE TABLE disboard.bump (
@@ -458,10 +485,10 @@ CREATE TABLE disboard.bump (
 );
 
 
-ALTER TABLE disboard.bump OWNER TO root;
+ALTER TABLE disboard.bump OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: disboard; Owner: root
+-- Name: config; Type: TABLE; Schema: disboard; Owner: admin
 --
 
 CREATE TABLE disboard.config (
@@ -476,10 +503,10 @@ CREATE TABLE disboard.config (
 );
 
 
-ALTER TABLE disboard.config OWNER TO root;
+ALTER TABLE disboard.config OWNER TO admin;
 
 --
--- Name: marriages; Type: TABLE; Schema: family; Owner: postgres
+-- Name: marriages; Type: TABLE; Schema: family; Owner: admin
 --
 
 CREATE TABLE family.marriages (
@@ -490,10 +517,10 @@ CREATE TABLE family.marriages (
 );
 
 
-ALTER TABLE family.marriages OWNER TO postgres;
+ALTER TABLE family.marriages OWNER TO admin;
 
 --
--- Name: members; Type: TABLE; Schema: family; Owner: postgres
+-- Name: members; Type: TABLE; Schema: family; Owner: admin
 --
 
 CREATE TABLE family.members (
@@ -503,10 +530,10 @@ CREATE TABLE family.members (
 );
 
 
-ALTER TABLE family.members OWNER TO postgres;
+ALTER TABLE family.members OWNER TO admin;
 
 --
--- Name: profiles; Type: TABLE; Schema: family; Owner: postgres
+-- Name: profiles; Type: TABLE; Schema: family; Owner: admin
 --
 
 CREATE TABLE family.profiles (
@@ -515,10 +542,10 @@ CREATE TABLE family.profiles (
 );
 
 
-ALTER TABLE family.profiles OWNER TO postgres;
+ALTER TABLE family.profiles OWNER TO admin;
 
 --
--- Name: instagram; Type: TABLE; Schema: feeds; Owner: root
+-- Name: instagram; Type: TABLE; Schema: feeds; Owner: admin
 --
 
 CREATE TABLE feeds.instagram (
@@ -530,10 +557,10 @@ CREATE TABLE feeds.instagram (
 );
 
 
-ALTER TABLE feeds.instagram OWNER TO root;
+ALTER TABLE feeds.instagram OWNER TO admin;
 
 --
--- Name: pinterest; Type: TABLE; Schema: feeds; Owner: root
+-- Name: pinterest; Type: TABLE; Schema: feeds; Owner: admin
 --
 
 CREATE TABLE feeds.pinterest (
@@ -548,10 +575,10 @@ CREATE TABLE feeds.pinterest (
 );
 
 
-ALTER TABLE feeds.pinterest OWNER TO root;
+ALTER TABLE feeds.pinterest OWNER TO admin;
 
 --
--- Name: reddit; Type: TABLE; Schema: feeds; Owner: root
+-- Name: reddit; Type: TABLE; Schema: feeds; Owner: admin
 --
 
 CREATE TABLE feeds.reddit (
@@ -561,10 +588,10 @@ CREATE TABLE feeds.reddit (
 );
 
 
-ALTER TABLE feeds.reddit OWNER TO root;
+ALTER TABLE feeds.reddit OWNER TO admin;
 
 --
--- Name: soundcloud; Type: TABLE; Schema: feeds; Owner: root
+-- Name: soundcloud; Type: TABLE; Schema: feeds; Owner: admin
 --
 
 CREATE TABLE feeds.soundcloud (
@@ -576,10 +603,10 @@ CREATE TABLE feeds.soundcloud (
 );
 
 
-ALTER TABLE feeds.soundcloud OWNER TO root;
+ALTER TABLE feeds.soundcloud OWNER TO admin;
 
 --
--- Name: tiktok; Type: TABLE; Schema: feeds; Owner: root
+-- Name: tiktok; Type: TABLE; Schema: feeds; Owner: admin
 --
 
 CREATE TABLE feeds.tiktok (
@@ -591,10 +618,10 @@ CREATE TABLE feeds.tiktok (
 );
 
 
-ALTER TABLE feeds.tiktok OWNER TO root;
+ALTER TABLE feeds.tiktok OWNER TO admin;
 
 --
--- Name: twitter; Type: TABLE; Schema: feeds; Owner: root
+-- Name: twitter; Type: TABLE; Schema: feeds; Owner: admin
 --
 
 CREATE TABLE feeds.twitter (
@@ -607,10 +634,10 @@ CREATE TABLE feeds.twitter (
 );
 
 
-ALTER TABLE feeds.twitter OWNER TO root;
+ALTER TABLE feeds.twitter OWNER TO admin;
 
 --
--- Name: youtube; Type: TABLE; Schema: feeds; Owner: root
+-- Name: youtube; Type: TABLE; Schema: feeds; Owner: admin
 --
 
 CREATE TABLE feeds.youtube (
@@ -623,10 +650,10 @@ CREATE TABLE feeds.youtube (
 );
 
 
-ALTER TABLE feeds.youtube OWNER TO root;
+ALTER TABLE feeds.youtube OWNER TO admin;
 
 --
--- Name: authorization; Type: TABLE; Schema: fortnite; Owner: root
+-- Name: authorization; Type: TABLE; Schema: fortnite; Owner: admin
 --
 
 CREATE TABLE fortnite."authorization" (
@@ -639,10 +666,10 @@ CREATE TABLE fortnite."authorization" (
 );
 
 
-ALTER TABLE fortnite."authorization" OWNER TO root;
+ALTER TABLE fortnite."authorization" OWNER TO admin;
 
 --
--- Name: reminder; Type: TABLE; Schema: fortnite; Owner: root
+-- Name: reminder; Type: TABLE; Schema: fortnite; Owner: admin
 --
 
 CREATE TABLE fortnite.reminder (
@@ -653,10 +680,10 @@ CREATE TABLE fortnite.reminder (
 );
 
 
-ALTER TABLE fortnite.reminder OWNER TO root;
+ALTER TABLE fortnite.reminder OWNER TO admin;
 
 --
--- Name: rotation; Type: TABLE; Schema: fortnite; Owner: root
+-- Name: rotation; Type: TABLE; Schema: fortnite; Owner: admin
 --
 
 CREATE TABLE fortnite.rotation (
@@ -666,10 +693,10 @@ CREATE TABLE fortnite.rotation (
 );
 
 
-ALTER TABLE fortnite.rotation OWNER TO root;
+ALTER TABLE fortnite.rotation OWNER TO admin;
 
 --
--- Name: wyr_channels; Type: TABLE; Schema: fun; Owner: postgres
+-- Name: wyr_channels; Type: TABLE; Schema: fun; Owner: admin
 --
 
 CREATE TABLE fun.wyr_channels (
@@ -679,10 +706,10 @@ CREATE TABLE fun.wyr_channels (
 );
 
 
-ALTER TABLE fun.wyr_channels OWNER TO postgres;
+ALTER TABLE fun.wyr_channels OWNER TO admin;
 
 --
--- Name: moderation; Type: TABLE; Schema: history; Owner: root
+-- Name: moderation; Type: TABLE; Schema: history; Owner: admin
 --
 
 CREATE TABLE history.moderation (
@@ -698,10 +725,10 @@ CREATE TABLE history.moderation (
 );
 
 
-ALTER TABLE history.moderation OWNER TO root;
+ALTER TABLE history.moderation OWNER TO admin;
 
 --
--- Name: moderation_id_seq; Type: SEQUENCE; Schema: history; Owner: root
+-- Name: moderation_id_seq; Type: SEQUENCE; Schema: history; Owner: admin
 --
 
 CREATE SEQUENCE history.moderation_id_seq
@@ -713,17 +740,17 @@ CREATE SEQUENCE history.moderation_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE history.moderation_id_seq OWNER TO root;
+ALTER SEQUENCE history.moderation_id_seq OWNER TO admin;
 
 --
--- Name: moderation_id_seq; Type: SEQUENCE OWNED BY; Schema: history; Owner: root
+-- Name: moderation_id_seq; Type: SEQUENCE OWNED BY; Schema: history; Owner: admin
 --
 
 ALTER SEQUENCE history.moderation_id_seq OWNED BY history.moderation.id;
 
 
 --
--- Name: commands; Type: TABLE; Schema: invoke_history; Owner: root
+-- Name: commands; Type: TABLE; Schema: invoke_history; Owner: admin
 --
 
 CREATE TABLE invoke_history.commands (
@@ -736,10 +763,10 @@ CREATE TABLE invoke_history.commands (
 );
 
 
-ALTER TABLE invoke_history.commands OWNER TO root;
+ALTER TABLE invoke_history.commands OWNER TO admin;
 
 --
--- Name: commands_id_seq; Type: SEQUENCE; Schema: invoke_history; Owner: root
+-- Name: commands_id_seq; Type: SEQUENCE; Schema: invoke_history; Owner: admin
 --
 
 CREATE SEQUENCE invoke_history.commands_id_seq
@@ -751,17 +778,30 @@ CREATE SEQUENCE invoke_history.commands_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE invoke_history.commands_id_seq OWNER TO root;
+ALTER SEQUENCE invoke_history.commands_id_seq OWNER TO admin;
 
 --
--- Name: commands_id_seq; Type: SEQUENCE OWNED BY; Schema: invoke_history; Owner: root
+-- Name: commands_id_seq; Type: SEQUENCE OWNED BY; Schema: invoke_history; Owner: admin
 --
 
 ALTER SEQUENCE invoke_history.commands_id_seq OWNED BY invoke_history.commands.id;
 
 
 --
--- Name: albums; Type: TABLE; Schema: lastfm; Owner: root
+-- Name: config; Type: TABLE; Schema: joindm; Owner: admin
+--
+
+CREATE TABLE joindm.config (
+    guild_id bigint NOT NULL,
+    message text,
+    enabled boolean DEFAULT false
+);
+
+
+ALTER TABLE joindm.config OWNER TO admin;
+
+--
+-- Name: albums; Type: TABLE; Schema: lastfm; Owner: admin
 --
 
 CREATE TABLE lastfm.albums (
@@ -773,10 +813,10 @@ CREATE TABLE lastfm.albums (
 );
 
 
-ALTER TABLE lastfm.albums OWNER TO root;
+ALTER TABLE lastfm.albums OWNER TO admin;
 
 --
--- Name: artists; Type: TABLE; Schema: lastfm; Owner: root
+-- Name: artists; Type: TABLE; Schema: lastfm; Owner: admin
 --
 
 CREATE TABLE lastfm.artists (
@@ -787,10 +827,10 @@ CREATE TABLE lastfm.artists (
 );
 
 
-ALTER TABLE lastfm.artists OWNER TO root;
+ALTER TABLE lastfm.artists OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: lastfm; Owner: root
+-- Name: config; Type: TABLE; Schema: lastfm; Owner: admin
 --
 
 CREATE TABLE lastfm.config (
@@ -806,10 +846,10 @@ CREATE TABLE lastfm.config (
 );
 
 
-ALTER TABLE lastfm.config OWNER TO root;
+ALTER TABLE lastfm.config OWNER TO admin;
 
 --
--- Name: crowns; Type: TABLE; Schema: lastfm; Owner: root
+-- Name: crowns; Type: TABLE; Schema: lastfm; Owner: admin
 --
 
 CREATE TABLE lastfm.crowns (
@@ -820,10 +860,10 @@ CREATE TABLE lastfm.crowns (
 );
 
 
-ALTER TABLE lastfm.crowns OWNER TO root;
+ALTER TABLE lastfm.crowns OWNER TO admin;
 
 --
--- Name: hidden; Type: TABLE; Schema: lastfm; Owner: root
+-- Name: hidden; Type: TABLE; Schema: lastfm; Owner: admin
 --
 
 CREATE TABLE lastfm.hidden (
@@ -832,10 +872,10 @@ CREATE TABLE lastfm.hidden (
 );
 
 
-ALTER TABLE lastfm.hidden OWNER TO root;
+ALTER TABLE lastfm.hidden OWNER TO admin;
 
 --
--- Name: tracks; Type: TABLE; Schema: lastfm; Owner: root
+-- Name: tracks; Type: TABLE; Schema: lastfm; Owner: admin
 --
 
 CREATE TABLE lastfm.tracks (
@@ -847,10 +887,10 @@ CREATE TABLE lastfm.tracks (
 );
 
 
-ALTER TABLE lastfm.tracks OWNER TO root;
+ALTER TABLE lastfm.tracks OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: level; Owner: root
+-- Name: config; Type: TABLE; Schema: level; Owner: admin
 --
 
 CREATE TABLE level.config (
@@ -870,10 +910,10 @@ CREATE TABLE level.config (
 );
 
 
-ALTER TABLE level.config OWNER TO root;
+ALTER TABLE level.config OWNER TO admin;
 
 --
--- Name: member; Type: TABLE; Schema: level; Owner: root
+-- Name: member; Type: TABLE; Schema: level; Owner: admin
 --
 
 CREATE TABLE level.member (
@@ -886,10 +926,10 @@ CREATE TABLE level.member (
 );
 
 
-ALTER TABLE level.member OWNER TO root;
+ALTER TABLE level.member OWNER TO admin;
 
 --
--- Name: notification; Type: TABLE; Schema: level; Owner: root
+-- Name: notification; Type: TABLE; Schema: level; Owner: admin
 --
 
 CREATE TABLE level.notification (
@@ -900,10 +940,10 @@ CREATE TABLE level.notification (
 );
 
 
-ALTER TABLE level.notification OWNER TO root;
+ALTER TABLE level.notification OWNER TO admin;
 
 --
--- Name: role; Type: TABLE; Schema: level; Owner: root
+-- Name: role; Type: TABLE; Schema: level; Owner: admin
 --
 
 CREATE TABLE level.role (
@@ -913,10 +953,10 @@ CREATE TABLE level.role (
 );
 
 
-ALTER TABLE level.role OWNER TO root;
+ALTER TABLE level.role OWNER TO admin;
 
 --
--- Name: history; Type: TABLE; Schema: music; Owner: postgres
+-- Name: history; Type: TABLE; Schema: music; Owner: admin
 --
 
 CREATE TABLE music.history (
@@ -932,10 +972,10 @@ CREATE TABLE music.history (
 );
 
 
-ALTER TABLE music.history OWNER TO postgres;
+ALTER TABLE music.history OWNER TO admin;
 
 --
--- Name: history_id_seq; Type: SEQUENCE; Schema: music; Owner: postgres
+-- Name: history_id_seq; Type: SEQUENCE; Schema: music; Owner: admin
 --
 
 CREATE SEQUENCE music.history_id_seq
@@ -947,17 +987,17 @@ CREATE SEQUENCE music.history_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE music.history_id_seq OWNER TO postgres;
+ALTER SEQUENCE music.history_id_seq OWNER TO admin;
 
 --
--- Name: history_id_seq; Type: SEQUENCE OWNED BY; Schema: music; Owner: postgres
+-- Name: history_id_seq; Type: SEQUENCE OWNED BY; Schema: music; Owner: admin
 --
 
 ALTER SEQUENCE music.history_id_seq OWNED BY music.history.id;
 
 
 --
--- Name: playlist_tracks; Type: TABLE; Schema: music; Owner: postgres
+-- Name: playlist_tracks; Type: TABLE; Schema: music; Owner: admin
 --
 
 CREATE TABLE music.playlist_tracks (
@@ -973,10 +1013,10 @@ CREATE TABLE music.playlist_tracks (
 );
 
 
-ALTER TABLE music.playlist_tracks OWNER TO postgres;
+ALTER TABLE music.playlist_tracks OWNER TO admin;
 
 --
--- Name: playlist_tracks_id_seq; Type: SEQUENCE; Schema: music; Owner: postgres
+-- Name: playlist_tracks_id_seq; Type: SEQUENCE; Schema: music; Owner: admin
 --
 
 CREATE SEQUENCE music.playlist_tracks_id_seq
@@ -988,17 +1028,17 @@ CREATE SEQUENCE music.playlist_tracks_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE music.playlist_tracks_id_seq OWNER TO postgres;
+ALTER SEQUENCE music.playlist_tracks_id_seq OWNER TO admin;
 
 --
--- Name: playlist_tracks_id_seq; Type: SEQUENCE OWNED BY; Schema: music; Owner: postgres
+-- Name: playlist_tracks_id_seq; Type: SEQUENCE OWNED BY; Schema: music; Owner: admin
 --
 
 ALTER SEQUENCE music.playlist_tracks_id_seq OWNED BY music.playlist_tracks.id;
 
 
 --
--- Name: playlists; Type: TABLE; Schema: music; Owner: postgres
+-- Name: playlists; Type: TABLE; Schema: music; Owner: admin
 --
 
 CREATE TABLE music.playlists (
@@ -1012,10 +1052,10 @@ CREATE TABLE music.playlists (
 );
 
 
-ALTER TABLE music.playlists OWNER TO postgres;
+ALTER TABLE music.playlists OWNER TO admin;
 
 --
--- Name: playlists_id_seq; Type: SEQUENCE; Schema: music; Owner: postgres
+-- Name: playlists_id_seq; Type: SEQUENCE; Schema: music; Owner: admin
 --
 
 CREATE SEQUENCE music.playlists_id_seq
@@ -1027,17 +1067,17 @@ CREATE SEQUENCE music.playlists_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE music.playlists_id_seq OWNER TO postgres;
+ALTER SEQUENCE music.playlists_id_seq OWNER TO admin;
 
 --
--- Name: playlists_id_seq; Type: SEQUENCE OWNED BY; Schema: music; Owner: postgres
+-- Name: playlists_id_seq; Type: SEQUENCE OWNED BY; Schema: music; Owner: admin
 --
 
 ALTER SEQUENCE music.playlists_id_seq OWNED BY music.playlists.id;
 
 
 --
--- Name: afk; Type: TABLE; Schema: public; Owner: root
+-- Name: afk; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.afk (
@@ -1047,10 +1087,10 @@ CREATE TABLE public.afk (
 );
 
 
-ALTER TABLE public.afk OWNER TO root;
+ALTER TABLE public.afk OWNER TO admin;
 
 --
--- Name: aliases; Type: TABLE; Schema: public; Owner: root
+-- Name: aliases; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.aliases (
@@ -1061,10 +1101,10 @@ CREATE TABLE public.aliases (
 );
 
 
-ALTER TABLE public.aliases OWNER TO root;
+ALTER TABLE public.aliases OWNER TO admin;
 
 --
--- Name: antinuke; Type: TABLE; Schema: public; Owner: root
+-- Name: antinuke; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.antinuke (
@@ -1081,10 +1121,10 @@ CREATE TABLE public.antinuke (
 );
 
 
-ALTER TABLE public.antinuke OWNER TO root;
+ALTER TABLE public.antinuke OWNER TO admin;
 
 --
--- Name: antiraid; Type: TABLE; Schema: public; Owner: root
+-- Name: antiraid; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.antiraid (
@@ -1097,10 +1137,10 @@ CREATE TABLE public.antiraid (
 );
 
 
-ALTER TABLE public.antiraid OWNER TO root;
+ALTER TABLE public.antiraid OWNER TO admin;
 
 --
--- Name: auto_role; Type: TABLE; Schema: public; Owner: root
+-- Name: auto_role; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.auto_role (
@@ -1111,10 +1151,10 @@ CREATE TABLE public.auto_role (
 );
 
 
-ALTER TABLE public.auto_role OWNER TO root;
+ALTER TABLE public.auto_role OWNER TO admin;
 
 --
--- Name: autokick; Type: TABLE; Schema: public; Owner: postgres
+-- Name: autokick; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.autokick (
@@ -1125,10 +1165,10 @@ CREATE TABLE public.autokick (
 );
 
 
-ALTER TABLE public.autokick OWNER TO postgres;
+ALTER TABLE public.autokick OWNER TO admin;
 
 --
--- Name: backup; Type: TABLE; Schema: public; Owner: root
+-- Name: backup; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.backup (
@@ -1140,10 +1180,10 @@ CREATE TABLE public.backup (
 );
 
 
-ALTER TABLE public.backup OWNER TO root;
+ALTER TABLE public.backup OWNER TO admin;
 
 --
--- Name: birthdays; Type: TABLE; Schema: public; Owner: root
+-- Name: birthdays; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.birthdays (
@@ -1152,10 +1192,10 @@ CREATE TABLE public.birthdays (
 );
 
 
-ALTER TABLE public.birthdays OWNER TO root;
+ALTER TABLE public.birthdays OWNER TO admin;
 
 --
--- Name: blacklist; Type: TABLE; Schema: public; Owner: root
+-- Name: blacklist; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.blacklist (
@@ -1164,10 +1204,10 @@ CREATE TABLE public.blacklist (
 );
 
 
-ALTER TABLE public.blacklist OWNER TO root;
+ALTER TABLE public.blacklist OWNER TO admin;
 
 --
--- Name: blunt; Type: TABLE; Schema: public; Owner: postgres
+-- Name: blunt; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.blunt (
@@ -1179,10 +1219,10 @@ CREATE TABLE public.blunt (
 );
 
 
-ALTER TABLE public.blunt OWNER TO postgres;
+ALTER TABLE public.blunt OWNER TO admin;
 
 --
--- Name: boost_message; Type: TABLE; Schema: public; Owner: root
+-- Name: boost_message; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.boost_message (
@@ -1193,10 +1233,10 @@ CREATE TABLE public.boost_message (
 );
 
 
-ALTER TABLE public.boost_message OWNER TO root;
+ALTER TABLE public.boost_message OWNER TO admin;
 
 --
--- Name: booster_role; Type: TABLE; Schema: public; Owner: root
+-- Name: booster_role; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.booster_role (
@@ -1207,10 +1247,10 @@ CREATE TABLE public.booster_role (
 );
 
 
-ALTER TABLE public.booster_role OWNER TO root;
+ALTER TABLE public.booster_role OWNER TO admin;
 
 --
--- Name: boosters_lost; Type: TABLE; Schema: public; Owner: root
+-- Name: boosters_lost; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.boosters_lost (
@@ -1221,10 +1261,23 @@ CREATE TABLE public.boosters_lost (
 );
 
 
-ALTER TABLE public.boosters_lost OWNER TO root;
+ALTER TABLE public.boosters_lost OWNER TO admin;
 
 --
--- Name: cases; Type: TABLE; Schema: public; Owner: postgres
+-- Name: bot_activity; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.bot_activity (
+    activity_type text DEFAULT 'streaming'::text NOT NULL,
+    activity_text text DEFAULT '🔗 discord.gg/evict'::text NOT NULL,
+    activity_url text DEFAULT 'https://twitch.tv/evictbot'::text NOT NULL
+);
+
+
+ALTER TABLE public.bot_activity OWNER TO admin;
+
+--
+-- Name: cases; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.cases (
@@ -1233,10 +1286,10 @@ CREATE TABLE public.cases (
 );
 
 
-ALTER TABLE public.cases OWNER TO postgres;
+ALTER TABLE public.cases OWNER TO admin;
 
 --
--- Name: clownboard; Type: TABLE; Schema: public; Owner: postgres
+-- Name: clownboard; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.clownboard (
@@ -1248,10 +1301,10 @@ CREATE TABLE public.clownboard (
 );
 
 
-ALTER TABLE public.clownboard OWNER TO postgres;
+ALTER TABLE public.clownboard OWNER TO admin;
 
 --
--- Name: clownboard_entry; Type: TABLE; Schema: public; Owner: postgres
+-- Name: clownboard_entry; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.clownboard_entry (
@@ -1263,10 +1316,10 @@ CREATE TABLE public.clownboard_entry (
 );
 
 
-ALTER TABLE public.clownboard_entry OWNER TO postgres;
+ALTER TABLE public.clownboard_entry OWNER TO admin;
 
 --
--- Name: confess; Type: TABLE; Schema: public; Owner: postgres
+-- Name: confess; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.confess (
@@ -1276,10 +1329,10 @@ CREATE TABLE public.confess (
 );
 
 
-ALTER TABLE public.confess OWNER TO postgres;
+ALTER TABLE public.confess OWNER TO admin;
 
 --
--- Name: confess_members; Type: TABLE; Schema: public; Owner: postgres
+-- Name: confess_members; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.confess_members (
@@ -1289,10 +1342,10 @@ CREATE TABLE public.confess_members (
 );
 
 
-ALTER TABLE public.confess_members OWNER TO postgres;
+ALTER TABLE public.confess_members OWNER TO admin;
 
 --
--- Name: confess_mute; Type: TABLE; Schema: public; Owner: postgres
+-- Name: confess_mute; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.confess_mute (
@@ -1301,10 +1354,10 @@ CREATE TABLE public.confess_mute (
 );
 
 
-ALTER TABLE public.confess_mute OWNER TO postgres;
+ALTER TABLE public.confess_mute OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: public; Owner: postgres
+-- Name: config; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.config (
@@ -1319,10 +1372,10 @@ CREATE TABLE public.config (
 );
 
 
-ALTER TABLE public.config OWNER TO postgres;
+ALTER TABLE public.config OWNER TO admin;
 
 --
--- Name: counter; Type: TABLE; Schema: public; Owner: root
+-- Name: counter; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.counter (
@@ -1334,10 +1387,10 @@ CREATE TABLE public.counter (
 );
 
 
-ALTER TABLE public.counter OWNER TO root;
+ALTER TABLE public.counter OWNER TO admin;
 
 --
--- Name: crypto; Type: TABLE; Schema: public; Owner: root
+-- Name: crypto; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.crypto (
@@ -1349,10 +1402,23 @@ CREATE TABLE public.crypto (
 );
 
 
-ALTER TABLE public.crypto OWNER TO root;
+ALTER TABLE public.crypto OWNER TO admin;
 
 --
--- Name: donators; Type: TABLE; Schema: public; Owner: postgres
+-- Name: dalle_credits; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.dalle_credits (
+    user_id bigint NOT NULL,
+    credits numeric(10,2) NOT NULL,
+    last_reset timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.dalle_credits OWNER TO admin;
+
+--
+-- Name: donators; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.donators (
@@ -1360,10 +1426,10 @@ CREATE TABLE public.donators (
 );
 
 
-ALTER TABLE public.donators OWNER TO postgres;
+ALTER TABLE public.donators OWNER TO admin;
 
 --
--- Name: earnings; Type: TABLE; Schema: public; Owner: postgres
+-- Name: earnings; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.earnings (
@@ -1395,10 +1461,10 @@ CREATE TABLE public.earnings (
 );
 
 
-ALTER TABLE public.earnings OWNER TO postgres;
+ALTER TABLE public.earnings OWNER TO admin;
 
 --
--- Name: economy; Type: TABLE; Schema: public; Owner: postgres
+-- Name: economy; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.economy (
@@ -1411,10 +1477,38 @@ CREATE TABLE public.economy (
 );
 
 
-ALTER TABLE public.economy OWNER TO postgres;
+ALTER TABLE public.economy OWNER TO admin;
 
 --
--- Name: fake_permissions; Type: TABLE; Schema: public; Owner: postgres
+-- Name: economy_roleshop; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.economy_roleshop (
+    guild_id bigint NOT NULL,
+    role_id bigint NOT NULL,
+    price bigint,
+    description text
+);
+
+
+ALTER TABLE public.economy_roleshop OWNER TO admin;
+
+--
+-- Name: employee_stats; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.employee_stats (
+    business_id bigint NOT NULL,
+    employee_id bigint NOT NULL,
+    work_count integer DEFAULT 0,
+    total_earned bigint DEFAULT 0
+);
+
+
+ALTER TABLE public.employee_stats OWNER TO admin;
+
+--
+-- Name: fake_permissions; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.fake_permissions (
@@ -1424,10 +1518,10 @@ CREATE TABLE public.fake_permissions (
 );
 
 
-ALTER TABLE public.fake_permissions OWNER TO postgres;
+ALTER TABLE public.fake_permissions OWNER TO admin;
 
 --
--- Name: feedback; Type: TABLE; Schema: public; Owner: root
+-- Name: feedback; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.feedback (
@@ -1437,10 +1531,10 @@ CREATE TABLE public.feedback (
 );
 
 
-ALTER TABLE public.feedback OWNER TO root;
+ALTER TABLE public.feedback OWNER TO admin;
 
 --
--- Name: gallery; Type: TABLE; Schema: public; Owner: root
+-- Name: gallery; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.gallery (
@@ -1449,10 +1543,10 @@ CREATE TABLE public.gallery (
 );
 
 
-ALTER TABLE public.gallery OWNER TO root;
+ALTER TABLE public.gallery OWNER TO admin;
 
 --
--- Name: giveaway; Type: TABLE; Schema: public; Owner: root
+-- Name: giveaway; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.giveaway (
@@ -1469,10 +1563,10 @@ CREATE TABLE public.giveaway (
 );
 
 
-ALTER TABLE public.giveaway OWNER TO root;
+ALTER TABLE public.giveaway OWNER TO admin;
 
 --
--- Name: gnames; Type: TABLE; Schema: public; Owner: postgres
+-- Name: gnames; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.gnames (
@@ -1482,10 +1576,10 @@ CREATE TABLE public.gnames (
 );
 
 
-ALTER TABLE public.gnames OWNER TO postgres;
+ALTER TABLE public.gnames OWNER TO admin;
 
 --
--- Name: goodbye_message; Type: TABLE; Schema: public; Owner: root
+-- Name: goodbye_message; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.goodbye_message (
@@ -1496,10 +1590,10 @@ CREATE TABLE public.goodbye_message (
 );
 
 
-ALTER TABLE public.goodbye_message OWNER TO root;
+ALTER TABLE public.goodbye_message OWNER TO admin;
 
 --
--- Name: guildblacklist; Type: TABLE; Schema: public; Owner: postgres
+-- Name: guildblacklist; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.guildblacklist (
@@ -1508,10 +1602,10 @@ CREATE TABLE public.guildblacklist (
 );
 
 
-ALTER TABLE public.guildblacklist OWNER TO postgres;
+ALTER TABLE public.guildblacklist OWNER TO admin;
 
 --
--- Name: highlights; Type: TABLE; Schema: public; Owner: root
+-- Name: highlights; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.highlights (
@@ -1521,10 +1615,48 @@ CREATE TABLE public.highlights (
 );
 
 
-ALTER TABLE public.highlights OWNER TO root;
+ALTER TABLE public.highlights OWNER TO admin;
 
 --
--- Name: inventory; Type: TABLE; Schema: public; Owner: postgres
+-- Name: instance_info; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.instance_info (
+    instance_id integer NOT NULL,
+    owner_id bigint NOT NULL,
+    owner_username text NOT NULL,
+    owner_email text NOT NULL,
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.instance_info OWNER TO admin;
+
+--
+-- Name: instance_info_instance_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.instance_info_instance_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.instance_info_instance_id_seq OWNER TO admin;
+
+--
+-- Name: instance_info_instance_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.instance_info_instance_id_seq OWNED BY public.instance_info.instance_id;
+
+
+--
+-- Name: inventory; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.inventory (
@@ -1534,10 +1666,10 @@ CREATE TABLE public.inventory (
 );
 
 
-ALTER TABLE public.inventory OWNER TO postgres;
+ALTER TABLE public.inventory OWNER TO admin;
 
 --
--- Name: jail; Type: TABLE; Schema: public; Owner: postgres
+-- Name: jail; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.jail (
@@ -1547,10 +1679,10 @@ CREATE TABLE public.jail (
 );
 
 
-ALTER TABLE public.jail OWNER TO postgres;
+ALTER TABLE public.jail OWNER TO admin;
 
 --
--- Name: logging; Type: TABLE; Schema: public; Owner: root
+-- Name: logging; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.logging (
@@ -1560,10 +1692,10 @@ CREATE TABLE public.logging (
 );
 
 
-ALTER TABLE public.logging OWNER TO root;
+ALTER TABLE public.logging OWNER TO admin;
 
 --
--- Name: mod; Type: TABLE; Schema: public; Owner: postgres
+-- Name: mod; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.mod (
@@ -1585,10 +1717,10 @@ CREATE TABLE public.mod (
 );
 
 
-ALTER TABLE public.mod OWNER TO postgres;
+ALTER TABLE public.mod OWNER TO admin;
 
 --
--- Name: name_history; Type: TABLE; Schema: public; Owner: root
+-- Name: name_history; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.name_history (
@@ -1600,10 +1732,10 @@ CREATE TABLE public.name_history (
 );
 
 
-ALTER TABLE public.name_history OWNER TO root;
+ALTER TABLE public.name_history OWNER TO admin;
 
 --
--- Name: payment; Type: TABLE; Schema: public; Owner: root
+-- Name: payment; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.payment (
@@ -1616,10 +1748,10 @@ CREATE TABLE public.payment (
 );
 
 
-ALTER TABLE public.payment OWNER TO root;
+ALTER TABLE public.payment OWNER TO admin;
 
 --
--- Name: pingonjoin; Type: TABLE; Schema: public; Owner: postgres
+-- Name: pingonjoin; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.pingonjoin (
@@ -1628,10 +1760,22 @@ CREATE TABLE public.pingonjoin (
 );
 
 
-ALTER TABLE public.pingonjoin OWNER TO postgres;
+ALTER TABLE public.pingonjoin OWNER TO admin;
 
 --
--- Name: prefixex; Type: TABLE; Schema: public; Owner: postgres
+-- Name: prefix; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.prefix (
+    guild_id bigint,
+    prefix text
+);
+
+
+ALTER TABLE public.prefix OWNER TO admin;
+
+--
+-- Name: prefixex; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.prefixex (
@@ -1640,10 +1784,10 @@ CREATE TABLE public.prefixex (
 );
 
 
-ALTER TABLE public.prefixex OWNER TO postgres;
+ALTER TABLE public.prefixex OWNER TO admin;
 
 --
--- Name: publisher; Type: TABLE; Schema: public; Owner: root
+-- Name: publisher; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.publisher (
@@ -1652,10 +1796,10 @@ CREATE TABLE public.publisher (
 );
 
 
-ALTER TABLE public.publisher OWNER TO root;
+ALTER TABLE public.publisher OWNER TO admin;
 
 --
--- Name: pubsub; Type: TABLE; Schema: public; Owner: root
+-- Name: pubsub; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.pubsub (
@@ -1665,10 +1809,10 @@ CREATE TABLE public.pubsub (
 );
 
 
-ALTER TABLE public.pubsub OWNER TO root;
+ALTER TABLE public.pubsub OWNER TO admin;
 
 --
--- Name: quoter; Type: TABLE; Schema: public; Owner: root
+-- Name: quoter; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.quoter (
@@ -1679,10 +1823,10 @@ CREATE TABLE public.quoter (
 );
 
 
-ALTER TABLE public.quoter OWNER TO root;
+ALTER TABLE public.quoter OWNER TO admin;
 
 --
--- Name: reaction_role; Type: TABLE; Schema: public; Owner: root
+-- Name: reaction_role; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.reaction_role (
@@ -1694,10 +1838,10 @@ CREATE TABLE public.reaction_role (
 );
 
 
-ALTER TABLE public.reaction_role OWNER TO root;
+ALTER TABLE public.reaction_role OWNER TO admin;
 
 --
--- Name: reaction_trigger; Type: TABLE; Schema: public; Owner: root
+-- Name: reaction_trigger; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.reaction_trigger (
@@ -1707,10 +1851,10 @@ CREATE TABLE public.reaction_trigger (
 );
 
 
-ALTER TABLE public.reaction_trigger OWNER TO root;
+ALTER TABLE public.reaction_trigger OWNER TO admin;
 
 --
--- Name: reminders; Type: TABLE; Schema: public; Owner: postgres
+-- Name: reminders; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.reminders (
@@ -1721,10 +1865,10 @@ CREATE TABLE public.reminders (
 );
 
 
-ALTER TABLE public.reminders OWNER TO postgres;
+ALTER TABLE public.reminders OWNER TO admin;
 
 --
--- Name: reskin_user; Type: TABLE; Schema: public; Owner: postgres
+-- Name: reskin_user; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.reskin_user (
@@ -1735,10 +1879,10 @@ CREATE TABLE public.reskin_user (
 );
 
 
-ALTER TABLE public.reskin_user OWNER TO postgres;
+ALTER TABLE public.reskin_user OWNER TO admin;
 
 --
--- Name: response_trigger; Type: TABLE; Schema: public; Owner: root
+-- Name: response_trigger; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.response_trigger (
@@ -1753,10 +1897,25 @@ CREATE TABLE public.response_trigger (
 );
 
 
-ALTER TABLE public.response_trigger OWNER TO root;
+ALTER TABLE public.response_trigger OWNER TO admin;
 
 --
--- Name: roleplay; Type: TABLE; Schema: public; Owner: root
+-- Name: role_shops; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.role_shops (
+    guild_id bigint NOT NULL,
+    role_id bigint NOT NULL,
+    price integer,
+    description text,
+    active boolean DEFAULT true
+);
+
+
+ALTER TABLE public.role_shops OWNER TO admin;
+
+--
+-- Name: roleplay; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.roleplay (
@@ -1767,10 +1926,10 @@ CREATE TABLE public.roleplay (
 );
 
 
-ALTER TABLE public.roleplay OWNER TO root;
+ALTER TABLE public.roleplay OWNER TO admin;
 
 --
--- Name: selfprefix; Type: TABLE; Schema: public; Owner: postgres
+-- Name: selfprefix; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.selfprefix (
@@ -1779,10 +1938,10 @@ CREATE TABLE public.selfprefix (
 );
 
 
-ALTER TABLE public.selfprefix OWNER TO postgres;
+ALTER TABLE public.selfprefix OWNER TO admin;
 
 --
--- Name: settings; Type: TABLE; Schema: public; Owner: root
+-- Name: settings; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.settings (
@@ -1814,10 +1973,54 @@ CREATE TABLE public.settings (
 );
 
 
-ALTER TABLE public.settings OWNER TO root;
+ALTER TABLE public.settings OWNER TO admin;
 
 --
--- Name: shutup; Type: TABLE; Schema: public; Owner: postgres
+-- Name: shop_items; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.shop_items (
+    item_id integer NOT NULL,
+    name text,
+    price integer,
+    description text,
+    effect_type text,
+    effect_value double precision,
+    duration integer,
+    effect_description text,
+    effect_example jsonb,
+    stock integer DEFAULT '-1'::integer,
+    max_quantity integer DEFAULT '-1'::integer,
+    tradeable boolean DEFAULT true
+);
+
+
+ALTER TABLE public.shop_items OWNER TO admin;
+
+--
+-- Name: shop_items_item_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.shop_items_item_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.shop_items_item_id_seq OWNER TO admin;
+
+--
+-- Name: shop_items_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.shop_items_item_id_seq OWNED BY public.shop_items.item_id;
+
+
+--
+-- Name: shutup; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.shutup (
@@ -1826,10 +2029,10 @@ CREATE TABLE public.shutup (
 );
 
 
-ALTER TABLE public.shutup OWNER TO postgres;
+ALTER TABLE public.shutup OWNER TO admin;
 
 --
--- Name: starboard; Type: TABLE; Schema: public; Owner: root
+-- Name: starboard; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.starboard (
@@ -1842,10 +2045,10 @@ CREATE TABLE public.starboard (
 );
 
 
-ALTER TABLE public.starboard OWNER TO root;
+ALTER TABLE public.starboard OWNER TO admin;
 
 --
--- Name: starboard_entry; Type: TABLE; Schema: public; Owner: root
+-- Name: starboard_entry; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.starboard_entry (
@@ -1857,10 +2060,10 @@ CREATE TABLE public.starboard_entry (
 );
 
 
-ALTER TABLE public.starboard_entry OWNER TO root;
+ALTER TABLE public.starboard_entry OWNER TO admin;
 
 --
--- Name: steal_disabled; Type: TABLE; Schema: public; Owner: postgres
+-- Name: steal_disabled; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.steal_disabled (
@@ -1868,10 +2071,10 @@ CREATE TABLE public.steal_disabled (
 );
 
 
-ALTER TABLE public.steal_disabled OWNER TO postgres;
+ALTER TABLE public.steal_disabled OWNER TO admin;
 
 --
--- Name: sticky_message; Type: TABLE; Schema: public; Owner: root
+-- Name: sticky_message; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.sticky_message (
@@ -1882,10 +2085,10 @@ CREATE TABLE public.sticky_message (
 );
 
 
-ALTER TABLE public.sticky_message OWNER TO root;
+ALTER TABLE public.sticky_message OWNER TO admin;
 
 --
--- Name: suggestion; Type: TABLE; Schema: public; Owner: postgres
+-- Name: suggestion; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.suggestion (
@@ -1893,14 +2096,46 @@ CREATE TABLE public.suggestion (
     guild_id bigint,
     author_id bigint,
     blacklisted_id bigint,
-    suggestion_id integer
+    suggestion_id integer,
+    thread_enabled boolean DEFAULT false,
+    anonymous_allowed boolean DEFAULT true,
+    required_role_id bigint
 );
 
 
-ALTER TABLE public.suggestion OWNER TO postgres;
+ALTER TABLE public.suggestion OWNER TO admin;
 
 --
--- Name: thread; Type: TABLE; Schema: public; Owner: root
+-- Name: suggestion_entries; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.suggestion_entries (
+    guild_id bigint NOT NULL,
+    message_id bigint NOT NULL,
+    author_id bigint,
+    suggestion_id integer,
+    is_anonymous boolean DEFAULT false
+);
+
+
+ALTER TABLE public.suggestion_entries OWNER TO admin;
+
+--
+-- Name: suggestion_votes; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.suggestion_votes (
+    guild_id bigint,
+    message_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    vote_type integer
+);
+
+
+ALTER TABLE public.suggestion_votes OWNER TO admin;
+
+--
+-- Name: thread; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.thread (
@@ -1909,10 +2144,10 @@ CREATE TABLE public.thread (
 );
 
 
-ALTER TABLE public.thread OWNER TO root;
+ALTER TABLE public.thread OWNER TO admin;
 
 --
--- Name: timezones; Type: TABLE; Schema: public; Owner: root
+-- Name: timezones; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.timezones (
@@ -1921,10 +2156,10 @@ CREATE TABLE public.timezones (
 );
 
 
-ALTER TABLE public.timezones OWNER TO root;
+ALTER TABLE public.timezones OWNER TO admin;
 
 --
--- Name: tracker; Type: TABLE; Schema: public; Owner: postgres
+-- Name: tracker; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.tracker (
@@ -1934,10 +2169,10 @@ CREATE TABLE public.tracker (
 );
 
 
-ALTER TABLE public.tracker OWNER TO postgres;
+ALTER TABLE public.tracker OWNER TO admin;
 
 --
--- Name: transactions; Type: TABLE; Schema: public; Owner: postgres
+-- Name: transactions; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.transactions (
@@ -1949,10 +2184,10 @@ CREATE TABLE public.transactions (
 );
 
 
-ALTER TABLE public.transactions OWNER TO postgres;
+ALTER TABLE public.transactions OWNER TO admin;
 
 --
--- Name: transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
 CREATE SEQUENCE public.transactions_id_seq
@@ -1964,17 +2199,17 @@ CREATE SEQUENCE public.transactions_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.transactions_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.transactions_id_seq OWNER TO admin;
 
 --
--- Name: transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE public.transactions_id_seq OWNED BY public.transactions.id;
 
 
 --
--- Name: used_items; Type: TABLE; Schema: public; Owner: postgres
+-- Name: used_items; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.used_items (
@@ -1985,10 +2220,10 @@ CREATE TABLE public.used_items (
 );
 
 
-ALTER TABLE public.used_items OWNER TO postgres;
+ALTER TABLE public.used_items OWNER TO admin;
 
 --
--- Name: user_spotify; Type: TABLE; Schema: public; Owner: postgres
+-- Name: user_spotify; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.user_spotify (
@@ -2000,10 +2235,10 @@ CREATE TABLE public.user_spotify (
 );
 
 
-ALTER TABLE public.user_spotify OWNER TO postgres;
+ALTER TABLE public.user_spotify OWNER TO admin;
 
 --
--- Name: uwulock; Type: TABLE; Schema: public; Owner: postgres
+-- Name: uwulock; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.uwulock (
@@ -2012,10 +2247,10 @@ CREATE TABLE public.uwulock (
 );
 
 
-ALTER TABLE public.uwulock OWNER TO postgres;
+ALTER TABLE public.uwulock OWNER TO admin;
 
 --
--- Name: vanity; Type: TABLE; Schema: public; Owner: root
+-- Name: vanity; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.vanity (
@@ -2026,10 +2261,10 @@ CREATE TABLE public.vanity (
 );
 
 
-ALTER TABLE public.vanity OWNER TO root;
+ALTER TABLE public.vanity OWNER TO admin;
 
 --
--- Name: vanity_sniper; Type: TABLE; Schema: public; Owner: root
+-- Name: vanity_sniper; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.vanity_sniper (
@@ -2040,10 +2275,10 @@ CREATE TABLE public.vanity_sniper (
 );
 
 
-ALTER TABLE public.vanity_sniper OWNER TO root;
+ALTER TABLE public.vanity_sniper OWNER TO admin;
 
 --
--- Name: vape; Type: TABLE; Schema: public; Owner: postgres
+-- Name: vape; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.vape (
@@ -2053,10 +2288,10 @@ CREATE TABLE public.vape (
 );
 
 
-ALTER TABLE public.vape OWNER TO postgres;
+ALTER TABLE public.vape OWNER TO admin;
 
 --
--- Name: warn_actions; Type: TABLE; Schema: public; Owner: postgres
+-- Name: warn_actions; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.warn_actions (
@@ -2067,10 +2302,10 @@ CREATE TABLE public.warn_actions (
 );
 
 
-ALTER TABLE public.warn_actions OWNER TO postgres;
+ALTER TABLE public.warn_actions OWNER TO admin;
 
 --
--- Name: webhook; Type: TABLE; Schema: public; Owner: root
+-- Name: webhook; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.webhook (
@@ -2082,10 +2317,10 @@ CREATE TABLE public.webhook (
 );
 
 
-ALTER TABLE public.webhook OWNER TO root;
+ALTER TABLE public.webhook OWNER TO admin;
 
 --
--- Name: welcome_message; Type: TABLE; Schema: public; Owner: root
+-- Name: welcome_message; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.welcome_message (
@@ -2096,10 +2331,10 @@ CREATE TABLE public.welcome_message (
 );
 
 
-ALTER TABLE public.welcome_message OWNER TO root;
+ALTER TABLE public.welcome_message OWNER TO admin;
 
 --
--- Name: whitelist; Type: TABLE; Schema: public; Owner: root
+-- Name: whitelist; Type: TABLE; Schema: public; Owner: admin
 --
 
 CREATE TABLE public.whitelist (
@@ -2109,10 +2344,10 @@ CREATE TABLE public.whitelist (
 );
 
 
-ALTER TABLE public.whitelist OWNER TO root;
+ALTER TABLE public.whitelist OWNER TO admin;
 
 --
--- Name: disabled; Type: TABLE; Schema: reposters; Owner: root
+-- Name: disabled; Type: TABLE; Schema: reposters; Owner: admin
 --
 
 CREATE TABLE reposters.disabled (
@@ -2122,10 +2357,10 @@ CREATE TABLE reposters.disabled (
 );
 
 
-ALTER TABLE reposters.disabled OWNER TO root;
+ALTER TABLE reposters.disabled OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: reskin; Owner: root
+-- Name: config; Type: TABLE; Schema: reskin; Owner: admin
 --
 
 CREATE TABLE reskin.config (
@@ -2135,10 +2370,10 @@ CREATE TABLE reskin.config (
 );
 
 
-ALTER TABLE reskin.config OWNER TO root;
+ALTER TABLE reskin.config OWNER TO admin;
 
 --
--- Name: webhook; Type: TABLE; Schema: reskin; Owner: root
+-- Name: webhook; Type: TABLE; Schema: reskin; Owner: admin
 --
 
 CREATE TABLE reskin.webhook (
@@ -2148,10 +2383,10 @@ CREATE TABLE reskin.webhook (
 );
 
 
-ALTER TABLE reskin.webhook OWNER TO root;
+ALTER TABLE reskin.webhook OWNER TO admin;
 
 --
--- Name: filter; Type: TABLE; Schema: snipe; Owner: root
+-- Name: filter; Type: TABLE; Schema: snipe; Owner: admin
 --
 
 CREATE TABLE snipe.filter (
@@ -2162,10 +2397,10 @@ CREATE TABLE snipe.filter (
 );
 
 
-ALTER TABLE snipe.filter OWNER TO root;
+ALTER TABLE snipe.filter OWNER TO admin;
 
 --
--- Name: ignore; Type: TABLE; Schema: snipe; Owner: root
+-- Name: ignore; Type: TABLE; Schema: snipe; Owner: admin
 --
 
 CREATE TABLE snipe.ignore (
@@ -2174,10 +2409,10 @@ CREATE TABLE snipe.ignore (
 );
 
 
-ALTER TABLE snipe.ignore OWNER TO root;
+ALTER TABLE snipe.ignore OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: spam; Owner: postgres
+-- Name: config; Type: TABLE; Schema: spam; Owner: admin
 --
 
 CREATE TABLE spam.config (
@@ -2188,10 +2423,10 @@ CREATE TABLE spam.config (
 );
 
 
-ALTER TABLE spam.config OWNER TO postgres;
+ALTER TABLE spam.config OWNER TO admin;
 
 --
--- Name: exempt; Type: TABLE; Schema: spam; Owner: postgres
+-- Name: exempt; Type: TABLE; Schema: spam; Owner: admin
 --
 
 CREATE TABLE spam.exempt (
@@ -2201,10 +2436,10 @@ CREATE TABLE spam.exempt (
 );
 
 
-ALTER TABLE spam.exempt OWNER TO postgres;
+ALTER TABLE spam.exempt OWNER TO admin;
 
 --
--- Name: messages; Type: TABLE; Schema: spam; Owner: postgres
+-- Name: messages; Type: TABLE; Schema: spam; Owner: admin
 --
 
 CREATE TABLE spam.messages (
@@ -2215,10 +2450,10 @@ CREATE TABLE spam.messages (
 );
 
 
-ALTER TABLE spam.messages OWNER TO postgres;
+ALTER TABLE spam.messages OWNER TO admin;
 
 --
--- Name: daily; Type: TABLE; Schema: statistics; Owner: postgres
+-- Name: daily; Type: TABLE; Schema: statistics; Owner: admin
 --
 
 CREATE TABLE statistics.daily (
@@ -2230,10 +2465,10 @@ CREATE TABLE statistics.daily (
 );
 
 
-ALTER TABLE statistics.daily OWNER TO postgres;
+ALTER TABLE statistics.daily OWNER TO admin;
 
 --
--- Name: daily_channels; Type: TABLE; Schema: statistics; Owner: postgres
+-- Name: daily_channels; Type: TABLE; Schema: statistics; Owner: admin
 --
 
 CREATE TABLE statistics.daily_channels (
@@ -2244,10 +2479,10 @@ CREATE TABLE statistics.daily_channels (
 );
 
 
-ALTER TABLE statistics.daily_channels OWNER TO postgres;
+ALTER TABLE statistics.daily_channels OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: stats; Owner: postgres
+-- Name: config; Type: TABLE; Schema: stats; Owner: admin
 --
 
 CREATE TABLE stats.config (
@@ -2259,10 +2494,10 @@ CREATE TABLE stats.config (
 );
 
 
-ALTER TABLE stats.config OWNER TO postgres;
+ALTER TABLE stats.config OWNER TO admin;
 
 --
--- Name: ignored_words; Type: TABLE; Schema: stats; Owner: postgres
+-- Name: ignored_words; Type: TABLE; Schema: stats; Owner: admin
 --
 
 CREATE TABLE stats.ignored_words (
@@ -2273,10 +2508,10 @@ CREATE TABLE stats.ignored_words (
 );
 
 
-ALTER TABLE stats.ignored_words OWNER TO postgres;
+ALTER TABLE stats.ignored_words OWNER TO admin;
 
 --
--- Name: word_usage; Type: TABLE; Schema: stats; Owner: postgres
+-- Name: word_usage; Type: TABLE; Schema: stats; Owner: admin
 --
 
 CREATE TABLE stats.word_usage (
@@ -2288,10 +2523,10 @@ CREATE TABLE stats.word_usage (
 );
 
 
-ALTER TABLE stats.word_usage OWNER TO postgres;
+ALTER TABLE stats.word_usage OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: streaks; Owner: postgres
+-- Name: config; Type: TABLE; Schema: streaks; Owner: admin
 --
 
 CREATE TABLE streaks.config (
@@ -2303,10 +2538,10 @@ CREATE TABLE streaks.config (
 );
 
 
-ALTER TABLE streaks.config OWNER TO postgres;
+ALTER TABLE streaks.config OWNER TO admin;
 
 --
--- Name: restore_log; Type: TABLE; Schema: streaks; Owner: postgres
+-- Name: restore_log; Type: TABLE; Schema: streaks; Owner: admin
 --
 
 CREATE TABLE streaks.restore_log (
@@ -2319,10 +2554,10 @@ CREATE TABLE streaks.restore_log (
 );
 
 
-ALTER TABLE streaks.restore_log OWNER TO postgres;
+ALTER TABLE streaks.restore_log OWNER TO admin;
 
 --
--- Name: restore_log_id_seq; Type: SEQUENCE; Schema: streaks; Owner: postgres
+-- Name: restore_log_id_seq; Type: SEQUENCE; Schema: streaks; Owner: admin
 --
 
 CREATE SEQUENCE streaks.restore_log_id_seq
@@ -2334,17 +2569,17 @@ CREATE SEQUENCE streaks.restore_log_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE streaks.restore_log_id_seq OWNER TO postgres;
+ALTER SEQUENCE streaks.restore_log_id_seq OWNER TO admin;
 
 --
--- Name: restore_log_id_seq; Type: SEQUENCE OWNED BY; Schema: streaks; Owner: postgres
+-- Name: restore_log_id_seq; Type: SEQUENCE OWNED BY; Schema: streaks; Owner: admin
 --
 
 ALTER SEQUENCE streaks.restore_log_id_seq OWNED BY streaks.restore_log.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: streaks; Owner: postgres
+-- Name: users; Type: TABLE; Schema: streaks; Owner: admin
 --
 
 CREATE TABLE streaks.users (
@@ -2358,10 +2593,10 @@ CREATE TABLE streaks.users (
 );
 
 
-ALTER TABLE streaks.users OWNER TO postgres;
+ALTER TABLE streaks.users OWNER TO admin;
 
 --
--- Name: button; Type: TABLE; Schema: ticket; Owner: root
+-- Name: button; Type: TABLE; Schema: ticket; Owner: admin
 --
 
 CREATE TABLE ticket.button (
@@ -2373,10 +2608,10 @@ CREATE TABLE ticket.button (
 );
 
 
-ALTER TABLE ticket.button OWNER TO root;
+ALTER TABLE ticket.button OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: ticket; Owner: root
+-- Name: config; Type: TABLE; Schema: ticket; Owner: admin
 --
 
 CREATE TABLE ticket.config (
@@ -2390,10 +2625,10 @@ CREATE TABLE ticket.config (
 );
 
 
-ALTER TABLE ticket.config OWNER TO root;
+ALTER TABLE ticket.config OWNER TO admin;
 
 --
--- Name: logs; Type: TABLE; Schema: ticket; Owner: postgres
+-- Name: logs; Type: TABLE; Schema: ticket; Owner: admin
 --
 
 CREATE TABLE ticket.logs (
@@ -2402,10 +2637,10 @@ CREATE TABLE ticket.logs (
 );
 
 
-ALTER TABLE ticket.logs OWNER TO postgres;
+ALTER TABLE ticket.logs OWNER TO admin;
 
 --
--- Name: open; Type: TABLE; Schema: ticket; Owner: root
+-- Name: open; Type: TABLE; Schema: ticket; Owner: admin
 --
 
 CREATE TABLE ticket.open (
@@ -2416,10 +2651,10 @@ CREATE TABLE ticket.open (
 );
 
 
-ALTER TABLE ticket.open OWNER TO root;
+ALTER TABLE ticket.open OWNER TO admin;
 
 --
--- Name: message; Type: TABLE; Schema: timer; Owner: root
+-- Name: message; Type: TABLE; Schema: timer; Owner: admin
 --
 
 CREATE TABLE timer.message (
@@ -2431,10 +2666,10 @@ CREATE TABLE timer.message (
 );
 
 
-ALTER TABLE timer.message OWNER TO root;
+ALTER TABLE timer.message OWNER TO admin;
 
 --
--- Name: purge; Type: TABLE; Schema: timer; Owner: root
+-- Name: purge; Type: TABLE; Schema: timer; Owner: admin
 --
 
 CREATE TABLE timer.purge (
@@ -2446,10 +2681,10 @@ CREATE TABLE timer.purge (
 );
 
 
-ALTER TABLE timer.purge OWNER TO root;
+ALTER TABLE timer.purge OWNER TO admin;
 
 --
--- Name: username; Type: TABLE; Schema: track; Owner: root
+-- Name: username; Type: TABLE; Schema: track; Owner: admin
 --
 
 CREATE TABLE track.username (
@@ -2458,10 +2693,10 @@ CREATE TABLE track.username (
 );
 
 
-ALTER TABLE track.username OWNER TO root;
+ALTER TABLE track.username OWNER TO admin;
 
 --
--- Name: vanity; Type: TABLE; Schema: track; Owner: root
+-- Name: vanity; Type: TABLE; Schema: track; Owner: admin
 --
 
 CREATE TABLE track.vanity (
@@ -2470,10 +2705,10 @@ CREATE TABLE track.vanity (
 );
 
 
-ALTER TABLE track.vanity OWNER TO root;
+ALTER TABLE track.vanity OWNER TO admin;
 
 --
--- Name: channels; Type: TABLE; Schema: transcribe; Owner: postgres
+-- Name: channels; Type: TABLE; Schema: transcribe; Owner: admin
 --
 
 CREATE TABLE transcribe.channels (
@@ -2483,10 +2718,10 @@ CREATE TABLE transcribe.channels (
 );
 
 
-ALTER TABLE transcribe.channels OWNER TO postgres;
+ALTER TABLE transcribe.channels OWNER TO admin;
 
 --
--- Name: rate_limit; Type: TABLE; Schema: transcribe; Owner: postgres
+-- Name: rate_limit; Type: TABLE; Schema: transcribe; Owner: admin
 --
 
 CREATE TABLE transcribe.rate_limit (
@@ -2497,10 +2732,10 @@ CREATE TABLE transcribe.rate_limit (
 );
 
 
-ALTER TABLE transcribe.rate_limit OWNER TO postgres;
+ALTER TABLE transcribe.rate_limit OWNER TO admin;
 
 --
--- Name: logs; Type: TABLE; Schema: verification; Owner: postgres
+-- Name: logs; Type: TABLE; Schema: verification; Owner: admin
 --
 
 CREATE TABLE verification.logs (
@@ -2514,10 +2749,10 @@ CREATE TABLE verification.logs (
 );
 
 
-ALTER TABLE verification.logs OWNER TO postgres;
+ALTER TABLE verification.logs OWNER TO admin;
 
 --
--- Name: logs_id_seq; Type: SEQUENCE; Schema: verification; Owner: postgres
+-- Name: logs_id_seq; Type: SEQUENCE; Schema: verification; Owner: admin
 --
 
 CREATE SEQUENCE verification.logs_id_seq
@@ -2529,17 +2764,17 @@ CREATE SEQUENCE verification.logs_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE verification.logs_id_seq OWNER TO postgres;
+ALTER SEQUENCE verification.logs_id_seq OWNER TO admin;
 
 --
--- Name: logs_id_seq; Type: SEQUENCE OWNED BY; Schema: verification; Owner: postgres
+-- Name: logs_id_seq; Type: SEQUENCE OWNED BY; Schema: verification; Owner: admin
 --
 
 ALTER SEQUENCE verification.logs_id_seq OWNED BY verification.logs.id;
 
 
 --
--- Name: sessions; Type: TABLE; Schema: verification; Owner: postgres
+-- Name: sessions; Type: TABLE; Schema: verification; Owner: admin
 --
 
 CREATE TABLE verification.sessions (
@@ -2552,10 +2787,10 @@ CREATE TABLE verification.sessions (
 );
 
 
-ALTER TABLE verification.sessions OWNER TO postgres;
+ALTER TABLE verification.sessions OWNER TO admin;
 
 --
--- Name: settings; Type: TABLE; Schema: verification; Owner: postgres
+-- Name: settings; Type: TABLE; Schema: verification; Owner: admin
 --
 
 CREATE TABLE verification.settings (
@@ -2574,10 +2809,10 @@ CREATE TABLE verification.settings (
 );
 
 
-ALTER TABLE verification.settings OWNER TO postgres;
+ALTER TABLE verification.settings OWNER TO admin;
 
 --
--- Name: channels; Type: TABLE; Schema: voice; Owner: root
+-- Name: channels; Type: TABLE; Schema: voice; Owner: admin
 --
 
 CREATE TABLE voice.channels (
@@ -2587,10 +2822,10 @@ CREATE TABLE voice.channels (
 );
 
 
-ALTER TABLE voice.channels OWNER TO root;
+ALTER TABLE voice.channels OWNER TO admin;
 
 --
--- Name: config; Type: TABLE; Schema: voice; Owner: root
+-- Name: config; Type: TABLE; Schema: voice; Owner: admin
 --
 
 CREATE TABLE voice.config (
@@ -2603,10 +2838,10 @@ CREATE TABLE voice.config (
 );
 
 
-ALTER TABLE voice.config OWNER TO root;
+ALTER TABLE voice.config OWNER TO admin;
 
 --
--- Name: channels; Type: TABLE; Schema: voicemaster; Owner: postgres
+-- Name: channels; Type: TABLE; Schema: voicemaster; Owner: admin
 --
 
 CREATE TABLE voicemaster.channels (
@@ -2616,10 +2851,10 @@ CREATE TABLE voicemaster.channels (
 );
 
 
-ALTER TABLE voicemaster.channels OWNER TO postgres;
+ALTER TABLE voicemaster.channels OWNER TO admin;
 
 --
--- Name: configuration; Type: TABLE; Schema: voicemaster; Owner: postgres
+-- Name: configuration; Type: TABLE; Schema: voicemaster; Owner: admin
 --
 
 CREATE TABLE voicemaster.configuration (
@@ -2629,77 +2864,94 @@ CREATE TABLE voicemaster.configuration (
     channel_id bigint,
     role_id bigint,
     region text,
-    bitrate bigint
+    bitrate bigint,
+    interface_emojis jsonb,
+    interface_layout character varying(10) DEFAULT 'default'::character varying,
+    interface_embed text
 );
 
 
-ALTER TABLE voicemaster.configuration OWNER TO postgres;
+ALTER TABLE voicemaster.configuration OWNER TO admin;
 
 --
--- Name: media id; Type: DEFAULT; Schema: auto; Owner: root
+-- Name: media id; Type: DEFAULT; Schema: auto; Owner: admin
 --
 
 ALTER TABLE ONLY auto.media ALTER COLUMN id SET DEFAULT nextval('auto.media_id_seq'::regclass);
 
 
 --
--- Name: moderation id; Type: DEFAULT; Schema: history; Owner: root
+-- Name: moderation id; Type: DEFAULT; Schema: history; Owner: admin
 --
 
 ALTER TABLE ONLY history.moderation ALTER COLUMN id SET DEFAULT nextval('history.moderation_id_seq'::regclass);
 
 
 --
--- Name: commands id; Type: DEFAULT; Schema: invoke_history; Owner: root
+-- Name: commands id; Type: DEFAULT; Schema: invoke_history; Owner: admin
 --
 
 ALTER TABLE ONLY invoke_history.commands ALTER COLUMN id SET DEFAULT nextval('invoke_history.commands_id_seq'::regclass);
 
 
 --
--- Name: history id; Type: DEFAULT; Schema: music; Owner: postgres
+-- Name: history id; Type: DEFAULT; Schema: music; Owner: admin
 --
 
 ALTER TABLE ONLY music.history ALTER COLUMN id SET DEFAULT nextval('music.history_id_seq'::regclass);
 
 
 --
--- Name: playlist_tracks id; Type: DEFAULT; Schema: music; Owner: postgres
+-- Name: playlist_tracks id; Type: DEFAULT; Schema: music; Owner: admin
 --
 
 ALTER TABLE ONLY music.playlist_tracks ALTER COLUMN id SET DEFAULT nextval('music.playlist_tracks_id_seq'::regclass);
 
 
 --
--- Name: playlists id; Type: DEFAULT; Schema: music; Owner: postgres
+-- Name: playlists id; Type: DEFAULT; Schema: music; Owner: admin
 --
 
 ALTER TABLE ONLY music.playlists ALTER COLUMN id SET DEFAULT nextval('music.playlists_id_seq'::regclass);
 
 
 --
--- Name: transactions id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: instance_info instance_id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.instance_info ALTER COLUMN instance_id SET DEFAULT nextval('public.instance_info_instance_id_seq'::regclass);
+
+
+--
+-- Name: shop_items item_id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.shop_items ALTER COLUMN item_id SET DEFAULT nextval('public.shop_items_item_id_seq'::regclass);
+
+
+--
+-- Name: transactions id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public.transactions_id_seq'::regclass);
 
 
 --
--- Name: restore_log id; Type: DEFAULT; Schema: streaks; Owner: postgres
+-- Name: restore_log id; Type: DEFAULT; Schema: streaks; Owner: admin
 --
 
 ALTER TABLE ONLY streaks.restore_log ALTER COLUMN id SET DEFAULT nextval('streaks.restore_log_id_seq'::regclass);
 
 
 --
--- Name: logs id; Type: DEFAULT; Schema: verification; Owner: postgres
+-- Name: logs id; Type: DEFAULT; Schema: verification; Owner: admin
 --
 
 ALTER TABLE ONLY verification.logs ALTER COLUMN id SET DEFAULT nextval('verification.logs_id_seq'::regclass);
 
 
 --
--- Name: twitch twitch_pkey; Type: CONSTRAINT; Schema: alerts; Owner: root
+-- Name: twitch twitch_pkey; Type: CONSTRAINT; Schema: alerts; Owner: admin
 --
 
 ALTER TABLE ONLY alerts.twitch
@@ -2707,7 +2959,7 @@ ALTER TABLE ONLY alerts.twitch
 
 
 --
--- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: audio; Owner: root
+-- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: audio; Owner: admin
 --
 
 ALTER TABLE ONLY audio.config
@@ -2715,7 +2967,7 @@ ALTER TABLE ONLY audio.config
 
 
 --
--- Name: statistics statistics_pkey; Type: CONSTRAINT; Schema: audio; Owner: root
+-- Name: statistics statistics_pkey; Type: CONSTRAINT; Schema: audio; Owner: admin
 --
 
 ALTER TABLE ONLY audio.statistics
@@ -2723,7 +2975,7 @@ ALTER TABLE ONLY audio.statistics
 
 
 --
--- Name: media media_pkey; Type: CONSTRAINT; Schema: auto; Owner: root
+-- Name: media media_pkey; Type: CONSTRAINT; Schema: auto; Owner: admin
 --
 
 ALTER TABLE ONLY auto.media
@@ -2731,7 +2983,7 @@ ALTER TABLE ONLY auto.media
 
 
 --
--- Name: media unique_media_config; Type: CONSTRAINT; Schema: auto; Owner: root
+-- Name: media unique_media_config; Type: CONSTRAINT; Schema: auto; Owner: admin
 --
 
 ALTER TABLE ONLY auto.media
@@ -2739,7 +2991,7 @@ ALTER TABLE ONLY auto.media
 
 
 --
--- Name: disabled disabled_pkey; Type: CONSTRAINT; Schema: commands; Owner: root
+-- Name: disabled disabled_pkey; Type: CONSTRAINT; Schema: commands; Owner: admin
 --
 
 ALTER TABLE ONLY commands.disabled
@@ -2747,7 +2999,7 @@ ALTER TABLE ONLY commands.disabled
 
 
 --
--- Name: ignore ignore_pkey; Type: CONSTRAINT; Schema: commands; Owner: root
+-- Name: ignore ignore_pkey; Type: CONSTRAINT; Schema: commands; Owner: admin
 --
 
 ALTER TABLE ONLY commands.ignore
@@ -2755,7 +3007,7 @@ ALTER TABLE ONLY commands.ignore
 
 
 --
--- Name: restricted restricted_pkey; Type: CONSTRAINT; Schema: commands; Owner: root
+-- Name: restricted restricted_pkey; Type: CONSTRAINT; Schema: commands; Owner: admin
 --
 
 ALTER TABLE ONLY commands.restricted
@@ -2763,7 +3015,7 @@ ALTER TABLE ONLY commands.restricted
 
 
 --
--- Name: config config_pkey; Type: CONSTRAINT; Schema: counting; Owner: postgres
+-- Name: config config_pkey; Type: CONSTRAINT; Schema: counting; Owner: admin
 --
 
 ALTER TABLE ONLY counting.config
@@ -2771,7 +3023,7 @@ ALTER TABLE ONLY counting.config
 
 
 --
--- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: disboard; Owner: root
+-- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: disboard; Owner: admin
 --
 
 ALTER TABLE ONLY disboard.config
@@ -2779,7 +3031,7 @@ ALTER TABLE ONLY disboard.config
 
 
 --
--- Name: marriages marriages_pkey; Type: CONSTRAINT; Schema: family; Owner: postgres
+-- Name: marriages marriages_pkey; Type: CONSTRAINT; Schema: family; Owner: admin
 --
 
 ALTER TABLE ONLY family.marriages
@@ -2787,7 +3039,7 @@ ALTER TABLE ONLY family.marriages
 
 
 --
--- Name: members members_pkey; Type: CONSTRAINT; Schema: family; Owner: postgres
+-- Name: members members_pkey; Type: CONSTRAINT; Schema: family; Owner: admin
 --
 
 ALTER TABLE ONLY family.members
@@ -2795,7 +3047,7 @@ ALTER TABLE ONLY family.members
 
 
 --
--- Name: profiles profiles_pkey; Type: CONSTRAINT; Schema: family; Owner: postgres
+-- Name: profiles profiles_pkey; Type: CONSTRAINT; Schema: family; Owner: admin
 --
 
 ALTER TABLE ONLY family.profiles
@@ -2803,7 +3055,7 @@ ALTER TABLE ONLY family.profiles
 
 
 --
--- Name: instagram instagram_pkey; Type: CONSTRAINT; Schema: feeds; Owner: root
+-- Name: instagram instagram_pkey; Type: CONSTRAINT; Schema: feeds; Owner: admin
 --
 
 ALTER TABLE ONLY feeds.instagram
@@ -2811,7 +3063,7 @@ ALTER TABLE ONLY feeds.instagram
 
 
 --
--- Name: pinterest pinterest_pkey; Type: CONSTRAINT; Schema: feeds; Owner: root
+-- Name: pinterest pinterest_pkey; Type: CONSTRAINT; Schema: feeds; Owner: admin
 --
 
 ALTER TABLE ONLY feeds.pinterest
@@ -2819,7 +3071,7 @@ ALTER TABLE ONLY feeds.pinterest
 
 
 --
--- Name: reddit reddit_pkey; Type: CONSTRAINT; Schema: feeds; Owner: root
+-- Name: reddit reddit_pkey; Type: CONSTRAINT; Schema: feeds; Owner: admin
 --
 
 ALTER TABLE ONLY feeds.reddit
@@ -2827,7 +3079,7 @@ ALTER TABLE ONLY feeds.reddit
 
 
 --
--- Name: soundcloud soundcloud_pkey; Type: CONSTRAINT; Schema: feeds; Owner: root
+-- Name: soundcloud soundcloud_pkey; Type: CONSTRAINT; Schema: feeds; Owner: admin
 --
 
 ALTER TABLE ONLY feeds.soundcloud
@@ -2835,7 +3087,7 @@ ALTER TABLE ONLY feeds.soundcloud
 
 
 --
--- Name: tiktok tiktok_pkey; Type: CONSTRAINT; Schema: feeds; Owner: root
+-- Name: tiktok tiktok_pkey; Type: CONSTRAINT; Schema: feeds; Owner: admin
 --
 
 ALTER TABLE ONLY feeds.tiktok
@@ -2843,7 +3095,7 @@ ALTER TABLE ONLY feeds.tiktok
 
 
 --
--- Name: twitter twitter_pkey; Type: CONSTRAINT; Schema: feeds; Owner: root
+-- Name: twitter twitter_pkey; Type: CONSTRAINT; Schema: feeds; Owner: admin
 --
 
 ALTER TABLE ONLY feeds.twitter
@@ -2851,7 +3103,7 @@ ALTER TABLE ONLY feeds.twitter
 
 
 --
--- Name: youtube youtube_pkey; Type: CONSTRAINT; Schema: feeds; Owner: root
+-- Name: youtube youtube_pkey; Type: CONSTRAINT; Schema: feeds; Owner: admin
 --
 
 ALTER TABLE ONLY feeds.youtube
@@ -2859,7 +3111,7 @@ ALTER TABLE ONLY feeds.youtube
 
 
 --
--- Name: authorization authorization_user_id_key; Type: CONSTRAINT; Schema: fortnite; Owner: root
+-- Name: authorization authorization_user_id_key; Type: CONSTRAINT; Schema: fortnite; Owner: admin
 --
 
 ALTER TABLE ONLY fortnite."authorization"
@@ -2867,7 +3119,7 @@ ALTER TABLE ONLY fortnite."authorization"
 
 
 --
--- Name: reminder reminder_pkey; Type: CONSTRAINT; Schema: fortnite; Owner: root
+-- Name: reminder reminder_pkey; Type: CONSTRAINT; Schema: fortnite; Owner: admin
 --
 
 ALTER TABLE ONLY fortnite.reminder
@@ -2875,7 +3127,7 @@ ALTER TABLE ONLY fortnite.reminder
 
 
 --
--- Name: rotation rotation_guild_id_key; Type: CONSTRAINT; Schema: fortnite; Owner: root
+-- Name: rotation rotation_guild_id_key; Type: CONSTRAINT; Schema: fortnite; Owner: admin
 --
 
 ALTER TABLE ONLY fortnite.rotation
@@ -2883,7 +3135,7 @@ ALTER TABLE ONLY fortnite.rotation
 
 
 --
--- Name: wyr_channels wyr_channels_pkey; Type: CONSTRAINT; Schema: fun; Owner: postgres
+-- Name: wyr_channels wyr_channels_pkey; Type: CONSTRAINT; Schema: fun; Owner: admin
 --
 
 ALTER TABLE ONLY fun.wyr_channels
@@ -2891,7 +3143,7 @@ ALTER TABLE ONLY fun.wyr_channels
 
 
 --
--- Name: moderation moderation_pkey; Type: CONSTRAINT; Schema: history; Owner: root
+-- Name: moderation moderation_pkey; Type: CONSTRAINT; Schema: history; Owner: admin
 --
 
 ALTER TABLE ONLY history.moderation
@@ -2899,7 +3151,7 @@ ALTER TABLE ONLY history.moderation
 
 
 --
--- Name: commands commands_pkey; Type: CONSTRAINT; Schema: invoke_history; Owner: root
+-- Name: commands commands_pkey; Type: CONSTRAINT; Schema: invoke_history; Owner: admin
 --
 
 ALTER TABLE ONLY invoke_history.commands
@@ -2907,7 +3159,15 @@ ALTER TABLE ONLY invoke_history.commands
 
 
 --
--- Name: albums albums_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: config config_pkey; Type: CONSTRAINT; Schema: joindm; Owner: admin
+--
+
+ALTER TABLE ONLY joindm.config
+    ADD CONSTRAINT config_pkey PRIMARY KEY (guild_id);
+
+
+--
+-- Name: albums albums_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.albums
@@ -2915,7 +3175,7 @@ ALTER TABLE ONLY lastfm.albums
 
 
 --
--- Name: artists artists_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: artists artists_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.artists
@@ -2923,7 +3183,7 @@ ALTER TABLE ONLY lastfm.artists
 
 
 --
--- Name: config config_user_id_key; Type: CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: config config_user_id_key; Type: CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.config
@@ -2931,7 +3191,7 @@ ALTER TABLE ONLY lastfm.config
 
 
 --
--- Name: crowns crowns_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: crowns crowns_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.crowns
@@ -2939,7 +3199,7 @@ ALTER TABLE ONLY lastfm.crowns
 
 
 --
--- Name: hidden hidden_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: hidden hidden_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.hidden
@@ -2947,7 +3207,7 @@ ALTER TABLE ONLY lastfm.hidden
 
 
 --
--- Name: tracks tracks_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: tracks tracks_pkey; Type: CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.tracks
@@ -2955,7 +3215,7 @@ ALTER TABLE ONLY lastfm.tracks
 
 
 --
--- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: level; Owner: root
+-- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: level; Owner: admin
 --
 
 ALTER TABLE ONLY level.config
@@ -2963,7 +3223,7 @@ ALTER TABLE ONLY level.config
 
 
 --
--- Name: member member_pkey; Type: CONSTRAINT; Schema: level; Owner: root
+-- Name: member member_pkey; Type: CONSTRAINT; Schema: level; Owner: admin
 --
 
 ALTER TABLE ONLY level.member
@@ -2971,7 +3231,7 @@ ALTER TABLE ONLY level.member
 
 
 --
--- Name: notification notification_pkey; Type: CONSTRAINT; Schema: level; Owner: root
+-- Name: notification notification_pkey; Type: CONSTRAINT; Schema: level; Owner: admin
 --
 
 ALTER TABLE ONLY level.notification
@@ -2979,7 +3239,7 @@ ALTER TABLE ONLY level.notification
 
 
 --
--- Name: role role_pkey; Type: CONSTRAINT; Schema: level; Owner: root
+-- Name: role role_pkey; Type: CONSTRAINT; Schema: level; Owner: admin
 --
 
 ALTER TABLE ONLY level.role
@@ -2987,7 +3247,7 @@ ALTER TABLE ONLY level.role
 
 
 --
--- Name: role role_role_id_key; Type: CONSTRAINT; Schema: level; Owner: root
+-- Name: role role_role_id_key; Type: CONSTRAINT; Schema: level; Owner: admin
 --
 
 ALTER TABLE ONLY level.role
@@ -2995,7 +3255,7 @@ ALTER TABLE ONLY level.role
 
 
 --
--- Name: history history_pkey; Type: CONSTRAINT; Schema: music; Owner: postgres
+-- Name: history history_pkey; Type: CONSTRAINT; Schema: music; Owner: admin
 --
 
 ALTER TABLE ONLY music.history
@@ -3003,7 +3263,7 @@ ALTER TABLE ONLY music.history
 
 
 --
--- Name: playlist_tracks playlist_tracks_pkey; Type: CONSTRAINT; Schema: music; Owner: postgres
+-- Name: playlist_tracks playlist_tracks_pkey; Type: CONSTRAINT; Schema: music; Owner: admin
 --
 
 ALTER TABLE ONLY music.playlist_tracks
@@ -3011,7 +3271,7 @@ ALTER TABLE ONLY music.playlist_tracks
 
 
 --
--- Name: playlists playlists_pkey; Type: CONSTRAINT; Schema: music; Owner: postgres
+-- Name: playlists playlists_pkey; Type: CONSTRAINT; Schema: music; Owner: admin
 --
 
 ALTER TABLE ONLY music.playlists
@@ -3019,7 +3279,7 @@ ALTER TABLE ONLY music.playlists
 
 
 --
--- Name: afk afk_user_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: afk afk_user_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.afk
@@ -3027,7 +3287,7 @@ ALTER TABLE ONLY public.afk
 
 
 --
--- Name: aliases aliases_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: aliases aliases_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.aliases
@@ -3035,7 +3295,7 @@ ALTER TABLE ONLY public.aliases
 
 
 --
--- Name: antinuke antinuke_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: antinuke antinuke_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.antinuke
@@ -3043,7 +3303,7 @@ ALTER TABLE ONLY public.antinuke
 
 
 --
--- Name: antiraid antiraid_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: antiraid antiraid_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.antiraid
@@ -3051,7 +3311,7 @@ ALTER TABLE ONLY public.antiraid
 
 
 --
--- Name: auto_role auto_role_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: auto_role auto_role_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.auto_role
@@ -3059,7 +3319,7 @@ ALTER TABLE ONLY public.auto_role
 
 
 --
--- Name: backup backup_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: backup backup_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.backup
@@ -3067,7 +3327,7 @@ ALTER TABLE ONLY public.backup
 
 
 --
--- Name: birthdays birthdays_user_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: birthdays birthdays_user_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.birthdays
@@ -3075,7 +3335,7 @@ ALTER TABLE ONLY public.birthdays
 
 
 --
--- Name: blacklist blacklist_user_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: blacklist blacklist_user_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.blacklist
@@ -3083,7 +3343,7 @@ ALTER TABLE ONLY public.blacklist
 
 
 --
--- Name: blunt blunt_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: blunt blunt_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.blunt
@@ -3091,7 +3351,7 @@ ALTER TABLE ONLY public.blunt
 
 
 --
--- Name: boost_message boost_message_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: boost_message boost_message_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.boost_message
@@ -3099,7 +3359,7 @@ ALTER TABLE ONLY public.boost_message
 
 
 --
--- Name: booster_role booster_role_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: booster_role booster_role_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.booster_role
@@ -3107,7 +3367,7 @@ ALTER TABLE ONLY public.booster_role
 
 
 --
--- Name: boosters_lost boosters_lost_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: boosters_lost boosters_lost_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.boosters_lost
@@ -3115,7 +3375,7 @@ ALTER TABLE ONLY public.boosters_lost
 
 
 --
--- Name: clownboard_entry clownboard_entry_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: clownboard_entry clownboard_entry_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.clownboard_entry
@@ -3123,7 +3383,7 @@ ALTER TABLE ONLY public.clownboard_entry
 
 
 --
--- Name: clownboard clownboard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: clownboard clownboard_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.clownboard
@@ -3131,7 +3391,7 @@ ALTER TABLE ONLY public.clownboard
 
 
 --
--- Name: config config_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: config config_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.config
@@ -3139,7 +3399,7 @@ ALTER TABLE ONLY public.config
 
 
 --
--- Name: counter counter_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: counter counter_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.counter
@@ -3147,7 +3407,7 @@ ALTER TABLE ONLY public.counter
 
 
 --
--- Name: crypto crypto_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: crypto crypto_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.crypto
@@ -3155,7 +3415,15 @@ ALTER TABLE ONLY public.crypto
 
 
 --
--- Name: earnings earnings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: dalle_credits dalle_credits_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.dalle_credits
+    ADD CONSTRAINT dalle_credits_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: earnings earnings_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.earnings
@@ -3163,7 +3431,7 @@ ALTER TABLE ONLY public.earnings
 
 
 --
--- Name: economy economy_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: economy economy_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.economy
@@ -3171,7 +3439,23 @@ ALTER TABLE ONLY public.economy
 
 
 --
--- Name: fake_permissions fake_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: economy_roleshop economy_roleshop_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.economy_roleshop
+    ADD CONSTRAINT economy_roleshop_pkey PRIMARY KEY (guild_id, role_id);
+
+
+--
+-- Name: employee_stats employee_stats_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.employee_stats
+    ADD CONSTRAINT employee_stats_pkey PRIMARY KEY (business_id, employee_id);
+
+
+--
+-- Name: fake_permissions fake_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.fake_permissions
@@ -3179,7 +3463,7 @@ ALTER TABLE ONLY public.fake_permissions
 
 
 --
--- Name: feedback feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: feedback feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.feedback
@@ -3187,7 +3471,7 @@ ALTER TABLE ONLY public.feedback
 
 
 --
--- Name: gallery gallery_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: gallery gallery_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.gallery
@@ -3195,7 +3479,7 @@ ALTER TABLE ONLY public.gallery
 
 
 --
--- Name: gnames gnames_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: gnames gnames_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.gnames
@@ -3203,7 +3487,7 @@ ALTER TABLE ONLY public.gnames
 
 
 --
--- Name: goodbye_message goodbye_message_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: goodbye_message goodbye_message_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.goodbye_message
@@ -3211,7 +3495,7 @@ ALTER TABLE ONLY public.goodbye_message
 
 
 --
--- Name: guildblacklist guildblacklist_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: guildblacklist guildblacklist_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.guildblacklist
@@ -3219,7 +3503,7 @@ ALTER TABLE ONLY public.guildblacklist
 
 
 --
--- Name: highlights highlights_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: highlights highlights_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.highlights
@@ -3227,7 +3511,23 @@ ALTER TABLE ONLY public.highlights
 
 
 --
--- Name: inventory inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: instance_info instance_info_owner_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.instance_info
+    ADD CONSTRAINT instance_info_owner_id_key UNIQUE (owner_id);
+
+
+--
+-- Name: instance_info instance_info_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.instance_info
+    ADD CONSTRAINT instance_info_pkey PRIMARY KEY (instance_id);
+
+
+--
+-- Name: inventory inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.inventory
@@ -3235,7 +3535,7 @@ ALTER TABLE ONLY public.inventory
 
 
 --
--- Name: logging logging_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: logging logging_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.logging
@@ -3243,7 +3543,7 @@ ALTER TABLE ONLY public.logging
 
 
 --
--- Name: mod mod_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: mod mod_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.mod
@@ -3251,7 +3551,7 @@ ALTER TABLE ONLY public.mod
 
 
 --
--- Name: payment payment_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: payment payment_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.payment
@@ -3259,7 +3559,7 @@ ALTER TABLE ONLY public.payment
 
 
 --
--- Name: publisher publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: publisher publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.publisher
@@ -3267,7 +3567,7 @@ ALTER TABLE ONLY public.publisher
 
 
 --
--- Name: pubsub pubsub_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: pubsub pubsub_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.pubsub
@@ -3275,7 +3575,7 @@ ALTER TABLE ONLY public.pubsub
 
 
 --
--- Name: quoter quoter_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: quoter quoter_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.quoter
@@ -3283,7 +3583,7 @@ ALTER TABLE ONLY public.quoter
 
 
 --
--- Name: reaction_role reaction_role_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: reaction_role reaction_role_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.reaction_role
@@ -3291,7 +3591,7 @@ ALTER TABLE ONLY public.reaction_role
 
 
 --
--- Name: reaction_trigger reaction_trigger_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: reaction_trigger reaction_trigger_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.reaction_trigger
@@ -3299,7 +3599,7 @@ ALTER TABLE ONLY public.reaction_trigger
 
 
 --
--- Name: response_trigger response_trigger_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: response_trigger response_trigger_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.response_trigger
@@ -3307,7 +3607,15 @@ ALTER TABLE ONLY public.response_trigger
 
 
 --
--- Name: roleplay roleplay_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: role_shops role_shops_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.role_shops
+    ADD CONSTRAINT role_shops_pkey PRIMARY KEY (guild_id, role_id);
+
+
+--
+-- Name: roleplay roleplay_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.roleplay
@@ -3315,7 +3623,7 @@ ALTER TABLE ONLY public.roleplay
 
 
 --
--- Name: settings settings_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: settings settings_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.settings
@@ -3323,7 +3631,23 @@ ALTER TABLE ONLY public.settings
 
 
 --
--- Name: starboard_entry starboard_entry_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: shop_items shop_items_name_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.shop_items
+    ADD CONSTRAINT shop_items_name_key UNIQUE (name);
+
+
+--
+-- Name: shop_items shop_items_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.shop_items
+    ADD CONSTRAINT shop_items_pkey PRIMARY KEY (item_id);
+
+
+--
+-- Name: starboard_entry starboard_entry_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.starboard_entry
@@ -3331,7 +3655,7 @@ ALTER TABLE ONLY public.starboard_entry
 
 
 --
--- Name: starboard starboard_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: starboard starboard_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.starboard
@@ -3339,7 +3663,7 @@ ALTER TABLE ONLY public.starboard
 
 
 --
--- Name: steal_disabled steal_disabled_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: steal_disabled steal_disabled_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.steal_disabled
@@ -3347,7 +3671,7 @@ ALTER TABLE ONLY public.steal_disabled
 
 
 --
--- Name: sticky_message sticky_message_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: sticky_message sticky_message_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.sticky_message
@@ -3355,7 +3679,23 @@ ALTER TABLE ONLY public.sticky_message
 
 
 --
--- Name: thread thread_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: suggestion_entries suggestion_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.suggestion_entries
+    ADD CONSTRAINT suggestion_entries_pkey PRIMARY KEY (guild_id, message_id);
+
+
+--
+-- Name: suggestion_votes suggestion_votes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.suggestion_votes
+    ADD CONSTRAINT suggestion_votes_pkey PRIMARY KEY (message_id, user_id);
+
+
+--
+-- Name: thread thread_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.thread
@@ -3363,7 +3703,7 @@ ALTER TABLE ONLY public.thread
 
 
 --
--- Name: timezones timezones_user_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: timezones timezones_user_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.timezones
@@ -3371,7 +3711,7 @@ ALTER TABLE ONLY public.timezones
 
 
 --
--- Name: tracker tracker_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: tracker tracker_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.tracker
@@ -3379,7 +3719,7 @@ ALTER TABLE ONLY public.tracker
 
 
 --
--- Name: transactions transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: transactions transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.transactions
@@ -3387,7 +3727,7 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- Name: used_items used_items_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: used_items used_items_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.used_items
@@ -3395,7 +3735,7 @@ ALTER TABLE ONLY public.used_items
 
 
 --
--- Name: user_spotify user_spotify_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_spotify user_spotify_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.user_spotify
@@ -3403,7 +3743,7 @@ ALTER TABLE ONLY public.user_spotify
 
 
 --
--- Name: vanity vanity_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: vanity vanity_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.vanity
@@ -3411,7 +3751,7 @@ ALTER TABLE ONLY public.vanity
 
 
 --
--- Name: vanity_sniper vanity_sniper_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: vanity_sniper vanity_sniper_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.vanity_sniper
@@ -3419,7 +3759,7 @@ ALTER TABLE ONLY public.vanity_sniper
 
 
 --
--- Name: vape vape_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: vape vape_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.vape
@@ -3427,7 +3767,7 @@ ALTER TABLE ONLY public.vape
 
 
 --
--- Name: warn_actions warn_actions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: warn_actions warn_actions_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.warn_actions
@@ -3435,7 +3775,7 @@ ALTER TABLE ONLY public.warn_actions
 
 
 --
--- Name: webhook webhook_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: webhook webhook_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.webhook
@@ -3443,7 +3783,7 @@ ALTER TABLE ONLY public.webhook
 
 
 --
--- Name: welcome_message welcome_message_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: welcome_message welcome_message_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.welcome_message
@@ -3451,7 +3791,7 @@ ALTER TABLE ONLY public.welcome_message
 
 
 --
--- Name: whitelist whitelist_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: whitelist whitelist_guild_id_key; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.whitelist
@@ -3459,7 +3799,7 @@ ALTER TABLE ONLY public.whitelist
 
 
 --
--- Name: disabled disabled_pkey; Type: CONSTRAINT; Schema: reposters; Owner: root
+-- Name: disabled disabled_pkey; Type: CONSTRAINT; Schema: reposters; Owner: admin
 --
 
 ALTER TABLE ONLY reposters.disabled
@@ -3467,7 +3807,7 @@ ALTER TABLE ONLY reposters.disabled
 
 
 --
--- Name: config config_user_id_key; Type: CONSTRAINT; Schema: reskin; Owner: root
+-- Name: config config_user_id_key; Type: CONSTRAINT; Schema: reskin; Owner: admin
 --
 
 ALTER TABLE ONLY reskin.config
@@ -3475,7 +3815,7 @@ ALTER TABLE ONLY reskin.config
 
 
 --
--- Name: webhook webhook_pkey; Type: CONSTRAINT; Schema: reskin; Owner: root
+-- Name: webhook webhook_pkey; Type: CONSTRAINT; Schema: reskin; Owner: admin
 --
 
 ALTER TABLE ONLY reskin.webhook
@@ -3483,7 +3823,7 @@ ALTER TABLE ONLY reskin.webhook
 
 
 --
--- Name: filter filter_guild_id_key; Type: CONSTRAINT; Schema: snipe; Owner: root
+-- Name: filter filter_guild_id_key; Type: CONSTRAINT; Schema: snipe; Owner: admin
 --
 
 ALTER TABLE ONLY snipe.filter
@@ -3491,7 +3831,7 @@ ALTER TABLE ONLY snipe.filter
 
 
 --
--- Name: ignore ignore_pkey; Type: CONSTRAINT; Schema: snipe; Owner: root
+-- Name: ignore ignore_pkey; Type: CONSTRAINT; Schema: snipe; Owner: admin
 --
 
 ALTER TABLE ONLY snipe.ignore
@@ -3499,7 +3839,7 @@ ALTER TABLE ONLY snipe.ignore
 
 
 --
--- Name: config config_pkey; Type: CONSTRAINT; Schema: spam; Owner: postgres
+-- Name: config config_pkey; Type: CONSTRAINT; Schema: spam; Owner: admin
 --
 
 ALTER TABLE ONLY spam.config
@@ -3507,7 +3847,7 @@ ALTER TABLE ONLY spam.config
 
 
 --
--- Name: exempt exempt_pkey; Type: CONSTRAINT; Schema: spam; Owner: postgres
+-- Name: exempt exempt_pkey; Type: CONSTRAINT; Schema: spam; Owner: admin
 --
 
 ALTER TABLE ONLY spam.exempt
@@ -3515,7 +3855,7 @@ ALTER TABLE ONLY spam.exempt
 
 
 --
--- Name: messages messages_pkey; Type: CONSTRAINT; Schema: spam; Owner: postgres
+-- Name: messages messages_pkey; Type: CONSTRAINT; Schema: spam; Owner: admin
 --
 
 ALTER TABLE ONLY spam.messages
@@ -3523,7 +3863,7 @@ ALTER TABLE ONLY spam.messages
 
 
 --
--- Name: daily_channels daily_channels_pkey; Type: CONSTRAINT; Schema: statistics; Owner: postgres
+-- Name: daily_channels daily_channels_pkey; Type: CONSTRAINT; Schema: statistics; Owner: admin
 --
 
 ALTER TABLE ONLY statistics.daily_channels
@@ -3531,7 +3871,7 @@ ALTER TABLE ONLY statistics.daily_channels
 
 
 --
--- Name: daily daily_pkey; Type: CONSTRAINT; Schema: statistics; Owner: postgres
+-- Name: daily daily_pkey; Type: CONSTRAINT; Schema: statistics; Owner: admin
 --
 
 ALTER TABLE ONLY statistics.daily
@@ -3539,7 +3879,7 @@ ALTER TABLE ONLY statistics.daily
 
 
 --
--- Name: config config_pkey; Type: CONSTRAINT; Schema: stats; Owner: postgres
+-- Name: config config_pkey; Type: CONSTRAINT; Schema: stats; Owner: admin
 --
 
 ALTER TABLE ONLY stats.config
@@ -3547,7 +3887,7 @@ ALTER TABLE ONLY stats.config
 
 
 --
--- Name: ignored_words ignored_words_pkey; Type: CONSTRAINT; Schema: stats; Owner: postgres
+-- Name: ignored_words ignored_words_pkey; Type: CONSTRAINT; Schema: stats; Owner: admin
 --
 
 ALTER TABLE ONLY stats.ignored_words
@@ -3555,7 +3895,7 @@ ALTER TABLE ONLY stats.ignored_words
 
 
 --
--- Name: word_usage word_usage_pkey; Type: CONSTRAINT; Schema: stats; Owner: postgres
+-- Name: word_usage word_usage_pkey; Type: CONSTRAINT; Schema: stats; Owner: admin
 --
 
 ALTER TABLE ONLY stats.word_usage
@@ -3563,7 +3903,7 @@ ALTER TABLE ONLY stats.word_usage
 
 
 --
--- Name: config config_pkey; Type: CONSTRAINT; Schema: streaks; Owner: postgres
+-- Name: config config_pkey; Type: CONSTRAINT; Schema: streaks; Owner: admin
 --
 
 ALTER TABLE ONLY streaks.config
@@ -3571,7 +3911,7 @@ ALTER TABLE ONLY streaks.config
 
 
 --
--- Name: restore_log restore_log_pkey; Type: CONSTRAINT; Schema: streaks; Owner: postgres
+-- Name: restore_log restore_log_pkey; Type: CONSTRAINT; Schema: streaks; Owner: admin
 --
 
 ALTER TABLE ONLY streaks.restore_log
@@ -3579,7 +3919,7 @@ ALTER TABLE ONLY streaks.restore_log
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: streaks; Owner: postgres
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: streaks; Owner: admin
 --
 
 ALTER TABLE ONLY streaks.users
@@ -3587,7 +3927,7 @@ ALTER TABLE ONLY streaks.users
 
 
 --
--- Name: button button_pkey; Type: CONSTRAINT; Schema: ticket; Owner: root
+-- Name: button button_pkey; Type: CONSTRAINT; Schema: ticket; Owner: admin
 --
 
 ALTER TABLE ONLY ticket.button
@@ -3595,7 +3935,7 @@ ALTER TABLE ONLY ticket.button
 
 
 --
--- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: ticket; Owner: root
+-- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: ticket; Owner: admin
 --
 
 ALTER TABLE ONLY ticket.config
@@ -3603,7 +3943,7 @@ ALTER TABLE ONLY ticket.config
 
 
 --
--- Name: open open_pkey; Type: CONSTRAINT; Schema: ticket; Owner: root
+-- Name: open open_pkey; Type: CONSTRAINT; Schema: ticket; Owner: admin
 --
 
 ALTER TABLE ONLY ticket.open
@@ -3611,7 +3951,7 @@ ALTER TABLE ONLY ticket.open
 
 
 --
--- Name: logs unique_guild_id; Type: CONSTRAINT; Schema: ticket; Owner: postgres
+-- Name: logs unique_guild_id; Type: CONSTRAINT; Schema: ticket; Owner: admin
 --
 
 ALTER TABLE ONLY ticket.logs
@@ -3619,7 +3959,7 @@ ALTER TABLE ONLY ticket.logs
 
 
 --
--- Name: message message_pkey; Type: CONSTRAINT; Schema: timer; Owner: root
+-- Name: message message_pkey; Type: CONSTRAINT; Schema: timer; Owner: admin
 --
 
 ALTER TABLE ONLY timer.message
@@ -3627,7 +3967,7 @@ ALTER TABLE ONLY timer.message
 
 
 --
--- Name: purge purge_pkey; Type: CONSTRAINT; Schema: timer; Owner: root
+-- Name: purge purge_pkey; Type: CONSTRAINT; Schema: timer; Owner: admin
 --
 
 ALTER TABLE ONLY timer.purge
@@ -3635,7 +3975,7 @@ ALTER TABLE ONLY timer.purge
 
 
 --
--- Name: username username_pkey; Type: CONSTRAINT; Schema: track; Owner: root
+-- Name: username username_pkey; Type: CONSTRAINT; Schema: track; Owner: admin
 --
 
 ALTER TABLE ONLY track.username
@@ -3643,7 +3983,7 @@ ALTER TABLE ONLY track.username
 
 
 --
--- Name: vanity vanity_pkey; Type: CONSTRAINT; Schema: track; Owner: root
+-- Name: vanity vanity_pkey; Type: CONSTRAINT; Schema: track; Owner: admin
 --
 
 ALTER TABLE ONLY track.vanity
@@ -3651,7 +3991,7 @@ ALTER TABLE ONLY track.vanity
 
 
 --
--- Name: channels channels_pkey; Type: CONSTRAINT; Schema: transcribe; Owner: postgres
+-- Name: channels channels_pkey; Type: CONSTRAINT; Schema: transcribe; Owner: admin
 --
 
 ALTER TABLE ONLY transcribe.channels
@@ -3659,7 +3999,7 @@ ALTER TABLE ONLY transcribe.channels
 
 
 --
--- Name: rate_limit rate_limit_pkey; Type: CONSTRAINT; Schema: transcribe; Owner: postgres
+-- Name: rate_limit rate_limit_pkey; Type: CONSTRAINT; Schema: transcribe; Owner: admin
 --
 
 ALTER TABLE ONLY transcribe.rate_limit
@@ -3667,7 +4007,7 @@ ALTER TABLE ONLY transcribe.rate_limit
 
 
 --
--- Name: logs logs_pkey; Type: CONSTRAINT; Schema: verification; Owner: postgres
+-- Name: logs logs_pkey; Type: CONSTRAINT; Schema: verification; Owner: admin
 --
 
 ALTER TABLE ONLY verification.logs
@@ -3675,7 +4015,7 @@ ALTER TABLE ONLY verification.logs
 
 
 --
--- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: verification; Owner: postgres
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: verification; Owner: admin
 --
 
 ALTER TABLE ONLY verification.sessions
@@ -3683,7 +4023,7 @@ ALTER TABLE ONLY verification.sessions
 
 
 --
--- Name: settings settings_pkey; Type: CONSTRAINT; Schema: verification; Owner: postgres
+-- Name: settings settings_pkey; Type: CONSTRAINT; Schema: verification; Owner: admin
 --
 
 ALTER TABLE ONLY verification.settings
@@ -3691,7 +4031,7 @@ ALTER TABLE ONLY verification.settings
 
 
 --
--- Name: channels channels_pkey; Type: CONSTRAINT; Schema: voice; Owner: root
+-- Name: channels channels_pkey; Type: CONSTRAINT; Schema: voice; Owner: admin
 --
 
 ALTER TABLE ONLY voice.channels
@@ -3699,7 +4039,7 @@ ALTER TABLE ONLY voice.channels
 
 
 --
--- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: voice; Owner: root
+-- Name: config config_guild_id_key; Type: CONSTRAINT; Schema: voice; Owner: admin
 --
 
 ALTER TABLE ONLY voice.config
@@ -3707,7 +4047,7 @@ ALTER TABLE ONLY voice.config
 
 
 --
--- Name: channels channels_pkey; Type: CONSTRAINT; Schema: voicemaster; Owner: postgres
+-- Name: channels channels_pkey; Type: CONSTRAINT; Schema: voicemaster; Owner: admin
 --
 
 ALTER TABLE ONLY voicemaster.channels
@@ -3715,7 +4055,7 @@ ALTER TABLE ONLY voicemaster.channels
 
 
 --
--- Name: configuration configuration_pkey; Type: CONSTRAINT; Schema: voicemaster; Owner: postgres
+-- Name: configuration configuration_pkey; Type: CONSTRAINT; Schema: voicemaster; Owner: admin
 --
 
 ALTER TABLE ONLY voicemaster.configuration
@@ -3723,7 +4063,14 @@ ALTER TABLE ONLY voicemaster.configuration
 
 
 --
--- Name: albums albums_user_id_fkey; Type: FK CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: instance_info update_instance_info_updated_at; Type: TRIGGER; Schema: public; Owner: admin
+--
+
+CREATE TRIGGER update_instance_info_updated_at BEFORE UPDATE ON public.instance_info FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- Name: albums albums_user_id_fkey; Type: FK CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.albums
@@ -3731,7 +4078,7 @@ ALTER TABLE ONLY lastfm.albums
 
 
 --
--- Name: artists artists_user_id_fkey; Type: FK CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: artists artists_user_id_fkey; Type: FK CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.artists
@@ -3739,7 +4086,7 @@ ALTER TABLE ONLY lastfm.artists
 
 
 --
--- Name: crowns crowns_user_id_artist_fkey; Type: FK CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: crowns crowns_user_id_artist_fkey; Type: FK CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.crowns
@@ -3747,7 +4094,7 @@ ALTER TABLE ONLY lastfm.crowns
 
 
 --
--- Name: tracks tracks_user_id_fkey; Type: FK CONSTRAINT; Schema: lastfm; Owner: root
+-- Name: tracks tracks_user_id_fkey; Type: FK CONSTRAINT; Schema: lastfm; Owner: admin
 --
 
 ALTER TABLE ONLY lastfm.tracks
@@ -3755,7 +4102,7 @@ ALTER TABLE ONLY lastfm.tracks
 
 
 --
--- Name: config config_guild_id_fkey; Type: FK CONSTRAINT; Schema: level; Owner: root
+-- Name: config config_guild_id_fkey; Type: FK CONSTRAINT; Schema: level; Owner: admin
 --
 
 ALTER TABLE ONLY level.config
@@ -3763,7 +4110,7 @@ ALTER TABLE ONLY level.config
 
 
 --
--- Name: member member_guild_id_fkey; Type: FK CONSTRAINT; Schema: level; Owner: root
+-- Name: member member_guild_id_fkey; Type: FK CONSTRAINT; Schema: level; Owner: admin
 --
 
 ALTER TABLE ONLY level.member
@@ -3771,7 +4118,7 @@ ALTER TABLE ONLY level.member
 
 
 --
--- Name: notification notification_guild_id_fkey; Type: FK CONSTRAINT; Schema: level; Owner: root
+-- Name: notification notification_guild_id_fkey; Type: FK CONSTRAINT; Schema: level; Owner: admin
 --
 
 ALTER TABLE ONLY level.notification
@@ -3779,7 +4126,7 @@ ALTER TABLE ONLY level.notification
 
 
 --
--- Name: role role_guild_id_fkey; Type: FK CONSTRAINT; Schema: level; Owner: root
+-- Name: role role_guild_id_fkey; Type: FK CONSTRAINT; Schema: level; Owner: admin
 --
 
 ALTER TABLE ONLY level.role
@@ -3787,7 +4134,7 @@ ALTER TABLE ONLY level.role
 
 
 --
--- Name: playlist_tracks playlist_tracks_playlist_id_fkey; Type: FK CONSTRAINT; Schema: music; Owner: postgres
+-- Name: playlist_tracks playlist_tracks_playlist_id_fkey; Type: FK CONSTRAINT; Schema: music; Owner: admin
 --
 
 ALTER TABLE ONLY music.playlist_tracks
@@ -3795,7 +4142,7 @@ ALTER TABLE ONLY music.playlist_tracks
 
 
 --
--- Name: clownboard_entry clownboard_entry_guild_id_emoji_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: clownboard_entry clownboard_entry_guild_id_emoji_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.clownboard_entry
@@ -3803,7 +4150,7 @@ ALTER TABLE ONLY public.clownboard_entry
 
 
 --
--- Name: starboard_entry starboard_entry_guild_id_emoji_fkey; Type: FK CONSTRAINT; Schema: public; Owner: root
+-- Name: starboard_entry starboard_entry_guild_id_emoji_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.starboard_entry
@@ -3811,7 +4158,7 @@ ALTER TABLE ONLY public.starboard_entry
 
 
 --
--- Name: button button_guild_id_fkey; Type: FK CONSTRAINT; Schema: ticket; Owner: root
+-- Name: button button_guild_id_fkey; Type: FK CONSTRAINT; Schema: ticket; Owner: admin
 --
 
 ALTER TABLE ONLY ticket.button

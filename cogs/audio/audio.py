@@ -11,7 +11,6 @@ import psutil
 import hashlib
 import time
 import config
-# from posthog import Posthog
 
 import aiohttp
 import validators
@@ -28,7 +27,7 @@ from discord.ext.commands import (
 from discord.utils import as_chunks
 from humanfriendly import format_timespan
 from humanize import ordinal
-from pomice import LoopMode, Playlist, SearchType, Track, Player
+from pomice import LoopMode, Playlist, Track, Player
 from pomice.enums import URLRegex as regex
 
 from cogs.audio import Client, Percentage, Position
@@ -36,8 +35,6 @@ from main import Evict
 from core.client import Context as DefaultContext
 from tools.formatter import duration, plural, shorten
 from managers.paginator import Paginator
-
-import wavelink
 
 BASE_URL = "http://ws.audioscrobbler.com"
 
@@ -54,21 +51,8 @@ SOURCE_PATTERNS = (
     regex.SOUNDCLOUD_TRACK_IN_SET_URL,
 )
 
-# posthog_selfhost = None
-# if getattr(config.POSTHOG, 'TRACK_SELF', False):
-#     posthog_selfhost = Posthog(
-#         "phc_urcPFFBU0iLLTKBtmEfViMen8uFC8DiVnJorIcGmBBL",
-#         host="https://hog.evict.bot"
-#     )
-#     posthog_selfhost.batch_size = 50
-#     posthog_selfhost.max_queue_size = 10000
-#     posthog_selfhost.thread_count = 1
-#     posthog_selfhost.flush_interval = 0.5
-#     posthog_selfhost.debug = False
-
 class Context(DefaultContext):
     voice: Client
-
 
 class Audio(Cog):
     def __init__(self, bot: Evict):

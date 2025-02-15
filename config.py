@@ -25,7 +25,8 @@ class CLIENT:
     OWNER_IDS: list[int] = [
         598125772754124823,
         930383131863842816,
-        1272545050102071460
+        1272545050102071460,
+        1332327503062106154
     ]
     SUPPORT_URL: str = "https://discord.gg/evict"
     INVITE_URL: str = (
@@ -60,13 +61,6 @@ class LAVALINK:
     PORT: int = 2333
     PASSWORD: str = "youshallnotpass"
 
-class POSTHOG:
-    """
-    PostHog analytics class.
-    """
-    API_KEY: str = "phc_9CO68Be49weXo25XXmg0CY7wwFLl2HMzW5qoXWdH1J8"
-    HOST: str = "https://us.i.posthog.com"
-
 class STATUS:
     """
     Main IPC authentication class.
@@ -74,18 +68,11 @@ class STATUS:
     HOST: str = "0.0.0.0"
     PORT: int = 6000
 
-# class NETWORK:
-#     """
-#     Secondary IPC authentication class.
-#     """
-#     HOST: str = "0.0.0.0"
-#     PORT: int = 8759
-
 class DATABASE:
     """
     Postgres authentication class.
     """
-    DSN: str = os.getenv("DATABASE_DSN")
+    DSN: str = "postgres://postgres:admin@localhost/evict"
 
 class REDIS:
     """
@@ -93,8 +80,7 @@ class REDIS:
     """
     DB: int = 0
     HOST: str = "localhost"
-    PORT: int = 6380
-    PASSWORD: str = "eFbs45tE0jCLdA5UU07sh9t"
+    PORT: int = 6379
 
 class AUTHORIZATION:
     """

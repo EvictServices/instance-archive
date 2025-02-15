@@ -1,7 +1,8 @@
-from PIL import Image, ImageEnhance, ImageDraw, ImageFilter, ImageColor, ImageFont, ImageSequence
-from io import BytesIO
 import math
 import random
+
+from PIL import Image, ImageEnhance, ImageDraw, ImageFilter, ImageColor, ImageFont, ImageSequence
+from io import BytesIO
 from typing import Optional
 from discord.ext.commands import Context
 

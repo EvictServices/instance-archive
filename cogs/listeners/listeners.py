@@ -2,7 +2,7 @@ import datetime
 import discord
 import config
 
-from main import evict
+from main import Evict
 
 from discord import (
     abc,
@@ -18,7 +18,7 @@ from typing import cast
 from contextlib import suppress
 
 class Listeners(Cog):
-    def __init__(self, bot: evict):
+    def __init__(self, bot: Evict):
         self.bot = bot
 
     @Cog.listener("on_guild_join")
@@ -181,7 +181,7 @@ class Listeners(Cog):
         check = await self.bot.db.fetchrow(
             """
             SELECT * FROM mod 
-            WHERE guild_id = {}
+            WHERE guild_id = $1
             """,
             channel.guild.id
         )

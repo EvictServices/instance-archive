@@ -58,9 +58,9 @@ nudenet
 gitpython
 chat_exporter
 matplotlib
-posthog
 scipy
 plotly
 python-dotenv
 stripe
 unidecode
+boto3

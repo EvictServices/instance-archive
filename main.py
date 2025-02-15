@@ -9,8 +9,6 @@ import jishaku.flags
 import config
 import asyncio
 import discord_ios
-import socket
-import aiohttp
 
 from contextlib import suppress
 from datetime import datetime
@@ -21,7 +19,6 @@ from collections.abc import Mapping
 from typing import Any, Collection, Dict, Optional, cast
 from humanfriendly import format_timespan
 from colorama import Fore, Style
-from posthog import Posthog
 from aiohttp import ClientSession, TCPConnector
 from asyncpraw import Reddit as RedditClient
 from cashews import cache
@@ -41,7 +38,6 @@ from tools.translator import Translator
 from tools.formatter import human_join, plural
 
 from multiprocessing import Pool, cpu_count
-from functools import partial
 
 from managers.parser.TagScript.exceptions import EmbedParseError, TagScriptError
 
@@ -118,23 +114,26 @@ jishaku.Flags.FORCE_PAGINATOR = True
 
 log = logging.getLogger(__name__)
 
-posthog = Posthog(
-    "phc_9CO68Be49weXo25XXmg0CY7wwFLl2HMzW5qoXWdH1J8", host="https://us.i.posthog.com"
-)
-
-
 async def getprefix(bot, message):
     if not message.guild:
         return os.getenv("BOT_PREFIX", ";")
 
     check = await bot.db.fetchrow(
-        "SELECT * FROM selfprefix WHERE user_id = $1", message.author.id
+        """
+        SELECT * FROM selfprefix 
+        WHERE user_id = $1
+        """, 
+        message.author.id
     )
     if check:
         selfprefix = check["prefix"]
 
     res = await bot.db.fetchrow(
-        "SELECT * FROM prefixex WHERE guild_id = $1", message.guild.id
+        """
+        SELECT * FROM prefix 
+        WHERE guild_id = $1
+        """, 
+        message.guild.id
     )
     if res:
         guildprefix = res["prefix"]
@@ -925,15 +924,6 @@ class Evict(commands.AutoShardedBot):
             
             await asyncio.sleep(30)
 
-    # async def start(self, token: str, *, reconnect: bool = True) -> None:
-    #     self._connection.http.connector = aiohttp.TCPConnector(
-    #         limit=0, family=socket.AF_INET, local_addr=("23.160.168.182", 0)
-    #     )
-    #     try:
-    #         return await super().start(token, reconnect=reconnect)
-    #     except Exception as e:
-    #         print(f"An error occurred while starting the bot: {e}")
-
     async def check_guild_ratelimit(self, message) -> bool:
         if not message.guild:
             return True
@@ -947,7 +937,9 @@ class Evict(commands.AutoShardedBot):
         return not bool(retry_after)
 
     async def update_activity(self, activity_type: str = None, text: str = None, url: str = None):
-        """Updates the bot's activity in both database and real-time"""
+        """
+        Updates the bot's activity in both database and real-time.
+        """
         if activity_type or text or url:
             update_parts = []
             values = []

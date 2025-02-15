@@ -1,11 +1,21 @@
-from contextlib import suppress
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from logging import getLogger
 from time import time
 from typing import Annotated, List, Optional, cast
 from colorama import Fore
+from humanize import naturaldelta
+from pydantic import BaseConfig, BaseModel, validator
+from typing_extensions import Self
+from xxhash import xxh32_hexdigest
 
-from config import EMOJIS
+from main import Evict
+from core.client import Context, FlagConverter
+from config import EMOJIS, CLIENT
+from cogs.moderation.classes import ModConfig
+from managers.paginator import Paginator
+from tools import CompositeMetaClass, MixinMeta
+from tools.conversion import Duration, Status
+from tools.formatter import plural
 
 from discord import (
     AuditLogEntry,
@@ -17,23 +27,14 @@ from discord import (
     Object,
     User,
 )
-from discord.ext.commands import Cog, Range, flag, group, hybrid_command, hybrid_group
-from discord.utils import utcnow
-from humanize import naturaldelta
-from pydantic import BaseConfig, BaseModel
-from typing_extensions import Self
-from xxhash import xxh32_hexdigest
-
-from config import CLIENT
-from main import evict
-from tools import CompositeMetaClass, MixinMeta
-from core.client import Context, FlagConverter
-from tools.conversion import Duration, Status
-from tools.formatter import codeblock, plural
-from managers.paginator import Paginator
+from discord.ext.commands import (
+    Cog, 
+    Range, 
+    flag, 
+    hybrid_group
+)
 
 log = getLogger("evict/nuke")
-
 
 class Flags(FlagConverter):
     threshold: Range[int, 1, 12] = flag(
@@ -49,11 +50,22 @@ class Flags(FlagConverter):
         default=timedelta(minutes=60),
         description="The duration before the threshold resets.",
     )
+    punishment: str = flag(
+        default="ban",
+        description="The punishment to apply (ban/kick/strip)"
+    )
 
 
 class Module(BaseModel):
     threshold: int = 5
     duration: int = 60
+    punishment: str = "ban"
+
+    @validator("punishment", allow_reuse=True)
+    def validate_punishment(cls, v):
+        if v not in ["ban", "kick", "strip"]:
+            raise ValueError("Punishment must be ban, kick, or strip")
+        return v
 
 
 class Settings(BaseModel):
@@ -67,6 +79,9 @@ class Settings(BaseModel):
     channel: Optional[Module]
     webhook: Optional[Module]
     emoji: Optional[Module]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def __bool__(self) -> bool:
         """
@@ -107,78 +122,42 @@ class Settings(BaseModel):
 
     async def dispatch_log(
         self,
-        bot: evict,
-        member: Member,
-        module: str,
+        bot: Evict,
+        perpetrator: Member,
         *,
-        elapsed: float = 0.0,
+        module: str,
+        elapsed: float,
         failure: bool = False,
         details: Optional[str] = None,
         description: Optional[str] = None,
-        application: Optional[Member | User | Object] = None,
+        **kwargs,
     ) -> None:
         """
-        Notify the guild owner of a malicious action.
+        Dispatch a log message.
         """
-
-        guild = member.guild
-        if not guild.owner:
+        current_time = datetime.now(timezone.utc)
+        module_config = getattr(self, module)
+        if not module_config:
             return
 
-        key = xxh32_hexdigest(f"antinuke.log:{guild.id}:{module}")
-        locked = await bot.redis.get(key)
-        if locked:
-            return
-
-        await bot.redis.set(key, 1, 60)
-        log.debug(
-            "Dispatching antinuke log for %s (%s) in %s (%s).",
-            member,
-            member.id,
-            guild,
-            guild.id,
-        )
-
-        embed = Embed(
-            title="Antinuke Notification",
-            timestamp=utcnow(),
-        )
-        embed.set_author(
-            url=guild.vanity_url,
-            name=guild.name,
-            icon_url=guild.icon,
-        )
-        embed.add_field(
-            name="**Perpetrator**",
-            value=f"{member} (`{member.id}`)",
-        )
-        if application:
-            embed.add_field(
-                name="**Application**",
-                value=f"{application} (`{application.id}`)",
-            )
-
-        embed.set_footer(text=f"Action took {elapsed:.2f}s")
-
-        embed.description = description or (
-            f"Mass {module} attempt has been detected!"
-            if module != "bot"
-            else "Bot addition attempt has been detected!"
-        )
-        if failure:
-            embed.description += "\n> **FAILED TO PUNISH PERPETRATOR!**"
-
+        action = f"antinuke {module_config.punishment}"
+        reason = description or f"Mass {module} attempt detected"
         if details:
-            embed.add_field(
-                name="**Details**",
-                value=f"{codeblock(details)}",
-                inline=False,
-            )
+            reason += f" | {details}"
 
-        with suppress(HTTPException):
-            await guild.owner.send(embed=embed)
+        bot_member = self.guild.get_member(bot.user.id)
+        if not bot_member:
+            return
 
-    async def check_threshold(self, bot: evict, member: Member, module: str) -> bool:
+        await ModConfig.sendlogs(
+            bot,
+            action,
+            bot_member,
+            perpetrator,
+            reason
+        )
+
+    async def check_threshold(self, bot: Evict, member: Member, module: str) -> bool:
         """
         Check if a member exceeds the threshold for a module.
         """
@@ -208,7 +187,7 @@ class Settings(BaseModel):
         return False
 
     @classmethod
-    async def revalidate(cls, bot: evict, guild: Guild) -> Optional[Self]:
+    async def revalidate(cls, bot: Evict, guild: Guild) -> Optional[Self]:
         """
         Revalidate the settings for a guild.
         This will update the cache in redis.
@@ -233,7 +212,7 @@ class Settings(BaseModel):
         return settings
 
     @classmethod
-    async def fetch(cls, bot: evict, guild: Guild) -> Self:
+    async def fetch(cls, bot: Evict, guild: Guild) -> Self:
         """
         Fetch the settings for a guild.
         This will cache the settings in redis.
@@ -249,14 +228,21 @@ class Settings(BaseModel):
 
         record = await bot.db.fetchrow(
             """
-            INSERT INTO antinuke (guild_id)
-            VALUES ($1)
-            ON CONFLICT (guild_id)
-            DO NOTHING
-            RETURNING *
+            SELECT * FROM antinuke 
+            WHERE guild_id = $1
             """,
             guild.id,
         )
+        
+        if not record:
+            record = await bot.db.fetchrow(
+                """
+                INSERT INTO antinuke (guild_id)
+                VALUES ($1)
+                RETURNING *
+                """,
+                guild.id,
+            )
 
         settings = cls(**record or {}, guild=guild)
         await bot.redis.set(key, settings.dict(exclude={"guild"}))
@@ -409,6 +395,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
         aliases=["wl"],
         invoke_without_command=True,
         brief="antinuke admin or guild owner",
+        example="@x"
     )
     async def antinuke_whitelist(self, ctx: Context, *, member: User) -> Message:
         """
@@ -473,6 +460,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
         aliases=["admin"],
         invoke_without_command=True,
         brief="antinuke admin or guild owner",
+        example="@x",
     )
     async def antinuke_trust(self, ctx: Context, *, member: User) -> Message:
         """
@@ -539,6 +527,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             "botadd",
         ],
         brief="antinuke admin or guild owner",
+        example="on",
     )
     async def antinuke_bot(
         self,
@@ -579,6 +568,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
         name="ban",
         aliases=["bans"],
         brief="antinuke admin or guild owner",
+        example="(on/off) (--threshold 5) (--time 1h) (--punishment ban)",
     )
     async def antinuke_ban(
         self,
@@ -592,7 +582,6 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
     ) -> Message:
         """
         Prevent members from being banned.
-
         """
 
         config = await Settings.fetch(self.bot, ctx.guild)
@@ -601,11 +590,16 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
                 "The **antinuke system** isn't preventing members from being banned!"
             )
 
+        punishment = flags.punishment.lower()
+        if punishment not in ["ban", "kick", "strip"]:
+            return await ctx.warn("Punishment must be `ban`, `kick`, or `strip`")
+
         config.ban = None
         if status:
             config.ban = Module(
                 threshold=flags.threshold,
                 duration=int(flags.duration.total_seconds()),
+                punishment=punishment
             )
 
         await self.bot.db.execute(
@@ -623,13 +617,14 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             return await ctx.approve("No longer preventing members from being banned")
 
         return await ctx.approve(
-            f"Now punishing the perpetrator if {plural(flags.threshold, md='`'):member is|members are} banned within **{naturaldelta(flags.duration)}**"
+            f"Now applying **{punishment}** punishment if {plural(flags.threshold, md='`'):member is|members are} banned within **{naturaldelta(flags.duration)}**"
         )
 
     @antinuke.command(
         name="kick",
         aliases=["kicks"],
         brief="antinuke admin or guild owner",
+        example="(on/off) (--threshold 5) (--time 1h) (--punishment ban)",
     )
     async def antinuke_kick(
         self,
@@ -656,6 +651,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             config.kick = Module(
                 threshold=flags.threshold,
                 duration=int(flags.duration.total_seconds()),
+                punishment=flags.punishment
             )
 
         await self.bot.db.execute(
@@ -680,6 +676,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
         name="role",
         aliases=["roles"],
         brief="antinuke admin or guild owner",
+        example="(on/off) (--threshold 5) (--time 1h) (--punishment ban)",
     )
     async def antinuke_role(
         self,
@@ -706,6 +703,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             config.role = Module(
                 threshold=flags.threshold,
                 duration=int(flags.duration.total_seconds()),
+                punishment=flags.punishment
             )
 
         await self.bot.db.execute(
@@ -730,6 +728,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
         name="channel",
         aliases=["channels"],
         brief="antinuke admin or guild owner",
+        example="(on/off) (--threshold 5) (--time 1h) (--punishment ban)",
     )
     async def antinuke_channel(
         self,
@@ -756,6 +755,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             config.channel = Module(
                 threshold=flags.threshold,
                 duration=int(flags.duration.total_seconds()),
+                punishment=flags.punishment
             )
 
         await self.bot.db.execute(
@@ -785,6 +785,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             "wh",
         ],
         brief="antinuke admin or guild owner",
+        example="(on/off) (--threshold 5) (--time 1h) (--punishment ban)",
     )
     async def antinuke_webhook(
         self,
@@ -811,6 +812,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             config.webhook = Module(
                 threshold=flags.threshold,
                 duration=int(flags.duration.total_seconds()),
+                punishment=flags.punishment
             )
 
         await self.bot.db.execute(
@@ -840,6 +842,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             "em",
         ],
         brief="antinuke admin or guild owner",
+        example="(on/off) (--threshold 5) (--time 1h) (--punishment ban)",
     )
     async def antinuke_emoji(
         self,
@@ -866,6 +869,7 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             config.emoji = Module(
                 threshold=flags.threshold,
                 duration=int(flags.duration.total_seconds()),
+                punishment=flags.punishment
             )
 
         await self.bot.db.execute(
@@ -982,13 +986,12 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
 
         elapsed = time() - start
         try:
-            await guild.ban(
-                perpetrator,
-                reason=(
-                    "User exceeded the antinuke ban threshold "
-                    f"({plural(config.ban.threshold):ban} in {naturaldelta(config.ban.duration)})"
-                ),
-            )
+            if config.ban.punishment == "ban":
+                await guild.ban(perpetrator, reason="Mass ban attempt detected")
+            elif config.ban.punishment == "kick":
+                await guild.kick(perpetrator, reason="Mass ban attempt detected")
+            elif config.ban.punishment == "strip":
+                await perpetrator.edit(roles=[], reason="Mass ban attempt detected")
         except HTTPException as exc:
             return await config.dispatch_log(
                 self.bot,
@@ -1004,6 +1007,13 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             perpetrator,
             module="ban",
             elapsed=elapsed,
+        )
+
+        await self.notify_perpetrator(
+            self.bot,
+            perpetrator,
+            module="ban",
+            details=exc.text,
         )
 
     @Cog.listener("on_audit_log_entry_kick")
@@ -1029,13 +1039,13 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
 
         elapsed = time() - start
         try:
-            await guild.ban(
-                perpetrator,
-                reason=(
-                    "User exceeded the antinuke kick threshold "
-                    f"({plural(config.kick.threshold):kick} in {naturaldelta(config.kick.duration)})"
-                ),
-            )
+            if config.kick.punishment == "ban":
+                await guild.ban(perpetrator, reason="Mass kick attempt detected")
+            elif config.kick.punishment == "kick":
+                await guild.kick(perpetrator, reason="Mass kick attempt detected")
+            elif config.kick.punishment == "strip":
+                await perpetrator.edit(roles=[], reason="Mass kick attempt detected")
+
         except HTTPException as exc:
             return await config.dispatch_log(
                 self.bot,
@@ -1051,6 +1061,13 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             perpetrator,
             module="kick",
             elapsed=elapsed,
+        )
+
+        await self.notify_perpetrator(
+            self.bot,
+            perpetrator,
+            module="kick",
+            details=exc.text,
         )
 
     @Cog.listener("on_audit_log_entry_role_create")
@@ -1087,13 +1104,13 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             )
         )
         try:
-            await guild.ban(
-                perpetrator,
-                reason=(
-                    "User exceeded the antinuke role threshold "
-                    f"({plural(config.role.threshold):role} {verb[0]} in {naturaldelta(config.role.duration)})"
-                ),
-            )
+            if config.role.punishment == "ban":
+                await guild.ban(perpetrator)
+            elif config.role.punishment == "kick":
+                await guild.kick(perpetrator)
+            elif config.role.punishment == "strip":
+                await perpetrator.remove_roles(*perpetrator.roles[1:])
+
         except HTTPException as exc:
             return await config.dispatch_log(
                 self.bot,
@@ -1110,6 +1127,14 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             perpetrator,
             module="role",
             elapsed=elapsed,
+            description=f"Role {verb[1]} attempt has been detected!",
+        )
+
+        await self.notify_perpetrator(
+            self.bot,
+            perpetrator,
+            module="role",
+            details=exc.text,
             description=f"Role {verb[1]} attempt has been detected!",
         )
 
@@ -1147,13 +1172,13 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             )
         )
         try:
-            await guild.ban(
-                perpetrator,
-                reason=(
-                    "User exceeded the antinuke channel threshold "
-                    f"({plural(config.channel.threshold):channel} {verb[0]} in {naturaldelta(config.channel.duration)})"
-                ),
-            )
+            if config.channel.punishment == "ban":
+                await guild.ban(perpetrator, reason=f"Channel {verb[1]} attempt detected")
+            elif config.channel.punishment == "kick":
+                await guild.kick(perpetrator, reason=f"Channel {verb[1]} attempt detected")
+            elif config.channel.punishment == "strip":
+                await perpetrator.edit(roles=[], reason=f"Channel {verb[1]} attempt detected")
+
         except HTTPException as exc:
             return await config.dispatch_log(
                 self.bot,
@@ -1162,7 +1187,6 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
                 elapsed=elapsed,
                 failure=True,
                 details=exc.text,
-                description=f"Channel {verb[1]} attempt has been detected!",
             )
 
         await config.dispatch_log(
@@ -1170,7 +1194,13 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             perpetrator,
             module="channel",
             elapsed=elapsed,
-            description=f"Channel {verb[1]} attempt has been detected!",
+        )
+
+        await self.notify_perpetrator(
+            self.bot,
+            perpetrator,
+            module="channel",
+            details=exc.text,
         )
 
     @Cog.listener("on_audit_log_entry_webhook_create")
@@ -1196,13 +1226,13 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
 
         elapsed = time() - start
         try:
-            await guild.ban(
-                perpetrator,
-                reason=(
-                    "User exceeded the antinuke webhook threshold "
-                    f"({plural(config.webhook.threshold):webhook} in {naturaldelta(config.webhook.duration)})"
-                ),
-            )
+            if config.webhook.punishment == "ban":
+                await guild.ban(perpetrator, reason="Webhook creation attempt detected")
+            elif config.webhook.punishment == "kick":
+                await guild.kick(perpetrator, reason="Webhook creation attempt detected")
+            elif config.webhook.punishment == "strip":
+                await perpetrator.edit(roles=[], reason="Webhook creation attempt detected")
+
         except HTTPException as exc:
             return await config.dispatch_log(
                 self.bot,
@@ -1218,6 +1248,13 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             perpetrator,
             module="webhook",
             elapsed=elapsed,
+        )
+
+        await self.notify_perpetrator(
+            self.bot,
+            perpetrator,
+            module="webhook",
+            details=exc.text,
         )
 
     @Cog.listener("on_audit_log_entry_emoji_create")
@@ -1254,13 +1291,13 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             )
         )
         try:
-            await guild.ban(
-                perpetrator,
-                reason=(
-                    "User exceeded the antinuke emoji threshold "
-                    f"({plural(config.emoji.threshold):emoji} {verb[0]} in {naturaldelta(config.emoji.duration)})"
-                ),
-            )
+            if config.emoji.punishment == "ban":
+                await guild.ban(perpetrator, reason=f"Emoji {verb[1]} attempt detected")
+            elif config.emoji.punishment == "kick":
+                await guild.kick(perpetrator, reason=f"Emoji {verb[1]} attempt detected")
+            elif config.emoji.punishment == "strip":
+                await perpetrator.edit(roles=[], reason=f"Emoji {verb[1]} attempt detected")
+                
         except HTTPException as exc:
             return await config.dispatch_log(
                 self.bot,
@@ -1269,7 +1306,6 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
                 elapsed=elapsed,
                 failure=True,
                 details=exc.text,
-                description=f"Emoji {verb[1]} attempt has been detected!",
             )
 
         await config.dispatch_log(
@@ -1277,5 +1313,48 @@ class AntiNuke(MixinMeta, metaclass=CompositeMetaClass):
             perpetrator,
             module="emoji",
             elapsed=elapsed,
-            description=f"Emoji {verb[1]} attempt has been detected!",
+        )
+
+        await self.notify_perpetrator(
+            self.bot,
+            perpetrator,
+            module="emoji",
+            details=exc.text,
+        )
+
+    async def notify_perpetrator(
+        self,
+        bot: Evict,
+        perpetrator: Member,
+        *,
+        module: str,
+        details: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -> None:
+        """
+        Create case and notify the perpetrator.
+        """
+        config = await Settings.fetch(bot, perpetrator.guild)
+        if not config:
+            return
+            
+        bot_member = perpetrator.guild.get_member(bot.user.id)
+        if not bot_member:
+            return
+
+        module_config = getattr(config, module)
+        if not module_config:
+            return
+
+        action = f"antinuke {module_config.punishment}" 
+        reason = description or f"Mass {module} attempt detected"
+        if details:
+            reason += f" | {details}"
+
+        await ModConfig.sendlogs(
+            bot,
+            action,
+            bot_member,
+            perpetrator,
+            reason
         )

@@ -14,9 +14,10 @@ from discord import (
     Member, 
     User, 
     Embed,
-    Interaction
+    Interaction,
+    ButtonStyle
 )
-from discord.ui import Button, ButtonStyle, View
+from discord.ui import Button, View
 from discord.ext import commands
 
 class Mod:

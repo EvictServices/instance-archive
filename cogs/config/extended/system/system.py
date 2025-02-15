@@ -1,9 +1,11 @@
-import discord
-import datetime
+import time
+import asyncio
+
 from contextlib import suppress
-from itertools import groupby
 from logging import getLogger
 from typing import List, Optional, cast
+from humanfriendly import format_timespan
+from xxhash import xxh32_hexdigest
 
 from discord import (
     Embed,
@@ -11,23 +13,20 @@ from discord import (
     Member,
     Message,
     MessageType,
-    PartialMessage,
     TextChannel,
     Thread,
 )
 from discord.ext.commands import Cog, Range, flag, group, has_permissions
-from humanfriendly import format_timespan
-from xxhash import xxh32_hexdigest
 
-from tools import CompositeMetaClass, MixinMeta
-from core.client import Context, FlagConverter
-from tools.formatter import codeblock, plural, vowel
 from managers.paginator import Paginator
+from ..joindm.joindm import InfoView
+from tools import CompositeMetaClass, MixinMeta
+from tools.formatter import codeblock, plural
 from tools.conversion.embed import EmbedScript as Script
+from core.client import Context, FlagConverter
 
 log = getLogger("evict/system")
 poj_cache = {}
-
 
 class Flags(FlagConverter):
     delete_after: Range[int, 3, 120] = flag(
@@ -36,11 +35,97 @@ class Flags(FlagConverter):
         default=0,
     )
 
-
 class System(MixinMeta, metaclass=CompositeMetaClass):
     """
     The System mixin provides tools for automating messages.
     """
+
+    async def _get_cached_messages(self, guild_id: int, message_type: str) -> Optional[List[dict]]:
+        if not hasattr(self, '_cache_ttl'):
+            self._cache_ttl = 300  
+            
+        try:
+            cache_dict = getattr(self, f"_{message_type}_cache")
+        except AttributeError:
+            setattr(self, f"_{message_type}_cache", {})
+            cache_dict = getattr(self, f"_{message_type}_cache")
+            
+        cache_key = f"{message_type}_{guild_id}"
+        cached = cache_dict.get(cache_key)
+        
+        if cached and cached['timestamp'] + self._cache_ttl > time.time():
+            return cached['data']
+        
+        records = await self.bot.db.fetch(
+            f"""
+            SELECT channel_id, template, delete_after
+            FROM {message_type}_message
+            WHERE guild_id = $1
+            """,
+            guild_id,
+        )
+        
+        cache_dict[cache_key] = {
+            'timestamp': time.time(),
+            'data': records
+        }
+        return records
+
+    async def _process_message_send(self, member: Member, message_type: str) -> List[Message]:
+        sent_messages: List[Message] = []
+        guild = member.guild
+        scheduled_deletion: List[int] = []
+
+        records = await self._get_cached_messages(guild.id, message_type)
+        if not records:
+            return sent_messages
+
+        async def process_single_message(record):
+            channel_id = cast(int, record["channel_id"])
+            channel = cast(Optional[TextChannel | Thread], 
+                         guild.get_channel_or_thread(channel_id))
+
+            if not channel:
+                scheduled_deletion.append(channel_id)
+                return None
+
+            try:
+                x = await self.bot.embed_build.alt_convert(member, record["template"])
+                message = await channel.send(**x)
+                
+                if record["delete_after"]:
+                    await message.delete(delay=record["delete_after"])
+                return message
+            except HTTPException as exc:
+                await self.notify_failure(message_type, channel, member, x, exc)
+                scheduled_deletion.append(channel_id)
+                return None
+
+        messages = await asyncio.gather(
+            *[process_single_message(record) for record in records],
+            return_exceptions=True
+        )
+        
+        sent_messages = [msg for msg in messages if msg and not isinstance(msg, Exception)]
+
+        if scheduled_deletion:
+            await self.bot.db.execute(
+                f"""
+                DELETE FROM {message_type}_message
+                WHERE channel_id = ANY($1::BIGINT[])
+                """,
+                scheduled_deletion,
+            )
+
+        if sent_messages and message_type == 'welcome':
+            key = self.welcome_key(member)
+            await self.bot.redis.sadd(
+                key,
+                *[f"{message.channel.id}.{message.id}" for message in sent_messages],
+                ex=3000,
+            )
+
+        return sent_messages
 
     def welcome_key(self, member: Member) -> str:
         return xxh32_hexdigest(f"welcome.{member.guild.id}:{member.id}")
@@ -84,81 +169,80 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
 
     @Cog.listener("on_member_join")
     async def welcome_send(self, member: Member) -> List[Message]:
-        """
-        Send the greet messages for the member.
-        """
-
-        guild = member.guild
-        records = await self.bot.db.fetch(
-            """
-            SELECT channel_id, template, delete_after
-            FROM welcome_message
-            WHERE guild_id = $1
-            """,
-            guild.id,
-        )
-
-        sent_messages: List[Message] = []
-        scheduled_deletion: List[int] = []
-
-        for record in records:
-            channel_id = cast(int, record["channel_id"])
-            channel = cast(
-                Optional[TextChannel | Thread], guild.get_channel_or_thread(channel_id)
-            )
-
-            if not channel:
-                scheduled_deletion.append(channel_id)
-                continue
-
-            x = await self.bot.embed_build.alt_convert(member, record["template"])
-
+        sent_messages = await self._process_message_send(member, 'welcome')
+        
+        if not member.bot:
             try:
-                message = await channel.send(**x)
-            except HTTPException as exc:
-                await self.notify_failure("greet", channel, member, x, exc)
-                scheduled_deletion.append(channel_id)
-            else:
-                if record["delete_after"]:
-                    await message.delete(delay=record["delete_after"])
-                else:
-                    sent_messages.append(message)
+                async with self.bot.db.acquire() as conn:
+                    config = await conn.fetchrow(
+                        """
+                        SELECT * FROM joindm.config
+                        WHERE guild_id = $1 AND enabled = true
+                        """,
+                        member.guild.id
+                    )
 
-        if scheduled_deletion:
-            log.info(
-                "Scheduled deletion of %s greet message%s for %s (%s).",
-                len(scheduled_deletion),
-                "s" if len(scheduled_deletion) > 1 else "",
-                guild,
-                guild.id,
-            )
-
-            await self.bot.db.execute(
-                """
-                DELETE FROM welcome_message
-                WHERE channel_id = ANY($1::BIGINT[])
-                """,
-                scheduled_deletion,
-            )
-
-        if sent_messages:
-            key = self.welcome_key(member)
-            await self.bot.redis.sadd(
-                key,
-                *[f"{message.channel.id}.{message.id}" for message in sent_messages],
-                ex=3000,
-            )
-
-            log.debug(
-                "Sent %s greet message%s for %r in %s (%s).",
-                len(sent_messages),
-                "s" if len(sent_messages) > 1 else "",
-                member.name,
-                guild,
-                guild.id,
-            )
+                    if config and config['message']:
+                        script = await self.bot.embed_build.alt_convert(member, config['message'])
+                        view = InfoView(member.guild.id)
+                        if isinstance(script, dict):
+                            script['view'] = view
+                        dm = await member.send(**script)
+                        sent_messages.append(dm)
+            except HTTPException:
+                pass  
 
         return sent_messages
+
+    @Cog.listener("on_member_remove")
+    async def welcome_delete(self, member: Member):
+        guild = member.guild
+        key = self.welcome_key(member)
+        
+        removal, identifiers = await asyncio.gather(
+            self.bot.db.fetchval(
+                """
+                SELECT welcome_removal 
+                FROM settings 
+                WHERE guild_id = $1
+                """,
+                guild.id
+            ),
+            self.bot.redis.smembers(key)
+        )
+        
+        if not (removal and identifiers):
+            return
+
+        channel_messages = {}
+        for identifier in identifiers:
+            channel_id, message_id = map(int, identifier.split("."))
+            channel = guild.get_channel_or_thread(channel_id)
+            if isinstance(channel, (TextChannel, Thread)):
+                if channel_id not in channel_messages:
+                    channel_messages[channel_id] = []
+                channel_messages[channel_id].append(
+                    channel.get_partial_message(message_id)
+                )
+
+        deletion_tasks = []
+        for channel_id, messages in channel_messages.items():
+            channel = guild.get_channel_or_thread(channel_id)
+            if channel:
+                deletion_tasks.append(
+                    asyncio.create_task(channel.delete_messages(messages))
+                )
+
+        if deletion_tasks:
+            await asyncio.gather(*deletion_tasks, return_exceptions=True)
+
+    @Cog.listener("on_member_remove")
+    async def goodbye_send(self, member: Member) -> List[Message]:
+        return await self._process_message_send(member, 'goodbye')
+
+    @Cog.listener("on_member_boost")
+    async def boost_send(self, member: Member) -> List[Message]:
+        return await self._process_message_send(member, 'boost')
 
     @Cog.listener("on_message")
     async def welcome_system(self, message: Message):
@@ -178,199 +262,6 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
             f"{message.channel.id}.{message.id}",
             ex=3000,
         )
-
-    @Cog.listener("on_member_remove")
-    async def welcome_delete(self, member: Member):
-        """
-        Remove welcome messages when a member leaves.
-        """
-
-        guild = member.guild
-        key = self.welcome_key(member)
-        identifiers = await self.bot.redis.smembers(key)
-        if not identifiers:
-            return
-
-        removal = cast(
-            Optional[bool],
-            await self.bot.db.fetchval(
-                """
-                SELECT welcome_removal
-                FROM settings
-                WHERE guild_id = $1
-                """,
-                member.guild.id,
-            ),
-        )
-        if not removal:
-            return
-
-        partial_messages: List[PartialMessage] = []
-        for identifier in identifiers:
-            channel_id, message_id = identifier.split(".")
-            channel = guild.get_channel_or_thread(int(channel_id))
-            if not isinstance(channel, (TextChannel, Thread)):
-                continue
-
-            message = channel.get_partial_message(int(message_id))
-            partial_messages.append(message)
-
-        for channel, messages in groupby(
-            partial_messages, lambda message: message.channel
-        ):
-            if not isinstance(channel, (TextChannel, Thread)):
-                continue
-
-            with suppress(HTTPException):
-                await channel.delete_messages(messages)
-
-    @Cog.listener("on_member_remove")
-    async def goodbye_send(self, member: Member) -> List[Message]:
-        """
-        Send the leave messages for the member.
-        """
-
-        guild = member.guild
-        records = await self.bot.db.fetch(
-            """
-            SELECT channel_id, template, delete_after
-            FROM goodbye_message
-            WHERE guild_id = $1
-            """,
-            guild.id,
-        )
-
-        sent_messages: List[Message] = []
-        scheduled_deletion: List[int] = []
-
-        for record in records:
-            channel_id = cast(int, record["channel_id"])
-            channel = cast(
-                Optional[TextChannel | Thread], guild.get_channel_or_thread(channel_id)
-            )
-
-            if not channel:
-                scheduled_deletion.append(channel_id)
-                continue
-
-            x = await self.bot.embed_build.alt_convert(member, record["template"])
-
-            if not channel:
-                scheduled_deletion.append(channel_id)
-                continue
-
-            try:
-                message = await channel.send(**x)
-            except HTTPException as exc:
-                await self.notify_failure("leave", channel, member, x, exc)
-                scheduled_deletion.append(channel_id)
-            else:
-                sent_messages.append(message)
-                if record["delete_after"]:
-                    await message.delete(delay=record["delete_after"])
-
-        if scheduled_deletion:
-            log.info(
-                "Scheduled deletion of %s goodbye message%s for %s (%s).",
-                len(scheduled_deletion),
-                "s" if len(scheduled_deletion) > 1 else "",
-                guild,
-                guild.id,
-            )
-
-            await self.bot.db.execute(
-                """
-                DELETE FROM goodbye_message
-                WHERE channel_id = ANY($1::BIGINT[])
-                """,
-                scheduled_deletion,
-            )
-
-        if sent_messages:
-            log.debug(
-                "Sent %s goodbye message%s for %r in %s (%s).",
-                len(sent_messages),
-                "s" if len(sent_messages) > 1 else "",
-                member.name,
-                guild,
-                guild.id,
-            )
-
-        return sent_messages
-
-    @Cog.listener("on_member_boost")
-    async def boost_send(self, member: Member) -> List[Message]:
-        """
-        Send the boost messages for the member.
-        """
-
-        guild = member.guild
-        records = await self.bot.db.fetch(
-            """
-            SELECT channel_id, template, delete_after
-            FROM boost_message
-            WHERE guild_id = $1
-            """,
-            guild.id,
-        )
-
-        sent_messages: List[Message] = []
-        scheduled_deletion: List[int] = []
-
-        for record in records:
-            channel_id = cast(int, record["channel_id"])
-            channel = cast(
-                Optional[TextChannel | Thread], guild.get_channel_or_thread(channel_id)
-            )
-
-            if not channel:
-                scheduled_deletion.append(channel_id)
-                continue
-
-            x = await self.bot.embed_build.alt_convert(member, record["template"])
-
-            if not channel:
-                scheduled_deletion.append(channel_id)
-                continue
-
-            try:
-                message = await channel.send(**x)
-            except HTTPException as exc:
-                await self.notify_failure("boost", channel, member, x, exc)
-                scheduled_deletion.append(channel_id)
-            else:
-                sent_messages.append(message)
-                if record["delete_after"]:
-                    await message.delete(delay=record["delete_after"])
-
-        if scheduled_deletion:
-            log.info(
-                "Scheduled deletion of %s boost message%s for %s (%s).",
-                len(scheduled_deletion),
-                "s" if len(scheduled_deletion) > 1 else "",
-                guild,
-                guild.id,
-            )
-
-            await self.bot.db.execute(
-                """
-                DELETE FROM boost_message
-                WHERE channel_id = ANY($1::BIGINT[])
-                """,
-                scheduled_deletion,
-            )
-
-        elif sent_messages:
-            log.debug(
-                "Sent %s boost message%s for %r in %s (%s)..",
-                len(sent_messages),
-                "s" if len(sent_messages) > 1 else "",
-                member.name,
-                guild,
-                guild.id,
-            )
-
-        return sent_messages
 
     @group(
         aliases=["greet", "welc", "wlc"],
@@ -405,6 +296,7 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
     @welcome.command(
         name="add",
         aliases=["create"],
+        example="(#channel | #thread) ({user.mention} welcome to {guild.name}!)",
     )
     @has_permissions(manage_guild=True)
     async def welcome_add(
@@ -474,6 +366,7 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
     @welcome.command(
         name="remove",
         aliases=["delete", "del", "rm"],
+        example="#welcome",
     )
     @has_permissions(manage_guild=True)
     async def welcome_remove(self, ctx: Context, channel: TextChannel) -> Message:
@@ -499,7 +392,7 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
             f"No longer sending greet messages in {channel.mention}"
         )
 
-    @welcome.command(name="view", aliases=["show"])
+    @welcome.command(name="view", aliases=["show"], example="#welcome")
     @has_permissions(manage_guild=True)
     async def welcome_view(self, ctx: Context, channel: TextChannel) -> None:
         """
@@ -614,6 +507,7 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
     @goodbye.command(
         name="add",
         aliases=["create"],
+        example="(#channel | #thread) ({user.mention} has left the server!)",
     )
     @has_permissions(manage_guild=True)
     async def goodbye_add(
@@ -683,6 +577,7 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
     @goodbye.command(
         name="remove",
         aliases=["delete", "del", "rm"],
+        example="#goodbye",
     )
     @has_permissions(manage_guild=True)
     async def goodbye_remove(self, ctx: Context, channel: TextChannel) -> Message:
@@ -711,6 +606,7 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
     @goodbye.command(
         name="view",
         aliases=["show"],
+        example="#goodbye",
     )
     @has_permissions(manage_guild=True)
     async def goodbye_view(self, ctx: Context, channel: TextChannel) -> Message:
@@ -822,6 +718,7 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
     @boost.command(
         name="add",
         aliases=["create"],
+        example="(#channel | #thread) ({user.mention} has boosted the server!)"
     )
     @has_permissions(manage_guild=True)
     async def boost_add(
@@ -890,6 +787,7 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
     @boost.command(
         name="remove",
         aliases=["delete", "del", "rm"],
+        example="#boosts",
     )
     @has_permissions(manage_guild=True)
     async def boost_remove(self, ctx: Context, channel: TextChannel) -> Message:
@@ -918,6 +816,7 @@ class System(MixinMeta, metaclass=CompositeMetaClass):
     @boost.command(
         name="view",
         aliases=["show"],
+        example="#boosts",
     )
     @has_permissions(manage_guild=True)
     async def boost_view(self, ctx: Context, channel: TextChannel) -> Message:
