@@ -61,6 +61,13 @@ class LAVALINK:
     PORT: int = 2333
     PASSWORD: str = "youshallnotpass"
 
+class POSTHOG:
+    """
+    PostHog analytics class.
+    """
+    API_KEY: str = "phc_9CO68Be49weXo25XXmg0CY7wwFLl2HMzW5qoXWdH1J8"
+    HOST: str = "https://us.i.posthog.com"
+
 class STATUS:
     """
     Main IPC authentication class.
@@ -72,7 +79,7 @@ class DATABASE:
     """
     Postgres authentication class.
     """
-    DSN: str = "postgres://postgres:admin@localhost/evict"
+    DSN: str = os.getenv("DATABASE_DSN")
 
 class REDIS:
     """
@@ -80,7 +87,8 @@ class REDIS:
     """
     DB: int = 0
     HOST: str = "localhost"
-    PORT: int = 6379
+    PORT: int = 6380
+    PASSWORD: str = "eFbs45tE0jCLdA5UU07sh9t"
 
 class AUTHORIZATION:
     """
